@@ -13,28 +13,8 @@
 <script src='scripts/results.js'></script>
 <script src='scripts/sortable_list.js'></script>
 <link rel="stylesheet" href="scripts/sortable_list.css">
-
+<link rel="stylesheet" href="scripts/uc.css">
 <style>
-
-:root {
-    --black: #0a0a0a;
-    --maroon: #7f1543;
-    --maroon-deep: #5a0e30;
-    --gold: #e5b32b;
-    --sand: #ead8a0;
-    --grass: #98a786;
-    --grey: #717171;
-    --paper: #f8f5ee;
-}
-
-
-body {
-  /* Modern & Accessible */
-  font-family: "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6; /* Important for document readability */
-  color: #333; /* Slightly softer than pure black */
-  background: var(--maroon);
-}
 
 #country_list_test {
   img{  box-shadow: 2px 2px 4px #555;}
@@ -110,7 +90,7 @@ const isPlainObject = (val) => {
     check_entry()
     
     
-    
+    check_scores()
   }
 
 
@@ -133,7 +113,7 @@ const isPlainObject = (val) => {
     add_matches(DRAW)
     RESULTS.add_draw(DRAW)
     
-    display_all_countries()
+//    display_all_countries()
     
     display_group_stage()
     
@@ -841,6 +821,7 @@ function save_entry_to_clipboard()
     min-width: 1000px;
     width: fit-content;
     box-shadow: 3px 3px 3px 3px var(--maroon-deep);
+    color: var(--black);
     
     h2 {
         font-weight: 500;
@@ -884,7 +865,7 @@ function save_entry_to_clipboard()
     border: 1px solid #639922;
     border-radius: 5px;
   }
-
+#entry_ready {
 button {
     padding: 16px 28px;
     font-weight: 700;
@@ -910,7 +891,7 @@ button:hover {
     background: var(--black);
 
 }
-
+}
 
   
 button:disabled {
@@ -932,16 +913,25 @@ button:disabled {
 
 .hand {font-family: "Brush Script MT", "Lucida Handwriting", cursive; font-size:20px;}
 
+.info { margin:20px; }
+
 </style>
 
 
 </head>
 <body>
+<div class=title>UC Master Yodas' World Cup Football 2026 Competition - ENTRY FORM</div>
+<div class=info>
+<p>Please fill out all the sections.  Once it all goes yellow, hit the "Submit Entry" button.
+<p>Good luck.
+</div>
+<p>
+<!--
 <div class="section">
 <h2>Current world rankings of teams at the world cup</h2>
 <div id='country_list_test'></div>
 </div>
-
+-->
 <div class=section>
 <h2>Entry Details</h2>
 <p>Please enter your details:

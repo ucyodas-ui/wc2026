@@ -1,0 +1,71 @@
+
+:root {
+    --black: #0a0a0a;
+    --maroon: #7f1543;
+    --maroon-deep: #5a0e30;
+    --gold: #e5b32b;
+    --sand: #ead8a0;
+    --grass: #98a786;
+    --grey: #717171;
+    --paper: #f8f5ee;
+}
+
+body {
+   background-color: var(--maroon-deep);
+   color:var(--paper);
+   font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.page {
+  background: var(--maroon-deep);
+  color: var(--sand);
+  padding:20px;
+}
+
+.title {
+   background-color: rgba(10, 10, 10, 0.96);
+   padding:20px;
+   margin:0px;
+   color:#f8f5ee;
+  font-size:20px; 
+  width:100%;
+  border-bottom:3px solid #e5b32b;
+}
+
+button.enter {
+    padding: 16px 28px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    background: var(--gold);
+    color: var(--black);
+    border: 2px solid var(--gold);
+    margin:50px;
+}
+
+button.enter:hover {
+    color: var(--gold);
+    background: var(--black);
+
+}
+
+a {
+  color: white;
+  font-weight: bolder;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smoothly fades between colors */
+}
+
+a:hover {
+  color: var(--gold);
+  text-decoration: underline; /* Underline only appears on hover */
+}
