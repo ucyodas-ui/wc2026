@@ -2,6 +2,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="scripts/uc.css">
+<script src="scripts/CountdownTimer.js"></script>
 </head>
 <body>
 <div class=title>UC Master Yodas' World Cup Football 2026 Competition</div>
@@ -27,7 +28,7 @@ and one of the other semi-finalists, you probably will win.
 <h2>How long does it take</h2>
 <p>Depends how seriously you want to take it.  But for most of us it will take about 5 to 10 minutes.
 <h2>Any helpful info to make it easier for me?</h2>
-<p>Check out this page I and setting up which has world rankings etc
+<p>Check out this page I am setting up which has world rankings etc
 <p><a href="useful.html">Useful stuff to help you</a>
 <h2>Any other important information?</h2>
 <p>- Only enter once.
@@ -35,8 +36,17 @@ and one of the other semi-finalists, you probably will win.
 <p>- You have until Thurday June 11th NZ time to enter!  You must enter before the first game between Mexico and South Africa.
 
 <h1>Ready?</h1>
-<p>Click below to enter:
+<p>Click to enter:
 <button class=enter onclick="window.location.href='EntryForm.html'">Entry Form</button>
+
+<p><div id=countdown></div>
+<script>
+  new CountdownTimer("Time until the first game (Mexico v South Africa)", "2026-06-11T19:00:00Z", document.getElementById('countdown'),
+  {
+    color: 'var(--gold)',
+    showWork: false
+  });
+</script>
 
 <p>If you have any issues email at 
 <p><span>uc</span>.yodas<span>@g</span>mail.com
