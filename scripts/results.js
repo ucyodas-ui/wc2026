@@ -211,6 +211,7 @@ const RESULTS = new class {
   
   get_knockout_winner(match_no)
   {
+    if (!this.#ko_data.hasOwnProperty(match_no)) return this.#UNKNOWN
     switch(this.#ko_data[match_no].winner)
     {
       case 1: return this.get_knockout_team1(match_no);
@@ -229,6 +230,7 @@ const RESULTS = new class {
 
   get_knockout_loser(match_no)
   {
+    if (!this.#ko_data.hasOwnProperty(match_no)) return this.#UNKNOWN
     switch(this.#ko_data[match_no].winner)
     {
       case 2: return this.get_knockout_team1(match_no);

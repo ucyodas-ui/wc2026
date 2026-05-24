@@ -177,6 +177,7 @@ const COUNTRY = new class {
   
   get_data_info(id)
   {
+    if (id == "TBD") return
     id = this.find_team_id(id)
     let data =
     {

@@ -49,7 +49,7 @@ button.enter {
     background: var(--gold);
     color: var(--black);
     border: 2px solid var(--gold);
-    margin:50px;
+    margin:20px;
 }
 
 button.enter:hover {
@@ -63,6 +63,12 @@ a {
   font-weight: bolder;
   text-decoration: none;
   transition: color 0.3s ease; /* Smoothly fades between colors */
+}
+
+a::after {
+  content: " \2197"; /* \2197 is the hex code for the North-East Arrow */
+  font-size: 0.85em; /* Makes the symbol slightly smaller than the text */
+  margin-left: 2px;  /* Adds space between the word and the arrow */
 }
 
 a:hover {

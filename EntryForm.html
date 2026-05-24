@@ -323,7 +323,8 @@ const isPlainObject = (val) => {
       let team1 = RESULTS.get_knockout_team1(match_no)
       let team2 = RESULTS.get_knockout_team2(match_no)
       let winner = RESULTS.get_knockout_winner(match_no)
-      results.push(`${index}:${team1}/${team2}=${winner}`)
+      let index_txt = (match_list.length>1)?index+":":""
+      results.push(`${index_txt}${team1}/${team2}=${winner}`)
     })
     return results.join(",")
   }
@@ -361,9 +362,33 @@ const isPlainObject = (val) => {
     })
     console.log("completed", completed)
     if (completed)
+    {
       document.getElementById("knockout").classList.add("completed")
+  
+      function place_txt(place, id)
+      {
+        if(id == "TBD") return "<tr><th>??"+id+"??"
+        let info = COUNTRY.get_data_info(id)
+        return "<tr><th>"+place+":<td><img src='"+info.flag+"'><td>"+info.name+"<td>("+id+")"
+      }
+  
+      console.log(knockouts.F34, RESULTS.get_knockout_loser( knockouts.F34[0]))
+  
+      var placings = []
+      placings.push( place_txt("4th", RESULTS.get_knockout_loser( knockouts.F34[0])))
+      placings.push( place_txt("3rd", RESULTS.get_knockout_winner(knockouts.F34[0])))
+      placings.push( place_txt("2nd", RESULTS.get_knockout_loser( knockouts.F[0])))
+      placings.push( place_txt("1st", RESULTS.get_knockout_winner(knockouts.F[0])))
+      
+      console.log("placings", placings)
+      
+      document.getElementById("final_placings").innerHTML="<h3>Your final placings:</h3><p><table>"+placings.join("")+"</table>"
+    }
     else
+    {
       document.getElementById("knockout").classList.remove("completed")
+      document.getElementById("final_placings").innerHTML=""
+    }
   }
   
   function add_ko_html(match_list, match_id, title)
@@ -557,12 +582,19 @@ const isPlainObject = (val) => {
  
  function check_completed()
  {
+    console.log("complete", entered, submit_errors)
     if(entered)
     {
-      document.getElementById("complete_details").innerHTML="Thanks for entering!"
+      document.getElementById("complete_details").innerHTML="Your entry has been submitted.<p>Thanks for entering!"
       document.getElementById("enter").disabled = true;
       document.getElementById("copy_it").style.display=""
       return;
+    }
+    if (submit_errors)
+    {
+      document.getElementById("complete_details").innerHTML="Sorry, soomething went wrong when submitting your entry. You may need to save your entry (see button below), and sent it to me by email."
+      
+      document.getElementById("copy_it").style.display=""
     }
    let errors = []
    // check all groups
@@ -593,7 +625,7 @@ const isPlainObject = (val) => {
    else
    {
      document.getElementById("complete").style.display="none"
-     document.getElementById("complete_details").innerHTML="You have fill out all the sections. Please confirm your details, and if you are happy click the SUBMIT ENTRY button.<p>If you have an issues, please email me."
+     document.getElementById("complete_details").innerHTML="You have filled out all the sections. Please confirm your details, and if you are happy click the SUBMIT ENTRY button.<p>If you have an issues, please email me."
      document.getElementById("enter").disabled = false;
      document.getElementById("enter_details").innerHTML = "Your entry details: "+JSON.stringify(get_entry_details(), null, 2); 
      document.getElementById("entry_ready").classList.add("completed")
@@ -657,19 +689,23 @@ async function saveToSheet(formData) {
  }
  
  var entered = false;
+ var submit_errors = false;
  
  function saved()
  {
-   console.log("Saved!");
-   showPopup("✅ Saved!", "success");
+   console.log("Submitted!");
+   showPopup("✅ Submitted!", "success");
    entered = true;
-   
+   submit_errors = false;
+   check_completed()
  }
  
  function save_failed(err)
  {
-    console.error("Failed to save:", err);
+    console.error("Failed to submit:", err);
     showPopup("❌ Failed to save. Check your connection.", "error");
+    submit_errors = true;
+    check_completed()
  }  
   
   
@@ -851,6 +887,7 @@ function save_entry_to_clipboard()
     border: 1px solid #639922;
     position:relative;
   }
+  #entry_ready td { padding:10px;  }
   
   .completed::before {
     content: "Completed";
@@ -882,23 +919,25 @@ button {
     background: var(--gold);
     color: var(--black);
     border: 2px solid var(--gold);
-    margin:50px;
+    margin-left:50px;
     box-shadow: 4px 4px 4px 4px #888;
 }
 
 button:hover {
     color: var(--gold);
     background: var(--black);
-
-}
 }
 
-  
 button:disabled {
   cursor: not-allowed; /* Or 'crosshair' */
   opacity: 0.6;       /* Optional: makes it look greyed out */
   background: var(--sand);
+  font-style: italic;
 }
+
+}
+
+  
 
 
 
@@ -909,11 +948,20 @@ button:disabled {
 
 #enter {
   font-size:30px;
+  margin:0px !;
 }
 
 .hand {font-family: "Brush Script MT", "Lucida Handwriting", cursive; font-size:20px;}
 
 .info { margin:20px; }
+
+#final_placings { 
+font-size:25px; font-weight: bolder;
+}
+
+#final_placings td { padding-left:20px;}
+
+
 
 </style>
 
@@ -936,13 +984,16 @@ button:disabled {
 <h2>Entry Details</h2>
 <p>Please enter your details:
 <table id="entry_details">
-<tr><th>Your Full Real name:          <td><input type=text      id='entry_full_name' onChange='check_entry()'>
-<tr><th>Your Entry name:              <td><input type=text      id='entry_name'      onChange='check_entry()'><td>What will be displayed in the daily results<br><i>Note: kids will read this, so please try to keep it PC when picking a name.</i>
-<tr><th>Your Email:                   <td><input type=text      id='entry_email'     onChange='check_entry()'>
+<tr><th>Entry name:                   <td><input type=text      id='entry_name'      onChange='check_entry()'><td>What will be displayed in the daily results<br><i>Note: kids will read this, so please try to keep it PC when picking a name.</i>
+<tr><th>Manager's name:               <td><input type=text      id='entry_full_name' onChange='check_entry()'><td>i.e. your real name please.<br>This won't be displayed on the web-site unless you win!
+<tr><th>Email:                        <td><input type=text      id='entry_email'     onChange='check_entry()'><td>Just so I know I'm not being spammed.<br>One entry per email. Except for parent's entering their own children.
 <tr><th>Are you a child? (<12 years)  <td><input type=checkbox  id='entry_kid'       onChange='check_entry()'>
-<tr><th>Mini-league name (optional)   <td><input type=text      id='entry_league'    onChange='check_entry()'><td>If you want to run a mini-league with your mates
+<tr><th>Are you a pet?                <td><input type=checkbox  id='pet' disabled>                            <td>Matt, stop entering your pets, that is cheating.        
+<tr><th>Mini-league name (optional)   <td><input type=text      id='entry_league'    onChange='check_entry()'><td>If you want to run a mini-league with your mates.  You can be in multiple leagues - comma separated.
 </table>
+<i>All data entered is stored on google's servers. Hopefully they are pretty secure. I will not share your details with anyone else.  Which is why I haven't asked for DOB or your address or anything else to personal.</i>
 </div>
+
 
 
 <div id='group_stage_entry' class=section>
@@ -972,6 +1023,9 @@ Select the order the teams will finish in each group.  You can drap and drop tea
 
 <p><div id='3rd_place_entry' class=section>
 <h2>3rd place qualifier</h2>
+<p>So in this world cup, for the first time, some of the 3rd place teams still make it to the next round.
+So you've got to pick 8 of them.
+
 <p>Select the eight 3rd place teams that you think will qualify for the knock-outs. Order doesn't matter.
 <p>
 <div id="group_3rd_place"></div>
@@ -980,6 +1034,7 @@ Select the order the teams will finish in each group.  You can drap and drop tea
 
 <p><div id='knockout' class=section>
 <h2>Knockout Matches</h2>
+<p> Tick which team you think will win each match.
 <table class=bracket>
 <tr><th>Round of 32<th>Round of 16<th>Quarter-Finals<th>Semi-Finals<th>Finals
 <tr><td id='KO_R32_1' class='KO_R32'><td rowspan=2 class='KO_R16' id='KO_R16_1'><td rowspan=1>                          <td rowspan=2>                           <td rowspan=3 valign=bottom; class='KO_F34' id='KO_F34_1'>
@@ -999,17 +1054,24 @@ Select the order the teams will finish in each group.  You can drap and drop tea
 <tr><td id='KO_R32_15'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_8'>
 <tr><td id='KO_R32_16'class='KO_R32'>
 </table>
+
+<div id=final_placings>
+</div>
+
+
 </div>
 
 <div id="bonus" class=section>
 <h2>Bonus points</h2>
 <h3>Most goals</h3>
-<p>Select which country will score the most goals at the world cup:
+<p>Select which country you think will score the most goals at the world cup:
 
 <div id="most_goals"></div>
 
 <p>
 <h3>What will the score be in the final:</h3>
+<p>In case of a tie at the end of the competition (yes this happened one time), 
+this will be used as a tie-breaker.
 
 <table class='score' id='score'>
 <tr>              <th>            <th>Winner                             <th>Loser
@@ -1026,18 +1088,18 @@ Select the order the teams will finish in each group.  You can drap and drop tea
 <table id=entry_ready>
 <tr><th valign=top id=complete>Still to complete <td id="complete_details">
 <tr><td><button id=enter onclick='enter()'>SUBMIT ENTRY</button>
-<tr><td colspan=2 id="copy_it">If you have issues entering, copy your entry to your clickboard, by clicking:  
-<button onclick='save_entry_to_clipboard()'>Save your entry.</button>
-<p>And then by whatever method you found out about this competition, send a message with your entry directly to me.
-<p><b>Please note:<b> This is a not a fully automated process.  I'll send you an email in the next day
-or so once I have processed your entry.<p>GOOD LUCK.<p><span class='hand'>SCOTTI.</span>
+<tr><td colspan=2 id="copy_it">If you want a backup of your entry, or if you had issues submitting, you can copy your entry to your clickboard, by clicking the following button, and you can paste it into a doc:  
+<p>
+<button onclick='save_entry_to_clipboard()'>Save entry</button>
+<p><b>Please note:<b>You should receive an email in the next couple of days confirming you'll entry.
+<p>GOOD LUCK.<p><span class='hand'>SCOTTI.</span>
 <tr><td colspan=2 id=enter_details>
 </table> 
 
 
 
 </div>
-<a href='#' onclick='test_dummy()'>x</a>
+<div onclick='test_dummy()'>.</div>
 
 </body>
 </html>
