@@ -75,3 +75,8 @@ a:hover {
   color: var(--gold);
   text-decoration: underline; /* Underline only appears on hover */
 }
+
+.logo {
+  float: left;  padding:5px;  width: 150px; height: 167px; margin: 5px 10px 20px 5px;
+  background-image: url('logo_sm.png');   background-size: cover;  background-position: center;
+}

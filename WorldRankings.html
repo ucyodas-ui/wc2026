@@ -35,6 +35,36 @@ img{  box-shadow: 2px 2px 4px #555;}
   color:var(--black);
 }
 
+
+th:not(:empty) {
+    cursor: pointer;
+    user-select: none; /* Prevents text selection on double-click */
+    position: relative;
+    padding-right: 20px; /* Makes room for the arrow */
+}
+
+/* Base arrow styling using pseudo-element */
+th:not(:empty)::after {
+    content: ' ↕';
+    position: absolute;
+    right: 5px;
+    color: #ccc; /* Faint color when unsorted */
+    font-size: 0.8em;
+}
+
+/* Active sorting states */
+th:not(:empty)[data-order="asc"]::after {
+    content: ' ↑';
+    color: #000; /* Darker color for active column */
+}
+
+th:not(:empty)[data-order="desc"]::after {
+    content: ' ↓';
+    color: #000;
+}
+
+
+
 </style>
 
 <script>
@@ -73,7 +103,8 @@ const isPlainObject = (val) => {
         if (columns) th.setAttribute('colspan', columns);
         headerRow.appendChild(th);
     }
-    add_header("Country", 2)
+    add_header("")
+    add_header("Country")
     add_header("# World Rank")
     
     add_header("Region")
@@ -101,6 +132,44 @@ const isPlainObject = (val) => {
 
     })
     document.getElementById('country_list_test').appendChild(table)
+    
+    
+document.querySelectorAll('th').forEach(header => {
+    header.addEventListener('click', () => {
+        const table = header.closest('table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.rows);
+        const index = Array.from(header.parentNode.children).indexOf(header);
+        const isAscending = header.dataset.order !== 'asc';
+        
+        // Reset all other headers in this table
+        table.querySelectorAll('th').forEach(th => {
+            if (th !== header) th.removeAttribute('data-order');
+        });
+
+        // Custom sort logic
+        rows.sort((rowA, rowB) => {
+            const cellA = rowA.cells[index].innerText.trim();
+            const cellB = rowB.cells[index].innerText.trim();
+
+            const valA = isNaN(cellA) || cellA === '' ? cellA : parseFloat(cellA);
+            const valB = isNaN(cellB) || cellB === '' ? cellB : parseFloat(cellB);
+
+            if (typeof valA === 'number' && typeof valB === 'number') {
+                return isAscending ? valA - valB : valB - valA;
+            }
+            return isAscending 
+                ? valA.toString().localeCompare(valB.toString()) 
+                : valB.toString().localeCompare(valA.toString());
+        });
+
+        // Re-append sorted rows and toggle order state
+        rows.forEach(row => tbody.appendChild(row));
+        header.dataset.order = isAscending ? 'asc' : 'desc';
+    });
+});
+    
+    
   }
   
   
@@ -111,6 +180,7 @@ const isPlainObject = (val) => {
 
 </head>
 <body>
+<div class=logo></div>
 <div class=title>UC Master Yodas' World Cup Football 2026 Competition</div>
 <div class=page>
 <p><h2>Current FIFA Mens World Rankings (as of MAY 2026)</h2>
