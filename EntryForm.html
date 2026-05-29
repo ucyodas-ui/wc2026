@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
 <script src='scripts/country.js'></script>
 <script src='scripts/country_data.js'></script>
 <script src='scripts/flags.js'></script>
@@ -86,6 +88,10 @@ const isPlainObject = (val) => {
     document.getElementById('entry_email'    ).value    = "dummy@usa.com"
     document.getElementById('entry_kid'      ).checked  = true
     document.getElementById('entry_league'   ).value    = "losers"
+    document.getElementById('entry_Country'  ).value    = "New Zealand"
+    document.getElementById('entry_UCAFC'    ).checked  = true
+    document.getElementById('entry_donuts'   ).checked  = true
+    
 
     check_entry()
     
@@ -560,6 +566,9 @@ const isPlainObject = (val) => {
       email:     document.getElementById("entry_email"    ).value,
       kid:       document.getElementById("entry_kid"      ).checked,
       league:    document.getElementById("entry_league"   ).value,
+      Country:   document.getElementById("entry_Country"  ).value,
+      UCAFC:     document.getElementById("entry_UCAFC"    ).checked,
+      donuts:    document.getElementById("entry_donuts"   ).checked,
    }
    return entry_details
  }
@@ -587,6 +596,7 @@ const isPlainObject = (val) => {
     {
       document.getElementById("complete_details").innerHTML="Your entry has been submitted.<p>Thanks for entering!"
       document.getElementById("enter").disabled = true;
+      document.getElementById("enter").textContent = "Done.";
       document.getElementById("copy_it").style.display=""
       return;
     }
@@ -961,6 +971,9 @@ font-size:25px; font-weight: bolder;
 
 #final_placings td { padding-left:20px;}
 
+.section th, .section td {
+  vertical-align:top;
+}
 
 
 </style>
@@ -969,10 +982,12 @@ font-size:25px; font-weight: bolder;
 </head>
 <body>
 <div class=logo></div>
-<div class=title>UC Master Yodas' World Cup Football 2026 Competition - ENTRY FORM</div>
+<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition - ENTRY FORM</a></div>
 <div class=info>
 <p>Please fill out all the sections.  Once it all goes yellow, hit the "Submit Entry" button.
 <p>Good luck.
+<p>Please help the Cobras travel to Australia. 
+Find out more <a href="Cobras.html"  target="_blank" rel="noopener noreferrer">Here.</a>
 </div>
 <p>
 <!--
@@ -985,12 +1000,15 @@ font-size:25px; font-weight: bolder;
 <h2>Entry Details</h2>
 <p>Please enter your details:
 <table id="entry_details">
-<tr><th>Entry name:                   <td><input type=text      id='entry_name'      onChange='check_entry()'><td>What will be displayed in the daily results<br><i>Note: kids will read this, so please try to keep it PC when picking a name.</i>
-<tr><th>Manager's name:               <td><input type=text      id='entry_full_name' onChange='check_entry()'><td>i.e. your real name please.<br>This won't be displayed on the web-site unless you win!
-<tr><th>Email:                        <td><input type=text      id='entry_email'     onChange='check_entry()'><td>Just so I know I'm not being spammed.<br>One entry per email. Except for parent's entering their own children.
-<tr><th>Are you a child? (<12 years)  <td><input type=checkbox  id='entry_kid'       onChange='check_entry()'>
-<tr><th>Are you a pet?                <td><input type=checkbox  id='pet' disabled>                            <td>Matt, stop entering your pets, that is cheating.        
-<tr><th>Mini-league name (optional)   <td><input type=text      id='entry_league'    onChange='check_entry()'><td>If you want to run a mini-league with your mates.  You can be in multiple leagues - comma separated.
+<tr><th>Entry name:                     <td><input type=text      id='entry_name'       onChange='check_entry()'><td>What will be displayed in the daily results<br><i>Note: kids will read this, so please try to keep it PC when picking a name.</i>
+<tr><th>Manager's name:                 <td><input type=text      id='entry_full_name'  onChange='check_entry()'><td>i.e. your real name please.<br>This won't be displayed on the web-site unless you win!
+<tr><th>Email:                          <td><input type=text      id='entry_email'      onChange='check_entry()'><td>Just so I know I'm not being spammed.<br>One entry per email. Except for parent's entering their own children.
+<tr><th>Are you a child? (<12 years)    <td><input type=checkbox  id='entry_kid'        onChange='check_entry()'><td>So I can run their own Mini-league.
+<tr><th>Are you a pet?                  <td><input type=checkbox  id='pet' disabled>                             <td>Matt, stop entering your pets, that is cheating.        
+<tr><th>Mini-league name (optional)     <td><input type=text      id='entry_league'     onChange='check_entry()' placeholder='e.g. yodas,donut munchers' ><td>If you want to run a mini-league with your mates.  You can be in multiple leagues - comma separated.<p>e.g. <i>yodas,donut munchers</i>
+<tr><th>Are you a UC football member?   <td><input type=checkbox  id='entry_UCAFC'      onChange='check_entry()'><td>Go UC football!
+<tr><th>Will you donate to the Cobras?  <td><input type=checkbox  id='entry_donuts'     onChange='check_entry()'><td>Please help the <a href="Cobras.html"  target="_blank" rel="noopener noreferrer">Canterbury police football</a> team go to the Australasian Emergency services games.
+<tr><th>What country are you from?      <td><input type=text      id='entry_Country'    onChange='check_entry()'><td>Just so we have some idea who is from where.
 </table>
 <i>All data entered is stored on google's servers. Hopefully they are pretty secure. I will not share your details with anyone else.  Which is why I haven't asked for DOB or your address or anything else to personal.</i>
 </div>
@@ -1089,11 +1107,13 @@ this will be used as a tie-breaker.
 <table id=entry_ready>
 <tr><th valign=top id=complete>Still to complete <td id="complete_details">
 <tr><td><button id=enter onclick='enter()'>SUBMIT ENTRY</button>
-<tr><td colspan=2 id="copy_it">If you want a backup of your entry, or if you had issues submitting, you can copy your entry to your clickboard, by clicking the following button, and you can paste it into a doc:  
+<tr><td colspan=2 id="copy_it">If you want a backup of your entry, or if you had issues submitting, you can copy your entry to your clickboard by clicking the following button. Then you can paste it into a doc:  
 <p>
 <button onclick='save_entry_to_clipboard()'>Save entry</button>
-<p><b>Please note:<b>You should receive an email in the next couple of days confirming you'll entry.
-<p>GOOD LUCK.<p><span class='hand'>SCOTTI.</span>
+<p><b>Please note:<b>You should receive an email in the next couple of days confirming your entry.
+<p>This will include information on how to donate to the <a href="Cobras.html"  target="_blank" rel="noopener noreferrer">Canterbury Police football</a> team (Cobras).
+<p>GOOD LUCK.<p><span class='hand'>SCOTTI.</span><p>a.k.a the Phantom Menace.
+<p><img src='images/phantom.gif' width=250px>
 <tr><td colspan=2 id=enter_details>
 </table> 
 

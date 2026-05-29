@@ -78,5 +78,12 @@ a:hover {
 
 .logo {
   float: left;  padding:5px;  width: 150px; height: 167px; margin: 5px 10px 20px 5px;
-  background-image: url('logo_sm.png');   background-size: cover;  background-position: center;
+  background-image: url('../images/logo_sm.png');   background-size: cover;  background-position: center;
+}
+.logo::after {
+  content:"";
+  position:absolute; right:20px;
+  float: right;  padding:5px;  height: 60px; width: 90px; margin: 5px 10px 20px 5px;
+  background-image: url('../images/yoda_sm.gif');   background-size: cover;  background-position: center;
+
 }
