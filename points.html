@@ -4,13 +4,60 @@
 <link rel="stylesheet" href="scripts/uc.css">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<style>
+  .points{
+    max-width:1000px;
+
+    table {
+      border-collapse: collapse; /* Removes default gaps between cells */
+      font-family: sans-serif;
+      line-height: 1.2;
+      background-color: white;
+      box-shadow: 2px 2px 4px black;
+    }
+
+
+    td,th { vertical-align:top; padding:3px;}
+    font-size:18px;
+    color: var(--black);
+
+    tr:nth-child(even) {  background-color: #f2f2f2;}
+    tr:nth-child(odd) {  background-color: #ffffff;}
+    th { background-color: #333; color: white; }
+    
+    
+  }
+  
+</style>
 </head>
 <body>
 <div class=logo></div>
 <div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a></div>
 <div class=page>
 <p><h1>How points are scored?</h1>
-<p>TODO.  It has changed from last time as there are more teams at the actual world cup, and I haven't had time to work out the numbers.
+This is a work in progress, but it will be something similar to this:
+<p>
+<div class=points>
+<table><th>Stage      <th>Reason                                <th>Points        <th>Max points
+<tr><td>Group Phase   <td>Picking a team in correct position    <td>1pt           <td>48pts
+<tr><td>              <td>Picking a team to qualify             <td>1pt           <td>32pts
+<tr><td>              <td>Pick all 4 positions correctly        <td>1pt per group <td>12 pts
+<tr><td>Knockouts     <td>Picking both teams to play each other <td>1pt per game  <td>32 pts
+<tr><td>Round of 32   <td>Picking winner                        <td>2pts per game <td>32 pts
+<tr><td>Round of 16   <td>Picking winner                        <td>3pts per game <td>24 pts
+<tr><td>Quarter-finals<td>Picking winner                        <td>4pts per game <td>16 pts
+<tr><td>Semi-finals   <td>Picking both teams                    <td>5pts per semi <td>10pts
+<tr><td>              <td>Picking winner                        <td>5pts per game <td>10 pts
+<tr><td>Final         <td>Picking both teams                    <td>10pts         <td>10pts
+<tr><td>4th place     <td>Picking winner                        <td>5 pts         <td>5 pts
+<tr><td>3rd place     <td>Picking winner                        <td>8 pts         <td>8 pts
+<tr><td>2nd place     <td>Picking winner                        <td>10 pts        <td>10 pts
+<tr><td>1st place     <td>Picking winner                        <td>20 pts        <td>20 pts
+
+</table>
+</div>
+<p>Which gives a max total of 269 points which isn't great, so I will be playing with the numbers soon.
+
 </div>
 </body>
 </html>
