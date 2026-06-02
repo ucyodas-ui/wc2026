@@ -4,6 +4,31 @@
 <link rel="stylesheet" href="scripts/uc.css">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<style>
+.results {
+  margin-left:20px;
+  padding:5px;
+  background: var(--paper);
+  color: var(--black);
+  border-collapse: collapse;
+  box-shadow: 2px 2px 2px 4px RGBA(0,0,0,0.4);
+  
+  th {
+    border: 1px solid var(--grey);
+    padding: 8px; 
+    background: var(--black);
+    color: var(--sand);
+  }
+  
+  td { padding-left:10px; 
+    border: 1px solid var(--grey);   /* Gives cells a visible border */
+    padding: 4px; 
+  }
+  
+
+}
+</style>
+
 </head>
 <body>
 <div class=logo></div>
@@ -13,8 +38,18 @@
 <p>There are no results so far.  As the world cup hasn't started yet.
 <p>Come back later.
 <p><h1>Who has entered?</h1>
-<p>No one so far.  It will take me about a day or so to process new entries, before
-you will see them here.
+<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner
+<tr><td>1<td>Matt R               <td>FRA vs ENG<td>FRA
+<tr><td>2<td>Jonny                <td>ESP vs ENG<td>ENG
+<tr><td>3<td>Oregon               <td>ESP vs BRA<td>BRA
+<tr><td>4<td>WhatGameAreWePlaying?<td>ESP vs BRA<td>BRA
+<tr><td>5<td>Covefe               <td>BRA vs POR<td>POR
+</table>
+
+<p>If your entry isn't here, don't worry yet. It will take me about a day or so to process new entries.
+<p>If it is still not here after a day, please send me an email at
+<p><span>uc</span>.yoda<span>s@g</span>mai<span>l.c</span>om
+
 </div>
 </body>
 </html>
