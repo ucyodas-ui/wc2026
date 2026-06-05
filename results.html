@@ -33,6 +33,7 @@
 </style>
 
 <script src="scripts/flags.js"></script>
+<script src="scripts/entries.js"></script>
 
 </head>
 <body>
@@ -43,6 +44,8 @@
 <p>There are no results so far.  As the world cup hasn't started yet.
 <p>Come back later.
 <p><h1>Who has entered?</h1>
+<div id=result_table></div>
+<!--
 <table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner
 <tr><td> 1<td>Matt R               <td><span class='flag_FRA'>FRA</span> vs ENG<span class='flag_ENG'></span><td><span class='flag_FRA'>FRA</span>
 <tr><td> 2<td>Jonny                <td><span class='flag_ESP'>ESP</span> vs ENG<span class='flag_ENG'></span><td><span class='flag_ENG'>ENG</span>
@@ -61,6 +64,7 @@
 <tr><td>15<td>Weird Fish           <td><span class='flag_NED'>NED</span> VS ARG<span class='flag_ARG'></span><td><span class='flag_NED'>NED</span>
 
 </table>
+-->
 
 <p>If your entry isn't here, don't worry yet. It will take me about a day or so to process new entries.
 <p>If it is still not here after a day, please send me an email at
@@ -69,6 +73,18 @@
 </div>
 
 <script>
+  var table = []
+  table.push("<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  
+  entries.forEach((entry, index) => {
+    let t1 = entry.knock_outs.F.team1
+    let t2 = entry.knock_outs.F.team2
+    let w  = entry.knock_outs.F.winner
+
+    table.push(`<tr><td>${index}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
+  });
+  document.getElementById("result_table").innerHTML = table.join("")
+
   add_flags({add_flag:function(abr, src){
     const objs = document.getElementsByClassName('flag_'+abr)
     for(const obj of objs)

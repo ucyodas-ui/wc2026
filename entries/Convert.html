@@ -1,0 +1,375 @@
+<html>
+<head>
+<style>
+pre {
+  height:150px;
+  border:1px solid black;
+  scrollbar-width: thin;          /* Options: auto | thin | none */
+  scrollbar-color: #888 #f1f1f1; 
+  overflow-y: auto; 
+}
+</style>
+
+
+<script>
+function tsv_to_json(tsvString) {
+  // Split the string into lines handling both Windows (\r\n) and Unix (\n) newlines
+  const lines = tsvString.split(/\r?\n/);
+  
+  // Remove the first line to get the header keys
+  const headers = lines.shift().split('\t');
+  
+  const json_data = lines.filter(line => line.trim() !== '') // Ignore empty trailing rows
+    .map(line => {
+      const columns = line.split('\t');
+      
+      // Reduce columns array into a structured object using header keys
+      return headers.reduce((object, header, index) => {
+        object[header.trim()] = columns[index] ? columns[index].trim() : null;
+        return object;
+      }, {});
+    });
+  return json_data
+
+}
+
+function download(id, file_name)
+{
+  const divContent = document.getElementById(id).textContent;
+  const blob = new Blob([divContent], { type: 'text/plain;charset=utf-8' });
+  const tempLink = document.createElement('a');
+  tempLink.href = URL.createObjectURL(blob);
+  tempLink.download = file_name;
+  document.body.appendChild(tempLink);
+  tempLink.click();
+  document.body.removeChild(tempLink);
+  URL.revokeObjectURL(tempLink.href);
+}
+
+function convert_tsv()
+{
+  const tsv_data = document.getElementById("tsv_data").value
+  let raw_json_data = tsv_to_json(tsv_data)
+  document.getElementById("full_result").innerHTML = JSON.stringify(raw_json_data, null, 2);
+  
+  fix_data_entries(raw_json_data)
+  document.getElementById("fixed_result").innerHTML = JSON.stringify(raw_json_data, null, 2);
+ 
+  save_objects(raw_json_data, fields_details, "details_result")
+  save_objects(raw_json_data, fields_web_safe, "details_web")
+}
+
+function save_objects(raw_data, fields, save_id)
+{
+  let results = []
+  
+  raw_data.forEach(data => {
+    results.push(get_object(data, fields))
+  })
+  
+  document.getElementById(save_id).innerHTML = JSON.stringify(results, null, 2);
+}
+
+function get_object(data, fields)
+{
+  var copy_data = {}
+  fields.forEach(name => {
+    console.log(name, data[name])
+    copy_data[name] = structuredClone(data[name])
+  })
+  return copy_data
+}
+
+function get_game(txt)
+{
+  var game = {}
+  var sp = other_split(txt)
+  if (sp.length == 4)
+  {
+    game.id = parseInt(sp[0])+1
+    game.team1 = sp[1]
+    game.team2 = sp[2]
+    game.winner = sp[3]
+  }
+  else
+  {
+    game.id = 1
+    game.team1 = sp[0]
+    game.team2 = sp[1]
+    game.winner = sp[2]
+  }
+  game.loser = (game.winner == game.team1) ? game.team2 : game.team1
+  return game
+}
+
+function get_games(txt)
+{
+  var results = comma_split(txt)
+  for(i=0;i<results.length;i++)
+  {
+    results[i] = get_game(results[i])
+  }
+  
+  return results
+}
+
+
+function other_split(txt)
+{
+  if(!txt) return []
+  return txt.split(/\s*[:/=,-]\s*/)
+}
+
+function comma_split(txt)
+{
+  if(!txt) return []
+  console.log("Splitting", txt)
+  return txt.split(/\s*,\s*/);
+}
+
+function comma_split_double(txt)
+{
+  var split = comma_split(txt)
+  var result = []
+  split.forEach(item => {
+    result.push(other_split(item))
+  })
+  return result
+}
+
+function comma_split_object(txt)
+{
+  var split = comma_split(txt)
+  var result = {}
+  split.forEach(item => {
+    let split2 = other_split(item)
+    let id = split2.shift();
+    result[id] = split2
+  })
+  
+  return result
+}
+
+function tf(txt)
+{
+   return (txt == "TRUE")
+}
+
+
+function fix_entry(entry)
+{
+  console.log(entry)
+  entry.league  = comma_split(entry.league)
+  entry.UCAFC  = tf(entry.UCAFC  )
+  entry.donuts = tf(entry.donuts )
+  entry.kid    = tf(entry.kid    )
+
+  if(entry.UCAFC  ) entry.league.push("UCAFC")
+  if(entry.donuts ) entry.league.push("donuts")
+  if(entry.kid    ) entry.league.push("kids")
+
+  entry.groups = {}
+  
+  entry.groups['A'] = comma_split(entry.Group_A) 
+  entry.groups['B'] = comma_split(entry.Group_B) 
+  entry.groups['C'] = comma_split(entry.Group_C) 
+  entry.groups['D'] = comma_split(entry.Group_D) 
+  entry.groups['E'] = comma_split(entry.Group_E) 
+  entry.groups['F'] = comma_split(entry.Group_F) 
+  entry.groups['G'] = comma_split(entry.Group_G) 
+  entry.groups['H'] = comma_split(entry.Group_H) 
+  entry.groups['I'] = comma_split(entry.Group_I) 
+  entry.groups['J'] = comma_split(entry.Group_J) 
+  entry.groups['K'] = comma_split(entry.Group_K) 
+  entry.groups['L'] = comma_split(entry.Group_L) 
+  entry.third_place = comma_split_object(entry.third_place)
+  
+  entry.groups['third'] = []
+  for(t3 in entry.third_place)
+  {
+    entry.third_place[t3] = entry.third_place[t3][0]
+    entry.groups['third'].push(entry.third_place[t3])
+  }
+
+  entry.knock_outs = {}
+
+  entry.knock_outs['R32'] = get_games(entry.R32)
+  entry.knock_outs['R16'] = get_games(entry.R16)
+  entry.knock_outs['QF' ] = get_games(entry.QF)
+  entry.knock_outs['SF' ] = get_games(entry.SF)
+  entry.knock_outs['F34'] = get_game(entry.F34)
+  entry.knock_outs['F'  ] = get_game(entry.F)
+  entry.score = comma_split_object(entry.score)
+  
+}
+
+function fix_data_entries(data)
+{
+  for(var i=0;i<data.length;i++)
+  {
+    fix_entry(data[i])
+  }
+}
+
+
+function get_data(data, fields)
+{
+  var result = []
+  data.forEach((entry,index) => {
+    let r = { index:index}
+    fields.forEach(field => {
+      r[field] = entry[field]
+    })
+  })
+  return result
+}
+
+
+
+function start()
+{
+// Get references to the HTML elements
+const fileInput = document.getElementById('fileInput');
+const myTextArea = document.getElementById('tsv_data');
+const dropZone = document.getElementById('dropZone');
+
+  // 1. Centralized file reading function
+  function read_file(file)
+  {
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      myTextArea.value = event.target.result;
+      convert_tsv();
+    };
+    reader.onerror = function(event) {
+        alert('Error reading file: ' + event.target.error.name);
+    };
+    reader.readAsText(file);
+  }
+
+  // 2. Handle standard file input selection
+  fileInput.addEventListener('change', function()
+    {
+      if (this.files.length > 0)
+      {
+        read_file(this.files[0]);
+      }
+    });
+
+  // 3. Prevent browser from opening the file when dropped
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName =>
+    {
+      dropZone.addEventListener(eventName, (e) => e.preventDefault());
+    });
+
+  // 4. Visual feedback when dragging over the box
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, () => { dropZone.style.borderColor = '#000'; dropZone.style.backgroundColor = '#f0f0f0'; });
+  });
+
+  ['dragleave', 'drop'].forEach(eventName =>
+  {
+    dropZone.addEventListener(eventName, () => { dropZone.style.borderColor = '#ccc'; dropZone.style.backgroundColor = 'transparent'; });
+  });
+
+  // 5. Handle the dropped file
+  dropZone.addEventListener('drop', function(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+
+    if (files.length > 0)
+    {
+        read_file(files[0]);
+    }
+  });
+}
+
+//    "time"        ,
+//    "full_name"   ,
+//    "name"        ,
+//    "email"       ,
+//    "kid"         ,
+//    "league"      ,
+//    "Group_A"     ,
+//    "Group_B"     ,
+//    "Group_C"     ,
+//    "Group_D"     ,
+//    "Group_E"     ,
+//    "Group_F"     ,
+//    "Group_G"     ,
+//    "Group_H"     ,
+//    "Group_I"     ,
+//    "Group_J"     ,
+//    "Group_K"     ,
+//    "Group_L"     ,
+//    "third_place" ,
+//    "R32"         ,
+//    "R16"         ,
+//    "QF"          ,
+//    "SF"          ,
+//    "F34"         ,
+//    "F"           ,
+//    "most_goals"  ,
+//    "score"       ,
+//    "Country"     ,
+//    "UCAFC"       ,
+//    "donuts"      ,
+//    "email sent." ,
+//    "groups"      ,
+//    "knock_outs"  ,
+
+
+const fields_details = [
+    "time"        ,
+    "full_name"   ,
+    "name"        ,
+    "email"       ,
+    "kid"         ,
+    "league"      ,
+    "Country"     ,
+    "UCAFC"       ,
+    "donuts"      ,
+    "email sent." ,
+]
+
+
+const fields_web_safe = [
+    "name"        ,
+    "league"      ,
+    "groups"      ,
+    "knock_outs"  ,
+    "third_place" ,
+    "most_goals"  ,
+    "score"       ,
+    "Country"     ,
+]
+
+
+
+
+
+
+
+</script>
+</head>
+<body>
+<p>TSV file:
+<div id="dropZone" style="border: 2px dashed #ccc; padding: 20px; text-align: center; margin-bottom: 10px;">
+    Drag and drop a file here or 
+  <input type="file" id="fileInput" accept=".tsv">
+</div>
+<p>TSV data:
+<textarea id=tsv_data>
+</textarea>
+<p>
+<button onclick='convert_tsv()'>Convert</button> 
+<p>Raw json:    <button onclick='download("full_result",    "raw.json"    )'>download</button><pre id=full_result></pre>
+<p>Full Result: <button onclick='download("fixed_result",   "full.json"   )'>download</button><pre id=fixed_result></pre>
+<p>Details:     <button onclick='download("details_result", "details.json")'>download</button><pre id=details_result></pre>
+<p>Web safe:    <button onclick='download("details_web",    "entries.json")'>download</button><pre id=details_web></pre>
+
+<script>start()</script>
+</body>
+</html>
