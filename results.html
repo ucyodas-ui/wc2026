@@ -27,13 +27,213 @@
 
   tr:nth-child(even) td {
     background-color: #dde; /* A very soft, subtle grey */
-}
+  }
 
 }
+
+  h2 { background-color:#111; padding: 10px;}
+  h3 { color: white; }
+
 </style>
 
 <script src="scripts/flags.js"></script>
 <script src="scripts/entries.js"></script>
+
+<script>
+function do_entry_table()
+{
+  var table = []
+  table.push("<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  
+  entries.forEach((entry, index) => {
+    let t1 = entry.knock_outs.F.team1
+    let t2 = entry.knock_outs.F.team2
+    let w  = entry.knock_outs.F.winner
+
+    table.push(`<tr><td>${index}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
+  });
+  document.getElementById("result_table").innerHTML = table.join("")
+}
+
+function do_winners_table()
+{
+  // Count the countries
+  let winners = {}
+  entries.forEach(entry => {
+    let w  = entry.knock_outs.F.winner
+    if (winners.hasOwnProperty(w))
+      winners[w]++;
+    else
+      winners[w]=1
+  })
+  const unsorted = Object.entries(winners)
+  const sorted = unsorted.sort((a,b) => b[1] - a[1])
+  
+  var table = []
+  var last = 0
+  var last_pos = 0
+  table.push("<table class=results><tr><th>#<th>Country<th colspan=2>Total")
+  sorted.forEach((entry, index) => {
+    let t = entry[0]
+    let total = entry[1]
+    let pos = (total != last ? index+1 : last_pos);
+    last = total
+    let next_same = (index<sorted.length-1)? entry[1] == sorted[index+1][1] : false
+    let star = ((last_pos == pos) || next_same)? "*" : ""
+    last_pos = pos
+    
+    
+    let graph = []
+    for(i=0;i<total;i++)
+      graph.push(`<span class='flag_${t}'></span>`)
+      let g = graph.join("")
+      
+    table.push(`<tr><td>${pos}${star}<td>${t}<td>${total}<td>${g}`)
+  });
+  document.getElementById("winners_table").innerHTML = table.join("")
+}
+
+let known_flags = {}
+function setup_known_flags()
+{
+  add_flags({add_flag:function(abr, src){
+    known_flags[abr] = true
+  }})
+}
+
+function do_from_table()
+{
+  // Count the countries
+  let from_countries = {}
+  let country_names = {}
+  entries.forEach(entry => {
+    let ct  = entry.Country
+    let c = ""
+    switch(ct)
+    {
+      case "NZ":                         c = "NZL"; break;
+      case "New Zealand":                c = "NZL"; break;
+      case "Nu Zeelind":                 c = "NZL"; break;
+      case "Canada":                     c = "CAN"; break;
+      case "A Kiwi living in Norway!":   c = "NOR"; break;
+      case "England":                    c = "ENG"; break;
+      case "Mars":                       c = "XXX"; break;
+    }
+    if (!country_names.hasOwnProperty(c))
+    {
+      country_names[c]={}
+    }
+    country_names[c][ct]=ct
+    
+    if (from_countries.hasOwnProperty(c))
+      from_countries[c]++;
+    else
+      from_countries[c]=1
+  })
+  const unsorted = Object.entries(from_countries)
+  const sorted = unsorted.sort((a,b) => b[1] - a[1])
+  
+  var table = []
+  var last = 0
+  var last_pos = 0
+  table.push("<table class=results><tr><th>#<th colspan=2>Country<th colspan=2>Total")
+  sorted.forEach((entry, index) => {
+    let t = entry[0]
+    let total = entry[1]
+    let pos = (total != last ? index+1 : last_pos);
+    last = total
+    let next_same = (index<sorted.length-1)? entry[1] == sorted[index+1][1] : false
+    let star = ((last_pos == pos) || next_same)? "*" : ""
+    last_pos = pos
+    
+    let graph = []
+    var k = known_flags.hasOwnProperty(t)
+    var f = k ? `flag_${t}` : `flag_XXX`;
+    for(i=0;i<total;i++)
+      graph.push(`<span class='${f}'></span>`)
+      let g = graph.join("")
+    let names = Object.values(country_names[t])
+      
+    table.push(`<tr><td>${pos}${star}<td>${t}<td>${names.join("<br>")}<td>${total}<td>${g}`)
+  });
+  document.getElementById("from_table").innerHTML = table.join("")
+}
+
+
+
+
+function do_league_table(no, name)
+{
+  var html = []
+  html.push(`<h3>Mini league #${no}: ${name}</h3>`)
+  html.push("<p><table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  
+  let index = 0;
+  entries.forEach(entry => {
+    if(entry.league.includes(name))
+    {
+      index++
+      let t1 = entry.knock_outs.F.team1
+      let t2 = entry.knock_outs.F.team2
+      let w  = entry.knock_outs.F.winner
+      html.push(`<tr><td>${index}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
+    }
+  });
+  if (index==0) html.push("<tr><td colspan=4>No entries yet")
+  
+  html.push("</table>")
+  return html.join("")
+}
+
+function do_mini_leagues()
+{
+  var result = []
+
+  // Find leagues:
+  
+  var league_names = { UCAFC:1, kids:1, donuts:1}
+  entries.forEach(entry => {
+    entry.league.forEach(name => {
+      league_names[name]=1
+    })
+  });
+  
+  // Get a table for each one
+  var result = []
+  Object.keys(league_names).forEach((name, index) => {
+    result.push(do_league_table(index+1, name))
+  })
+  
+  document.getElementById("league_tables").innerHTML = result.join("")
+}
+
+
+function do_flag(abr,src)
+{
+  const objs = document.getElementsByClassName('flag_'+abr)
+  for(const obj of objs)
+  {
+    const img = document.createElement('img')
+    img.height=10;
+    img.src = src
+    img.style.padding= '2px'
+    img.style.marginRight= '5px'
+    img.style.marginLeft= '5px'
+    img.style.border='1px solid #888'
+    img.style.boxShadow='1px 1px 1px 2px RGBA(50,50,50,0.1)'
+    obj.prepend(img)
+  }
+}
+
+
+function do_flags()
+{
+  add_flags({add_flag:function(abr, src){ do_flag(abr,src); }})
+  do_flag("XXX", UNKNOWN)
+}
+ 
+
+</script>
 
 </head>
 <body>
@@ -43,7 +243,7 @@
 <p><h1>RESULTS</h1>
 <p>There are no results so far.  As the world cup hasn't started yet.
 <p>Come back later.
-<p><h1>Who has entered?</h1>
+<p><h2>Who has entered?</h2>
 <div id=result_table></div>
 <!--
 <table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner
@@ -70,38 +270,40 @@
 <p>If it is still not here after a day, please send me an email at
 <p><span>uc</span>.yoda<span>s@g</span>mai<span>l.c</span>om
 
+<p><h2>Where are we from?</h2>
+<p>Here is a list of what country each player has entered from:
+<div id=from_table>
 </div>
 
+
+<p><h2>The most popular winner</h2>
+<p>Here is a list of who everyone picked to win:
+<div id=winners_table>
+</div>
+
+
+<p><h2>The mini-leagues</h2>
+<p>Here is a list of the different mini-leagues:
+<div id=league_tables>
+</div>
+
+
+
 <script>
-  var table = []
-  table.push("<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  setup_known_flags()
   
-  entries.forEach((entry, index) => {
-    let t1 = entry.knock_outs.F.team1
-    let t2 = entry.knock_outs.F.team2
-    let w  = entry.knock_outs.F.winner
+  do_entry_table()
+  
+  do_from_table()
+  
+  do_winners_table()
+  
+  do_mini_leagues()
 
-    table.push(`<tr><td>${index}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
-  });
-  document.getElementById("result_table").innerHTML = table.join("")
+  do_flags()
 
-  add_flags({add_flag:function(abr, src){
-    const objs = document.getElementsByClassName('flag_'+abr)
-    for(const obj of objs)
-    {
-      const img = document.createElement('img')
-      img.height=10;
-      img.src = src
-      img.style.padding= '2px'
-      img.style.marginRight= '5px'
-      img.style.marginLeft= '5px'
-      img.style.border='1px solid #888'
-      img.style.boxShadow='1px 1px 1px 2px RGBA(50,50,50,0.1)'
-      obj.prepend(img)
-    }
-    
-  }})
 </script>
+</div>
 
 </body>
 </html>

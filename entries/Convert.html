@@ -33,9 +33,9 @@ function tsv_to_json(tsvString) {
 
 }
 
-function download(id, file_name)
+function download(id, file_name, variable_name)
 {
-  const divContent = document.getElementById(id).textContent;
+  const divContent = ((variable_name == "") ? "" : `const ${variable_name} =\n`) + document.getElementById(id).textContent;
   const blob = new Blob([divContent], { type: 'text/plain;charset=utf-8' });
   const tempLink = document.createElement('a');
   tempLink.href = URL.createObjectURL(blob);
@@ -368,7 +368,7 @@ const fields_web_safe = [
 <p>Raw json:    <button onclick='download("full_result",    "raw.json"    )'>download</button><pre id=full_result></pre>
 <p>Full Result: <button onclick='download("fixed_result",   "full.json"   )'>download</button><pre id=fixed_result></pre>
 <p>Details:     <button onclick='download("details_result", "details.json")'>download</button><pre id=details_result></pre>
-<p>Web safe:    <button onclick='download("details_web",    "entries.json")'>download</button><pre id=details_web></pre>
+<p>Web safe:    <button onclick='download("details_web",    "entries.js", "entries")'>download</button><pre id=details_web></pre>
 
 <script>start()</script>
 </body>
