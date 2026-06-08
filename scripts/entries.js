@@ -11704,7 +11704,8 @@ const entries =
     "name": "Brazilian pineaple",
     "league": [
       "UCAFC",
-      "donuts"
+      "donuts",
+      "Yodas"
     ],
     "groups": {
       "A": [
