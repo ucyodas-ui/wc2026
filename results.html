@@ -172,7 +172,10 @@ function do_from_table()
 function do_league_table(no, name)
 {
   var html = []
-  html.push(`<h3>Mini league #${no}: ${name}</h3>`)
+  var n = name
+  if (n == "donuts") n = n + " (A.K.A. the police football donation league)"
+
+  html.push(`<h3>Mini league #${no}: ${n}</h3>`)
   html.push("<p><table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
   
   let index = 0;
@@ -198,7 +201,7 @@ function do_mini_leagues()
 
   // Find leagues:
   
-  var league_names = { UCAFC:1, kids:1, donuts:1}
+  var league_names = { Yodas:1, UCAFC:1, kids:1, donuts:1}
   entries.forEach(entry => {
     entry.league.forEach(name => {
       league_names[name]=1
