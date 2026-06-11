@@ -50,7 +50,7 @@ function do_entry_table()
     let t2 = entry.knock_outs.F.team2
     let w  = entry.knock_outs.F.winner
 
-    table.push(`<tr><td>${index}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
+    table.push(`<tr><td>${index+1}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
   });
   document.getElementById("result_table").innerHTML = table.join("")
 }
