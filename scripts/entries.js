@@ -5327,6 +5327,7 @@ const entries =
   {
     "name": "Qui-Gon Jinn",
     "league": [
+      "Yodas",
       "UCAFC",
       "donuts"
     ],
