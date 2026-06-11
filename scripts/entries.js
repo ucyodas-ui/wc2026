@@ -21640,5 +21640,3187 @@ const entries =
       ]
     },
     "Country": "New Zealand"
+  },
+  {
+    "name": "Bradshaw",
+    "league": [
+      "Canaries",
+      "donuts"
+    ],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "SUI",
+        "CAN",
+        "BIH",
+        "QAT"
+      ],
+      "C": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "AUS",
+        "PAR",
+        "TUR"
+      ],
+      "E": [
+        "ECU",
+        "GER",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "EGY",
+        "NZL",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "CPV",
+        "KSA"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "JOR",
+        "ALG"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "UZB",
+        "COD"
+      ],
+      "L": [
+        "ENG",
+        "GHA",
+        "CRO",
+        "PAN"
+      ],
+      "third": [
+        "CRO",
+        "CZE",
+        "SCO",
+        "PAR",
+        "SWE",
+        "NZL",
+        "CIV",
+        "BIH"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "ECU",
+          "team2": "PAR",
+          "winner": "ECU",
+          "loser": "PAR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "CAN",
+          "winner": "KOR",
+          "loser": "CAN"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "MAR",
+          "winner": "NED",
+          "loser": "MAR"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "GHA",
+          "winner": "COL",
+          "loser": "GHA"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "BIH",
+          "winner": "USA",
+          "loser": "BIH"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "BRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 10,
+          "team1": "GER",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "GER"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "SCO",
+          "winner": "MEX",
+          "loser": "SCO"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "CIV",
+          "winner": "ENG",
+          "loser": "CIV"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "AUS",
+          "team2": "EGY",
+          "winner": "AUS",
+          "loser": "EGY"
+        },
+        {
+          "id": 15,
+          "team1": "SUI",
+          "team2": "NZL",
+          "winner": "SUI",
+          "loser": "NZL"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "CRO",
+          "winner": "POR",
+          "loser": "CRO"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "ECU",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "ECU"
+        },
+        {
+          "id": 2,
+          "team1": "KOR",
+          "team2": "NED",
+          "winner": "KOR",
+          "loser": "NED"
+        },
+        {
+          "id": 3,
+          "team1": "COL",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "COL"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "USA",
+          "loser": "BEL"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "BRA"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "AUS",
+          "winner": "ARG",
+          "loser": "AUS"
+        },
+        {
+          "id": 8,
+          "team1": "SUI",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "SUI"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "KOR",
+          "winner": "FRA",
+          "loser": "KOR"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "USA",
+          "winner": "ESP",
+          "loser": "USA"
+        },
+        {
+          "id": 3,
+          "team1": "NOR",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "NOR"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "FRA",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "ENG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ENG"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "ENG",
+        "winner": "ESP",
+        "loser": "ENG"
+      },
+      "F": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "POR",
+        "winner": "POR",
+        "loser": "FRA"
+      }
+    },
+    "third_place": {
+      "Group L": "CRO",
+      "Group A": "CZE",
+      "Group C": "SCO",
+      "Group D": "PAR",
+      "Group F": "SWE",
+      "Group G": "NZL",
+      "Group E": "CIV",
+      "Group B": "BIH"
+    },
+    "most_goals": "POR",
+    "score": {
+      "h": [
+        "0",
+        "0"
+      ],
+      "f": [
+        "1",
+        "1"
+      ],
+      "e": [
+        "2",
+        "1"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
+  },
+  {
+    "name": "Seb K",
+    "league": [
+      "donuts"
+    ],
+    "groups": {
+      "A": [
+        "MEX",
+        "CZE",
+        "KOR",
+        "RSA"
+      ],
+      "B": [
+        "SUI",
+        "QAT",
+        "CAN",
+        "BIH"
+      ],
+      "C": [
+        "BRA",
+        "SCO",
+        "MAR",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "PAR",
+        "AUS",
+        "TUR"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "EGY",
+        "NZL",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "CPV",
+        "KSA"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "JOR",
+        "ALG"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "UZB",
+        "COD"
+      ],
+      "L": [
+        "ENG",
+        "CRO",
+        "PAN",
+        "GHA"
+      ],
+      "third": [
+        "AUS",
+        "KOR",
+        "CAN",
+        "NZL",
+        "SWE",
+        "PAN",
+        "SEN",
+        "JOR"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "AUS",
+          "winner": "GER",
+          "loser": "AUS"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "NZL",
+          "winner": "FRA",
+          "loser": "NZL"
+        },
+        {
+          "id": 3,
+          "team1": "CZE",
+          "team2": "QAT",
+          "winner": "QAT",
+          "loser": "CZE"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "SCO",
+          "winner": "NED",
+          "loser": "SCO"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "CRO",
+          "winner": "COL",
+          "loser": "CRO"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "CAN",
+          "winner": "USA",
+          "loser": "CAN"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "KOR",
+          "winner": "BEL",
+          "loser": "KOR"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "BRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "SWE",
+          "winner": "MEX",
+          "loser": "SWE"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "SEN",
+          "winner": "ENG",
+          "loser": "SEN"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "PAR",
+          "team2": "EGY",
+          "winner": "PAR",
+          "loser": "EGY"
+        },
+        {
+          "id": 15,
+          "team1": "SUI",
+          "team2": "JOR",
+          "winner": "SUI",
+          "loser": "JOR"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "PAN",
+          "winner": "POR",
+          "loser": "PAN"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "GER",
+          "loser": "FRA"
+        },
+        {
+          "id": 2,
+          "team1": "QAT",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "QAT"
+        },
+        {
+          "id": 3,
+          "team1": "COL",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "COL"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "USA",
+          "loser": "BEL"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "BRA",
+          "loser": "NOR"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "PAR",
+          "winner": "PAR",
+          "loser": "ARG"
+        },
+        {
+          "id": 8,
+          "team1": "SUI",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "SUI"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "NED",
+          "winner": "GER",
+          "loser": "NED"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "USA",
+          "winner": "ESP",
+          "loser": "USA"
+        },
+        {
+          "id": 3,
+          "team1": "BRA",
+          "team2": "ENG",
+          "winner": "BRA",
+          "loser": "ENG"
+        },
+        {
+          "id": 4,
+          "team1": "PAR",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "PAR"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "ESP",
+          "winner": "GER",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "BRA",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "BRA"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "BRA",
+        "winner": "TBD",
+        "loser": "ESP"
+      },
+      "F": {
+        "id": 1,
+        "team1": "GER",
+        "team2": "POR",
+        "winner": "GER",
+        "loser": "POR"
+      }
+    },
+    "third_place": {
+      "Group D": "AUS",
+      "Group A": "KOR",
+      "Group B": "CAN",
+      "Group G": "NZL",
+      "Group F": "SWE",
+      "Group L": "PAN",
+      "Group I": "SEN",
+      "Group J": "JOR"
+    },
+    "most_goals": "POR",
+    "score": {
+      "h": [
+        "0",
+        "0"
+      ],
+      "f": [
+        "1",
+        "0"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
+  },
+  {
+    "name": "Gagner, Nous Ferons",
+    "league": [
+      "Yodas",
+      "UCAFC"
+    ],
+    "groups": {
+      "A": [
+        "KOR",
+        "MEX",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "CAN",
+        "SUI",
+        "BIH",
+        "QAT"
+      ],
+      "C": [
+        "MAR",
+        "BRA",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "AUS",
+        "TUR",
+        "PAR"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "IRN",
+        "EGY",
+        "NZL"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "CPV",
+        "KSA"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "ALG",
+        "AUT",
+        "JOR"
+      ],
+      "K": [
+        "COL",
+        "POR",
+        "UZB",
+        "COD"
+      ],
+      "L": [
+        "CRO",
+        "ENG",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "SWE",
+        "CZE",
+        "TUR",
+        "GHA",
+        "AUT",
+        "SCO",
+        "EGY",
+        "CIV"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "TUR",
+          "winner": "GER",
+          "loser": "TUR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "MEX",
+          "team2": "SUI",
+          "winner": "MEX",
+          "loser": "SUI"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "BRA",
+          "winner": "NED",
+          "loser": "BRA"
+        },
+        {
+          "id": 5,
+          "team1": "POR",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "POR"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "ALG",
+          "winner": "ESP",
+          "loser": "ALG"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "AUT",
+          "winner": "USA",
+          "loser": "AUT"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "MAR",
+          "team2": "JPN",
+          "winner": "JPN",
+          "loser": "MAR"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "KOR",
+          "team2": "SCO",
+          "winner": "KOR",
+          "loser": "SCO"
+        },
+        {
+          "id": 12,
+          "team1": "CRO",
+          "team2": "CIV",
+          "winner": "CRO",
+          "loser": "CIV"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "AUS",
+          "team2": "IRN",
+          "winner": "AUS",
+          "loser": "IRN"
+        },
+        {
+          "id": 15,
+          "team1": "CAN",
+          "team2": "EGY",
+          "winner": "EGY",
+          "loser": "CAN"
+        },
+        {
+          "id": 16,
+          "team1": "COL",
+          "team2": "GHA",
+          "winner": "COL",
+          "loser": "GHA"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "MEX",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "MEX"
+        },
+        {
+          "id": 3,
+          "team1": "ENG",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "ENG"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "USA"
+        },
+        {
+          "id": 5,
+          "team1": "JPN",
+          "team2": "NOR",
+          "winner": "JPN",
+          "loser": "NOR"
+        },
+        {
+          "id": 6,
+          "team1": "KOR",
+          "team2": "CRO",
+          "winner": "KOR",
+          "loser": "CRO"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "AUS",
+          "winner": "ARG",
+          "loser": "AUS"
+        },
+        {
+          "id": 8,
+          "team1": "EGY",
+          "team2": "COL",
+          "winner": "COL",
+          "loser": "EGY"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "NED",
+          "winner": "FRA",
+          "loser": "NED"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "BEL",
+          "winner": "ESP",
+          "loser": "BEL"
+        },
+        {
+          "id": 3,
+          "team1": "JPN",
+          "team2": "KOR",
+          "winner": "KOR",
+          "loser": "JPN"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "COL",
+          "winner": "ARG",
+          "loser": "COL"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "FRA",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "KOR",
+          "team2": "ARG",
+          "winner": "ARG",
+          "loser": "KOR"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "KOR",
+        "winner": "ESP",
+        "loser": "KOR"
+      },
+      "F": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "ARG",
+        "winner": "FRA",
+        "loser": "ARG"
+      }
+    },
+    "third_place": {
+      "Group F": "SWE",
+      "Group A": "CZE",
+      "Group D": "TUR",
+      "Group L": "GHA",
+      "Group J": "AUT",
+      "Group C": "SCO",
+      "Group G": "EGY",
+      "Group E": "CIV"
+    },
+    "most_goals": "ESP",
+    "score": {
+      "h": [
+        "0",
+        "1"
+      ],
+      "f": [
+        "1",
+        "1"
+      ],
+      "e": [
+        "2",
+        "1"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
+  },
+  {
+    "name": "TedLasso",
+    "league": [],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "CAN",
+        "SUI",
+        "QAT",
+        "BIH"
+      ],
+      "C": [
+        "BRA",
+        "SCO",
+        "MAR",
+        "HAI"
+      ],
+      "D": [
+        "AUS",
+        "USA",
+        "PAR",
+        "TUR"
+      ],
+      "E": [
+        "GER",
+        "CIV",
+        "ECU",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "EGY",
+        "NZL",
+        "BEL",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "KSA",
+        "CPV"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "ALG",
+        "JOR"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "COD",
+        "UZB"
+      ],
+      "L": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "SWE",
+        "BEL",
+        "SEN",
+        "ECU",
+        "PAR",
+        "CZE",
+        "KSA",
+        "MAR"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "MAR",
+          "winner": "GER",
+          "loser": "MAR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "SUI",
+          "winner": "SUI",
+          "loser": "KOR"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "SCO",
+          "winner": "NED",
+          "loser": "SCO"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "CRO",
+          "winner": "COL",
+          "loser": "CRO"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "AUS",
+          "team2": "ECU",
+          "winner": "AUS",
+          "loser": "ECU"
+        },
+        {
+          "id": 8,
+          "team1": "EGY",
+          "team2": "CZE",
+          "winner": "EGY",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "BRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 10,
+          "team1": "CIV",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "CIV"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "KSA",
+          "winner": "MEX",
+          "loser": "KSA"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "SEN",
+          "winner": "ENG",
+          "loser": "SEN"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "USA",
+          "team2": "NZL",
+          "winner": "USA",
+          "loser": "NZL"
+        },
+        {
+          "id": 15,
+          "team1": "CAN",
+          "team2": "BEL",
+          "winner": "CAN",
+          "loser": "BEL"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "PAR",
+          "winner": "POR",
+          "loser": "PAR"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "SUI",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "SUI"
+        },
+        {
+          "id": 3,
+          "team1": "COL",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "COL"
+        },
+        {
+          "id": 4,
+          "team1": "AUS",
+          "team2": "EGY",
+          "winner": "AUS",
+          "loser": "EGY"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "BRA"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "USA",
+          "winner": "ARG",
+          "loser": "USA"
+        },
+        {
+          "id": 8,
+          "team1": "CAN",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "CAN"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "NED",
+          "winner": "FRA",
+          "loser": "NED"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "AUS",
+          "winner": "ESP",
+          "loser": "AUS"
+        },
+        {
+          "id": 3,
+          "team1": "NOR",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "NOR"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "ARG",
+          "loser": "POR"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "FRA",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "ENG",
+          "team2": "ARG",
+          "winner": "ARG",
+          "loser": "ENG"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "ENG",
+        "winner": "ENG",
+        "loser": "ESP"
+      },
+      "F": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "ARG",
+        "winner": "FRA",
+        "loser": "ARG"
+      }
+    },
+    "third_place": {
+      "Group F": "SWE",
+      "Group G": "BEL",
+      "Group I": "SEN",
+      "Group E": "ECU",
+      "Group D": "PAR",
+      "Group A": "CZE",
+      "Group H": "KSA",
+      "Group C": "MAR"
+    },
+    "most_goals": "FRA",
+    "score": {
+      "h": [
+        "1",
+        "0"
+      ],
+      "f": [
+        "3",
+        "0"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "Romania"
+  },
+  {
+    "name": "Alex",
+    "league": [
+      "Matt's mates"
+    ],
+    "groups": {
+      "A": [
+        "MEX",
+        "CZE",
+        "RSA",
+        "KOR"
+      ],
+      "B": [
+        "QAT",
+        "CAN",
+        "SUI",
+        "BIH"
+      ],
+      "C": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "AUS",
+        "PAR",
+        "TUR"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "SWE",
+        "NED",
+        "JPN",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "EGY",
+        "NZL",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "KSA",
+        "CPV"
+      ],
+      "I": [
+        "NOR",
+        "FRA",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "JOR",
+        "AUT",
+        "ALG"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "COD",
+        "UZB"
+      ],
+      "L": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "SCO",
+        "SUI",
+        "NZL",
+        "PAR",
+        "AUT",
+        "RSA",
+        "CIV",
+        "SEN"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "SCO",
+          "winner": "GER",
+          "loser": "SCO"
+        },
+        {
+          "id": 2,
+          "team1": "NOR",
+          "team2": "PAR",
+          "winner": "NOR",
+          "loser": "PAR"
+        },
+        {
+          "id": 3,
+          "team1": "CZE",
+          "team2": "CAN",
+          "winner": "CZE",
+          "loser": "CAN"
+        },
+        {
+          "id": 4,
+          "team1": "SWE",
+          "team2": "MAR",
+          "winner": "SWE",
+          "loser": "MAR"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "CRO",
+          "winner": "CRO",
+          "loser": "COL"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "JOR",
+          "winner": "ESP",
+          "loser": "JOR"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "SUI",
+          "winner": "USA",
+          "loser": "SUI"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "RSA",
+          "winner": "BEL",
+          "loser": "RSA"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "NED",
+          "winner": "BRA",
+          "loser": "NED"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "FRA",
+          "winner": "ECU",
+          "loser": "FRA"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "CIV",
+          "winner": "MEX",
+          "loser": "CIV"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "AUT",
+          "winner": "ENG",
+          "loser": "AUT"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "AUS",
+          "team2": "EGY",
+          "winner": "AUS",
+          "loser": "EGY"
+        },
+        {
+          "id": 15,
+          "team1": "QAT",
+          "team2": "NZL",
+          "winner": "QAT",
+          "loser": "NZL"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "SEN",
+          "winner": "POR",
+          "loser": "SEN"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "NOR",
+          "winner": "GER",
+          "loser": "NOR"
+        },
+        {
+          "id": 2,
+          "team1": "CZE",
+          "team2": "SWE",
+          "winner": "SWE",
+          "loser": "CZE"
+        },
+        {
+          "id": 3,
+          "team1": "CRO",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "CRO"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "USA"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "ECU",
+          "winner": "BRA",
+          "loser": "ECU"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "AUS",
+          "winner": "ARG",
+          "loser": "AUS"
+        },
+        {
+          "id": 8,
+          "team1": "QAT",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "QAT"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "SWE",
+          "winner": "GER",
+          "loser": "SWE"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "ESP"
+        },
+        {
+          "id": 3,
+          "team1": "BRA",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "BRA"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "BEL",
+          "winner": "GER",
+          "loser": "BEL"
+        },
+        {
+          "id": 2,
+          "team1": "ENG",
+          "team2": "POR",
+          "winner": "ENG",
+          "loser": "POR"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "BEL",
+        "team2": "POR",
+        "winner": "BEL",
+        "loser": "POR"
+      },
+      "F": {
+        "id": 1,
+        "team1": "GER",
+        "team2": "ENG",
+        "winner": "GER",
+        "loser": "ENG"
+      }
+    },
+    "third_place": {
+      "Group C": "SCO",
+      "Group B": "SUI",
+      "Group G": "NZL",
+      "Group D": "PAR",
+      "Group J": "AUT",
+      "Group A": "RSA",
+      "Group E": "CIV",
+      "Group I": "SEN"
+    },
+    "most_goals": "GER",
+    "score": {
+      "h": [
+        "0",
+        "1"
+      ],
+      "f": [
+        "1",
+        "1"
+      ],
+      "e": [
+        "2",
+        "1"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "NZ"
+  },
+  {
+    "name": "Gareth",
+    "league": [],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "SUI",
+        "CAN",
+        "BIH",
+        "QAT"
+      ],
+      "C": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "AUS",
+        "TUR",
+        "PAR"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "EGY",
+        "NZL",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "CPV",
+        "KSA"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "ALG",
+        "AUT",
+        "JOR"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "UZB",
+        "COD"
+      ],
+      "L": [
+        "CRO",
+        "ENG",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "CZE",
+        "SCO",
+        "SWE",
+        "TUR",
+        "AUT",
+        "SEN",
+        "GHA",
+        "CIV"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "TUR",
+          "winner": "GER",
+          "loser": "TUR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "CAN",
+          "winner": "CAN",
+          "loser": "KOR"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "MAR",
+          "winner": "NED",
+          "loser": "MAR"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "ENG",
+          "winner": "COL",
+          "loser": "ENG"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "ALG",
+          "winner": "ESP",
+          "loser": "ALG"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "CIV",
+          "winner": "USA",
+          "loser": "CIV"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "BRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "SCO",
+          "winner": "MEX",
+          "loser": "SCO"
+        },
+        {
+          "id": 12,
+          "team1": "CRO",
+          "team2": "SEN",
+          "winner": "CRO",
+          "loser": "SEN"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "AUS",
+          "team2": "EGY",
+          "winner": "EGY",
+          "loser": "AUS"
+        },
+        {
+          "id": 15,
+          "team1": "SUI",
+          "team2": "AUT",
+          "winner": "SUI",
+          "loser": "AUT"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "GHA",
+          "winner": "POR",
+          "loser": "GHA"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "CAN",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "CAN"
+        },
+        {
+          "id": 3,
+          "team1": "COL",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "COL"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "USA"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "BRA"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "CRO",
+          "winner": "MEX",
+          "loser": "CRO"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "EGY",
+          "winner": "ARG",
+          "loser": "EGY"
+        },
+        {
+          "id": 8,
+          "team1": "SUI",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "SUI"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "NED",
+          "winner": "FRA",
+          "loser": "NED"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "BEL",
+          "winner": "ESP",
+          "loser": "BEL"
+        },
+        {
+          "id": 3,
+          "team1": "NOR",
+          "team2": "MEX",
+          "winner": "NOR",
+          "loser": "MEX"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "FRA"
+        },
+        {
+          "id": 2,
+          "team1": "NOR",
+          "team2": "POR",
+          "winner": "NOR",
+          "loser": "POR"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "POR",
+        "winner": "FRA",
+        "loser": "POR"
+      },
+      "F": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "NOR",
+        "winner": "ESP",
+        "loser": "NOR"
+      }
+    },
+    "third_place": {
+      "Group A": "CZE",
+      "Group C": "SCO",
+      "Group F": "SWE",
+      "Group D": "TUR",
+      "Group J": "AUT",
+      "Group I": "SEN",
+      "Group L": "GHA",
+      "Group E": "CIV"
+    },
+    "most_goals": "NOR",
+    "score": {
+      "h": [
+        "0",
+        "1"
+      ],
+      "f": [
+        "2",
+        "1"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
+  },
+  {
+    "name": "Concrete FC",
+    "league": [
+      "Na"
+    ],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "CAN",
+        "SUI",
+        "QAT",
+        "BIH"
+      ],
+      "C": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "PAR",
+        "TUR",
+        "AUS"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "NZL",
+        "IRN",
+        "EGY"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "KSA",
+        "CPV"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "ALG",
+        "JOR"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "COD",
+        "UZB"
+      ],
+      "L": [
+        "ENG",
+        "GHA",
+        "CRO",
+        "PAN"
+      ],
+      "third": [
+        "CZE",
+        "TUR",
+        "CIV",
+        "QAT",
+        "SCO",
+        "CRO",
+        "SEN",
+        "SWE"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "TUR",
+          "winner": "GER",
+          "loser": "TUR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "SUI",
+          "winner": "SUI",
+          "loser": "KOR"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "MAR",
+          "winner": "NED",
+          "loser": "MAR"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "GHA",
+          "winner": "GHA",
+          "loser": "COL"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "QAT",
+          "winner": "USA",
+          "loser": "QAT"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "JPN",
+          "loser": "BRA"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "SCO",
+          "winner": "MEX",
+          "loser": "SCO"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "SEN",
+          "winner": "ENG",
+          "loser": "SEN"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "PAR",
+          "team2": "NZL",
+          "winner": "PAR",
+          "loser": "NZL"
+        },
+        {
+          "id": 15,
+          "team1": "CAN",
+          "team2": "CIV",
+          "winner": "CIV",
+          "loser": "CAN"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "CRO",
+          "winner": "POR",
+          "loser": "CRO"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "SUI",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "SUI"
+        },
+        {
+          "id": 3,
+          "team1": "GHA",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "GHA"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "USA",
+          "loser": "BEL"
+        },
+        {
+          "id": 5,
+          "team1": "JPN",
+          "team2": "NOR",
+          "winner": "JPN",
+          "loser": "NOR"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "PAR",
+          "winner": "ARG",
+          "loser": "PAR"
+        },
+        {
+          "id": 8,
+          "team1": "CIV",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "CIV"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "NED",
+          "winner": "FRA",
+          "loser": "NED"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "USA",
+          "winner": "ESP",
+          "loser": "USA"
+        },
+        {
+          "id": 3,
+          "team1": "JPN",
+          "team2": "ENG",
+          "winner": "JPN",
+          "loser": "ENG"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "FRA",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "JPN",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "JPN"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "JPN",
+        "winner": "ESP",
+        "loser": "JPN"
+      },
+      "F": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "POR",
+        "winner": "FRA",
+        "loser": "POR"
+      }
+    },
+    "third_place": {
+      "Group A": "CZE",
+      "Group D": "TUR",
+      "Group E": "CIV",
+      "Group B": "QAT",
+      "Group C": "SCO",
+      "Group L": "CRO",
+      "Group I": "SEN",
+      "Group F": "SWE"
+    },
+    "most_goals": "FRA",
+    "score": {
+      "h": [
+        "0",
+        "0"
+      ],
+      "f": [
+        "0",
+        "0"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "5",
+        "4"
+      ]
+    },
+    "Country": "Chile"
+  },
+  {
+    "name": "Sean M",
+    "league": [
+      "Matt’s mates"
+    ],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "SUI",
+        "CAN",
+        "BIH",
+        "QAT"
+      ],
+      "C": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ],
+      "D": [
+        "USA",
+        "TUR",
+        "PAR",
+        "AUS"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "EGY",
+        "IRN",
+        "NZL"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "KSA",
+        "CPV"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "ALG",
+        "JOR"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "COD",
+        "UZB"
+      ],
+      "L": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "SWE",
+        "SCO",
+        "IRN",
+        "GHA",
+        "ALG",
+        "BIH",
+        "CZE",
+        "PAR"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "PAR",
+          "winner": "GER",
+          "loser": "PAR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "SWE",
+          "winner": "FRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "CAN",
+          "winner": "CAN",
+          "loser": "KOR"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "MAR",
+          "winner": "MAR",
+          "loser": "NED"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "CRO",
+          "winner": "CRO",
+          "loser": "COL"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "USA",
+          "team2": "BIH",
+          "winner": "USA",
+          "loser": "BIH"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "JPN",
+          "winner": "BRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "SCO",
+          "winner": "MEX",
+          "loser": "SCO"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "ALG",
+          "winner": "ENG",
+          "loser": "ALG"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "TUR",
+          "team2": "EGY",
+          "winner": "TUR",
+          "loser": "EGY"
+        },
+        {
+          "id": 15,
+          "team1": "SUI",
+          "team2": "IRN",
+          "winner": "SUI",
+          "loser": "IRN"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "GHA",
+          "winner": "POR",
+          "loser": "GHA"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "CAN",
+          "team2": "MAR",
+          "winner": "MAR",
+          "loser": "CAN"
+        },
+        {
+          "id": 3,
+          "team1": "CRO",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "CRO"
+        },
+        {
+          "id": 4,
+          "team1": "USA",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "USA"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "BRA",
+          "loser": "NOR"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "TUR",
+          "winner": "ARG",
+          "loser": "TUR"
+        },
+        {
+          "id": 8,
+          "team1": "SUI",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "SUI"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "MAR",
+          "winner": "FRA",
+          "loser": "MAR"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "BEL",
+          "winner": "ESP",
+          "loser": "BEL"
+        },
+        {
+          "id": 3,
+          "team1": "BRA",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "BRA"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "FRA"
+        },
+        {
+          "id": 2,
+          "team1": "ENG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ENG"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "FRA",
+        "team2": "ENG",
+        "winner": "FRA",
+        "loser": "ENG"
+      },
+      "F": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "POR",
+        "winner": "ESP",
+        "loser": "POR"
+      }
+    },
+    "third_place": {
+      "Group F": "SWE",
+      "Group C": "SCO",
+      "Group G": "IRN",
+      "Group L": "GHA",
+      "Group J": "ALG",
+      "Group B": "BIH",
+      "Group A": "CZE",
+      "Group D": "PAR"
+    },
+    "most_goals": "ESP",
+    "score": {
+      "h": [
+        "1",
+        "0"
+      ],
+      "f": [
+        "3",
+        "1"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
+  },
+  {
+    "name": "Brownie United",
+    "league": [],
+    "groups": {
+      "A": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ],
+      "B": [
+        "SUI",
+        "CAN",
+        "QAT",
+        "BIH"
+      ],
+      "C": [
+        "BRA",
+        "SCO",
+        "MAR",
+        "HAI"
+      ],
+      "D": [
+        "AUS",
+        "USA",
+        "TUR",
+        "PAR"
+      ],
+      "E": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ],
+      "F": [
+        "NED",
+        "SWE",
+        "JPN",
+        "TUN"
+      ],
+      "G": [
+        "BEL",
+        "NZL",
+        "EGY",
+        "IRN"
+      ],
+      "H": [
+        "ESP",
+        "URU",
+        "KSA",
+        "CPV"
+      ],
+      "I": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ],
+      "J": [
+        "ARG",
+        "AUT",
+        "ALG",
+        "JOR"
+      ],
+      "K": [
+        "POR",
+        "COL",
+        "UZB",
+        "COD"
+      ],
+      "L": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ],
+      "third": [
+        "JPN",
+        "TUR",
+        "QAT",
+        "CZE",
+        "EGY",
+        "UZB",
+        "CIV",
+        "GHA"
+      ]
+    },
+    "knock_outs": {
+      "R32": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "TUR",
+          "winner": "GER",
+          "loser": "TUR"
+        },
+        {
+          "id": 2,
+          "team1": "FRA",
+          "team2": "JPN",
+          "winner": "FRA",
+          "loser": "JPN"
+        },
+        {
+          "id": 3,
+          "team1": "KOR",
+          "team2": "CAN",
+          "winner": "KOR",
+          "loser": "CAN"
+        },
+        {
+          "id": 4,
+          "team1": "NED",
+          "team2": "SCO",
+          "winner": "NED",
+          "loser": "SCO"
+        },
+        {
+          "id": 5,
+          "team1": "COL",
+          "team2": "CRO",
+          "winner": "CRO",
+          "loser": "COL"
+        },
+        {
+          "id": 6,
+          "team1": "ESP",
+          "team2": "AUT",
+          "winner": "ESP",
+          "loser": "AUT"
+        },
+        {
+          "id": 7,
+          "team1": "AUS",
+          "team2": "QAT",
+          "winner": "AUS",
+          "loser": "QAT"
+        },
+        {
+          "id": 8,
+          "team1": "BEL",
+          "team2": "CZE",
+          "winner": "BEL",
+          "loser": "CZE"
+        },
+        {
+          "id": 9,
+          "team1": "BRA",
+          "team2": "SWE",
+          "winner": "BRA",
+          "loser": "SWE"
+        },
+        {
+          "id": 10,
+          "team1": "ECU",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "ECU"
+        },
+        {
+          "id": 11,
+          "team1": "MEX",
+          "team2": "CIV",
+          "winner": "MEX",
+          "loser": "CIV"
+        },
+        {
+          "id": 12,
+          "team1": "ENG",
+          "team2": "UZB",
+          "winner": "ENG",
+          "loser": "UZB"
+        },
+        {
+          "id": 13,
+          "team1": "ARG",
+          "team2": "URU",
+          "winner": "ARG",
+          "loser": "URU"
+        },
+        {
+          "id": 14,
+          "team1": "USA",
+          "team2": "NZL",
+          "winner": "NZL",
+          "loser": "USA"
+        },
+        {
+          "id": 15,
+          "team1": "SUI",
+          "team2": "EGY",
+          "winner": "SUI",
+          "loser": "EGY"
+        },
+        {
+          "id": 16,
+          "team1": "POR",
+          "team2": "GHA",
+          "winner": "POR",
+          "loser": "GHA"
+        }
+      ],
+      "R16": [
+        {
+          "id": 1,
+          "team1": "GER",
+          "team2": "FRA",
+          "winner": "FRA",
+          "loser": "GER"
+        },
+        {
+          "id": 2,
+          "team1": "KOR",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "KOR"
+        },
+        {
+          "id": 3,
+          "team1": "CRO",
+          "team2": "ESP",
+          "winner": "ESP",
+          "loser": "CRO"
+        },
+        {
+          "id": 4,
+          "team1": "AUS",
+          "team2": "BEL",
+          "winner": "BEL",
+          "loser": "AUS"
+        },
+        {
+          "id": 5,
+          "team1": "BRA",
+          "team2": "NOR",
+          "winner": "NOR",
+          "loser": "BRA"
+        },
+        {
+          "id": 6,
+          "team1": "MEX",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "MEX"
+        },
+        {
+          "id": 7,
+          "team1": "ARG",
+          "team2": "NZL",
+          "winner": "ARG",
+          "loser": "NZL"
+        },
+        {
+          "id": 8,
+          "team1": "SUI",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "SUI"
+        }
+      ],
+      "QF": [
+        {
+          "id": 1,
+          "team1": "FRA",
+          "team2": "NED",
+          "winner": "NED",
+          "loser": "FRA"
+        },
+        {
+          "id": 2,
+          "team1": "ESP",
+          "team2": "BEL",
+          "winner": "ESP",
+          "loser": "BEL"
+        },
+        {
+          "id": 3,
+          "team1": "NOR",
+          "team2": "ENG",
+          "winner": "ENG",
+          "loser": "NOR"
+        },
+        {
+          "id": 4,
+          "team1": "ARG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ARG"
+        }
+      ],
+      "SF": [
+        {
+          "id": 1,
+          "team1": "NED",
+          "team2": "ESP",
+          "winner": "NED",
+          "loser": "ESP"
+        },
+        {
+          "id": 2,
+          "team1": "ENG",
+          "team2": "POR",
+          "winner": "POR",
+          "loser": "ENG"
+        }
+      ],
+      "F34": {
+        "id": 1,
+        "team1": "ESP",
+        "team2": "ENG",
+        "winner": "ESP",
+        "loser": "ENG"
+      },
+      "F": {
+        "id": 1,
+        "team1": "NED",
+        "team2": "POR",
+        "winner": "NED",
+        "loser": "POR"
+      }
+    },
+    "third_place": {
+      "Group F": "JPN",
+      "Group D": "TUR",
+      "Group B": "QAT",
+      "Group A": "CZE",
+      "Group G": "EGY",
+      "Group K": "UZB",
+      "Group E": "CIV",
+      "Group L": "GHA"
+    },
+    "most_goals": "NED",
+    "score": {
+      "h": [
+        "1",
+        "0"
+      ],
+      "f": [
+        "2",
+        "1"
+      ],
+      "e": [
+        "0",
+        "0"
+      ],
+      "p": [
+        "0",
+        "0"
+      ]
+    },
+    "Country": "New Zealand"
   }
 ]
