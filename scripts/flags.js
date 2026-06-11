@@ -62,5 +62,6 @@ function add_others(COUNTRY)
     
   add_raw("MARS")
   add_raw("CHI")
+  add_raw("ROU")
 }
 
