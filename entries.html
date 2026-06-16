@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="scripts/uc.css">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<style>
+.results {
+  margin-left:20px;
+  padding:5px;
+  background: var(--paper);
+  color: var(--black);
+  border-collapse: collapse;
+  
+  th {
+    border: 1px solid var(--grey);
+    padding: 8px; 
+    background: var(--black);
+    color: var(--sand);
+  }
+  
+  td { padding-left:10px; 
+    border: 1px solid var(--grey);   /* Gives cells a visible border */
+    padding: 4px; 
+  }
+
+  tr:nth-child(even) td {
+    background-color: #dde; /* A very soft, subtle grey */
+  }
+
+  a { color: var(--black); }
+  a:hover { color: #234; }
+  
+}
+
+.small { font-size:12px; padding:1px;
+  td { padding:1px; }
+}
+
+  h2 { background-color:#111; padding: 10px;}
+  h3 { color: white; }
+  .fail {
+    color:#888; 
+    text-decoration: line-through;
+  }
+  
+  .sm_flag {
+    height:12px;
+    padding:1px;
+    margin-right:5px;
+    margin-left:5px;
+    border:1px solid #888;
+    box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+    display:inline-block;
+    vertical-align:middle;
+  }
+  
+  #full_entry { border:1px solid black; padding:5px; 
+    background-color: var(--paper);
+    color: black;
+    padding-bottom:10px;
+  
+    td { padding-left:5px; }
+    h2 { color: var(--gold) };
+    h3 { color: var(--maroon) };
+  }
+    
+    
+
+</style>
+
+<script src="scripts/country_from.js"></script>
+<script src="scripts/flags.js"></script>
+<script src="scripts/entries.js"></script>
+
+<script>
+
+let current_entry = 0;
+
+
+
+function do_entry_table()
+{
+  var table = []
+  table.push("<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner<th>Most Goals")
+  
+  entries.forEach((entry, index) => {
+    let t1 = entry.knock_outs.F.team1
+    let t2 = entry.knock_outs.F.team2
+    let w  = entry.knock_outs.F.winner
+    let g  = entry.most_goals
+
+    table.push(`<tr><td>${index+1}<td><a href="#0" onclick="display_entry(${index+1}); return false;">${entry.name}${game(t1,t2,w)}${td(w)}${td(g)}`)
+  });
+  document.getElementById("result_table").innerHTML = table.join("")
+}
+
+
+function display_previous()
+{
+  display_entry(current_entry-1)
+}
+
+function display_next()
+{
+  display_entry(current_entry+1)
+}
+
+function td(abr,win,left,colspan)
+{
+  if (win  === undefined) win = true
+  if (left === undefined) left = true
+  let h = `<td${!win?' class="fail"':''} align="${left?'left':'right'}" ${(colspan !== undefined)?' colspan='+colspan:''}>`
+  if (left) h+= `${get_img(abr)}`
+  h+=abr
+  if (!left) h+= `${get_img(abr)}`
+  return h
+}
+
+function game(abr1,abr2, win, colspan)
+{
+  if (colspan  === undefined) colspan = 1
+  let h = `<td align=center ${(colspan>1)?' colspan='+colspan:''}>`
+  h += `<span${abr2==win?' class="fail"':''}>${get_img(abr1)} ${abr1}</span>`
+  h+= " vs "
+  h+= `<span${abr1==win?' class="fail"':''}>${abr2} ${get_img(abr2)}</span>`
+  return h
+}
+
+
+
+
+function display_entry(n, no_scroll)
+{
+  if(!n) n = 1
+  if(n<1) n= entries.length
+  if(n> entries.length) n = 1
+  if(current_entry == n) return;
+  current_entry = n
+
+
+  const entry = entries[current_entry-1]
+  console.log("entry", current_entry, entry)
+  
+
+  
+  let html = []
+  
+  html.push(`<h2>Entry #${current_entry} Details: ${entry.name}</h2>`)
+  
+  html.push("<table><tr><td valign=top>")
+  
+  html.push("<h3>Group Stage</h3>")
+  
+  html.push("<table class='results small'><tr><th>Group<th>1st<th>2nd<th>3rd<th>4th")
+  const groups="ABCDEFGHIJKL"
+  for(i=0;i<groups.length;i++)
+  {
+    let group = groups[i]
+    let group_data = entry.groups[group]
+    let third = entry.groups.third
+//    console.log(group,group_data, third)
+    html.push(`<tr><td>${group}`)
+    for(let pl=0;pl<4;pl++)
+    {
+      let t = group_data[pl]
+      let qual = pl<2
+      if ((pl==2) && third.includes(t)) qual = true
+
+//      console.log(pl,t)
+      html.push(td(t,qual,true))
+      if ((pl==2) && qual) html.push("**") 
+    }
+  }
+  html.push("</table>")
+  html.push("<p><i>** = 3rd place qualifier.</i>")
+
+  html.push("<td valign=top>")
+
+  html.push("<h3>Other Information:</h3>")
+
+  html.push("<table style='min-width:500px;' class='results small'>")
+  html.push("<tr><th>Most Goals:"+td(entry.most_goals))
+  html.push("<tr><th>Mini-leagues:<td>"+entry.league.join(", "))
+  html.push("<tr><th>From Country:"+td(country_from(entry.Country))+" - "+entry.Country)
+  function score(name,p){ html.push(`${name}: ${entry.score[p].join(" - ")}, `) }
+  html.push("<tr><th>Final score:<td>")
+  score("Half","h")
+  score("Full","f")
+  if (entry.score.f[0] == entry.score.f[1])
+  {
+    score("extra time","e")
+    if (entry.score.e[0] == entry.score.e[1])
+      score("penalties","p")
+  }
+  html.push("<tr><th>Winner"+td(entry.knock_outs.F.winner))
+  
+  
+  html.push("</table>")
+
+
+
+  html.push("<tr><td colspan=2>")
+
+  html.push("<h3>Knock-out Rounds</h3>")
+  
+  function ko(name, round, colspan)
+  {
+    var h = "<tr><th>"+name
+    var kos = entry.knock_outs[round]
+    if (Array.isArray(kos))
+      kos.forEach(ko_game => { h+= game(ko_game.team1, ko_game.team2, ko_game.winner, colspan);})
+    else
+      h+= game(kos.team1, kos.team2, kos.winner, colspan);
+    html.push(h)
+  }
+  
+  html.push("<table class='results small'>")
+  ko("Round of 32", "R32",1)
+  ko("Round of 16", "R16",2)
+  ko("Quarter-finals", "QF",4)
+  ko("Semi-finals", "SF",8)
+  ko("Third-place", "F34",16)
+  ko("Final", "F",16)
+  html.push("<tr><th>Winner<td colspan=7>"+td(entry.knock_outs.F.winner, true,true, 2)+"<td colspan=7>")
+  
+  html.push("</table>")
+
+  html.push("</table>")
+
+  
+  document.getElementById("full_entry").innerHTML = html.join("")
+  if (!no_scroll)
+    document.getElementById("full_entry").scrollIntoView({ behavior: "smooth" });
+}
+
+
+
+let known_flags = {}
+function setup_known_flags()
+{
+  add_flags({add_flag:function(abr, src){
+    known_flags[abr] = true
+  }})
+}
+
+
+
+
+
+
+function do_league_table(no, name)
+{
+  var html = []
+  var n = name
+  if (n == "donuts") n = n + " (A.K.A. the police football donation league)"
+
+  html.push(`<h3>Mini league #${no}: ${n}</h3>`)
+  html.push("<p><table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  
+  let index = 0;
+  entries.forEach(entry => {
+    if(entry.league.includes(name))
+    {
+      index++
+      let t1 = entry.knock_outs.F.team1
+      let t2 = entry.knock_outs.F.team2
+      let w  = entry.knock_outs.F.winner
+      html.push(`<tr><td>${index}<td>${entry.name}<td>${get_img(t1)}${t1} vs ${t2}${get_img(t1)}<td>${get_img(w)}${w}</span>`)
+    }
+  });
+  if (index==0) html.push("<tr><td colspan=4>No entries yet")
+  
+  html.push("</table>")
+  return html.join("")
+}
+
+function do_mini_leagues()
+{
+  var result = []
+
+  // Find leagues:
+  
+  var league_names = { Yodas:1, UCAFC:1, kids:1, donuts:1}
+  entries.forEach(entry => {
+    entry.league.forEach(name => {
+      league_names[name]=1
+    })
+  });
+  
+  // Get a table for each one
+  var result = []
+  Object.keys(league_names).forEach((name, index) => {
+    result.push(do_league_table(index+1, name))
+  })
+  
+  document.getElementById("league_tables").innerHTML = result.join("")
+}
+
+
+//function do_flag(abr)
+//{
+//  const src = flag_src(abr)
+//  const objs = document.getElementsByClassName('flag_'+abr)
+//  for(const obj of objs)
+//  {
+//    const img = document.createElement('img')
+//    img.height=10;
+//    img.src = src
+//    img.style.padding= '2px'
+//    img.style.marginRight= '5px'
+//    img.style.marginLeft= '5px'
+//    img.style.border='1px solid #888'
+//    img.style.boxShadow='1px 1px 1px 2px RGBA(50,50,50,0.1)'
+//    obj.prepend(img)
+//    obj.classList.remove('flag_'+abr)
+//  }
+//}
+
+let flag_src={}
+
+function load_flags()
+{
+  add_flags({add_flag:function(abr, src){ flag_src[abr]=src; }})
+  flag_src["XXX"] = UNKNOWN
+}
+
+function get_img(abr)
+{
+  let img = `<img src='${flag_src[abr]}' class='sm_flag'>`
+//  console.log(abr, img)
+  return img
+}
+ 
+
+</script>
+
+</head>
+<body>
+<div class=logo></div>
+<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Entry Details</div>
+<div class=page>
+<h2>Entries</h2>
+<p>Click a name to see the full entry:
+<div id=result_table></div>
+<p>
+<div id=full_entry></div>
+<p>
+<button onclick='display_previous()'>Previous</button>
+<button onclick='display_next()'>Next</button>
+
+<!--
+<p><h2>The mini-leagues</h2>
+<p>Here is a list of the different mini-leagues:
+<div id=league_tables>
+</div>
+-->
+
+
+<script>
+  setup_known_flags()
+  load_flags()
+  
+  do_entry_table()
+  
+//  do_mini_leagues()
+  
+  display_entry(0,true)
+
+</script>
+</div>
+
+</body>
+</html>

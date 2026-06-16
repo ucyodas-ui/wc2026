@@ -34,6 +34,16 @@ h2 { color: var(--gold); }
   text-align:center;
 }
 
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6; /* Optional: visually fades the button */
+}
+
+#final_countdown {
+  color: var(--black);
+}
+
+
 </style>
 </head>
 <body>
@@ -50,6 +60,23 @@ h2 { color: var(--gold); }
 <h2>What do you win?</h2>
 <p>Nothing.
 <p>Or I might draw you up a winners certificate if I'm up to it after watching a hundred games of football.
+<h2>Useful Links:</h2>
+<table class=links>
+<tr><td>Latest Results:<td><a href='results.html'>Results</a><td>(Once the world cup gets going).
+<tr><td>Entry details:<td><a href='entries.html'>Entries</a><td>(if you have forgotten what you entered)
+<tr><td>Cobra details:<td><a href='Cobras.html'>Cobras</a><td>(if you would still like to donate)
+<tr><td>Useful Stuff:<td><a href='useful.html'>Useful stuff</a><td>(like rankingss and Fifa sites)
+</table>
+<p><div id=final_countdown></div>
+<script>
+  new CountdownTimer("The FINAL game, (MetLife Stadium)", "2026-07-19T19:00:00Z", document.getElementById('final_countdown'),
+  {
+    color: "var(--gold)",
+    showWork: false
+  });
+</script>
+
+
 <h2>Why enter then?</h2>
 <p>For fun.
 <h2>So do you want to have more fun?</h2>
@@ -98,8 +125,9 @@ So this time around I'll post all <a href='results.html'>RESULTS HERE</a>.
 <p><li> You have until Friday June 12th NZ time to enter!  You must enter before the first game between Mexico and South Africa, at 7am.
 </ul>
 <h1>Ready to give it a go?</h1>
-<p>Click to enter here:
-<button class=enter onclick="window.location.href='EntryForm.html'">Entry Form</button>
+****** TOO LATE!! - ENTRIES ARE NOW CLOSED! *****
+<p>Click to enter here: 
+<button class=enter onclick="window.location.href='EntryForm.html'" disabled>Entry Form</button>
 And please, if you can, help out the <a href='Cobras.html'>Cobras.</a>
 
 <p><div id=countdown></div>

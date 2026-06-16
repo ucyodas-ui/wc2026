@@ -36,6 +36,7 @@
 
 </style>
 
+<script src="scripts/country_from.js"></script>
 <script src="scripts/flags.js"></script>
 <script src="scripts/entries.js"></script>
 
@@ -108,27 +109,7 @@ function do_from_table()
   let country_names = {}
   entries.forEach(entry => {
     let ct  = entry.Country
-    let c = ""
-    switch(ct)
-    {
-      case "NZ":                         c = "NZL"; break;
-      case "New Zealand":                c = "NZL"; break;
-      case "Nu Zeelind":                 c = "NZL"; break;
-      case "Canada":                     c = "CAN"; break;
-      case "A Kiwi living in Norway!":   c = "NOR"; break;
-      case "England":                    c = "ENG"; break;
-      case "Mars":                       c = "MARS"; break;
-      case "France":                     c = "FRA"; break;
-      case "Nz":                         c = "NZL"; break;
-      case "NZ/UK":                      c = "ENG"; break;
-      case "Have a guess!":              c = "BRA"; break;
-      case "Colombia":                   c = "COL"; break;
-      case "Chile":                      c = "CHI"; break;
-      case "United States":              c = "USA"; break;
-      case "Austria":                    c = "AUT"; break;
-      case "Romania":                    c = "ROU"; break;
-      default:                           c = "XXX"; break;
-    }
+    let c = country_from(ct)
     if (!country_names.hasOwnProperty(c))
     {
       country_names[c]={}
@@ -257,6 +238,7 @@ function do_flags()
 <p>There are no results so far.  As the world cup hasn't started yet.
 <p>Come back later.
 <p><h2>Who has entered?</h2>
+<p>For full details for an entry, checkout <a href="entries.html">entries</a>
 <div id=result_table></div>
 <!--
 <table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner
