@@ -196,5 +196,17 @@ const COUNTRY = new class {
     return [...this.#list]
   }
   
+  get_group_ids(id)
+  {
+    let group_id = id.startsWith("Group ") ? id : "Group "+id
+    let group_teams =[]
+    this.#list.forEach(t => {
+      if (t.group == group_id)
+        group_teams.push(t)
+    })
+    
+    return group_teams
+  }
+  
 }
 

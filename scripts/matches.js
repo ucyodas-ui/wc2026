@@ -1,3 +1,5 @@
+// calls back draw.add_match(match_no, stage, date, time, utc, location, team1, team2 )
+
 function add_matches(draw)
 {
   draw.add_match(  1, "Group A"        , "June 11, 2026",  "1:00 p.m.", -6,            "Estadio Azteca, Mexico City",            "Mexico", "South Africa"  );

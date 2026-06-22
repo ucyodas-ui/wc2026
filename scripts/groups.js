@@ -1,3 +1,5 @@
+// callsback draw.add_group(group_name, group)
+
 function add_groups(data)
 {
 //=====================================
