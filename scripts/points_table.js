@@ -331,10 +331,7 @@ class points_table
 
   #get_html()
   {
-    if (this.#sorting)
-    {
-      this.sort_table()
-    }
+    this.sort_table()
     let pts = this.#teams
 //    console.log("get html",pts)
     
@@ -403,6 +400,8 @@ class points_table
 
   sort_table()
   {
+    if (!this.#sorting) return;
+    
     this.#load_basic_table()
     let tied = this.#sort_teams_by_points()
     if (tied) tied = this.#sort_by_h2h()
@@ -423,5 +422,9 @@ class points_table
     return this.#get_html()
   }
 
-  
+  get_ranked_teams()
+  {
+    this.sort_table()
+    return [...this.#teams]
+  }    
 }

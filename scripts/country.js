@@ -102,6 +102,25 @@ const COUNTRY = new class {
       return this.#data[id][data_name]
     return
   }
+
+  // Convert ary objects with class=flag_XXX to a flag image.  You can style it by setting the class "flag"
+  update_class_flags()
+  {
+    this.#list.forEach(c => {
+      console.log("Do flags", c.id)
+      const src = this.#data[c.id].img.src
+      const objs = document.getElementsByClassName('flag_'+c.id)
+      for(const obj of objs)
+      {
+        const img = document.createElement('img')
+        img.className="flag"
+        img.src = src
+        obj.prepend(img)
+        obj.classList.remove('flag_'+c.id)
+      }
+    })
+  }
+
  
   add_flag(   team, img_url)    
   { 

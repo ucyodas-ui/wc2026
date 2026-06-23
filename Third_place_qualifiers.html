@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/groups.js'></script>
+<script src='scripts/rankings.js'></script>
+<script src='scripts/matches.js'></script>
+<script src='scripts/sortable_list.js'></script>
+<script src='scripts/scores.js'></script>
+<script src='scripts/points_table.js'></script>
+<script src='scripts/group_stage.js'></script>
+
+
+<link rel="stylesheet" href="scripts/sortable_list.css">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+img{  box-shadow: 2px 2px 4px #555;}
+
+.flag{
+  height:15px;
+  padding=2px;
+  margin-right:5px;
+  margin-left:5px;
+  border:1px solid #888;
+  box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+}
+
+#result {
+  font-size:12px;
+  margin-left:180px;
+  img{  box-shadow: 2px 2px 4px #555;}
+  table { border-collapse: collapse; margin: 10px; min-width:770px;}
+  tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
+  tbody tr:nth-child(even) { background-color: #ffffff; }
+  thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
+  td { padding:5px; color:black; min-width:20px;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white;} 
+}
+.failed td { text-decoration: line-through 0.5px solid red;  }
+
+tr:not(.failed) + tr.failed td {
+  border-top: 2px solid #ff4d4f; /* Change this colour to your preference */
+}
+
+</style>
+
+<script>
+
+
+
+
+
+
+
+
+
+
+  window.addEventListener('load', function() {
+    console.log("LOAD")
+    load_country_data(COUNTRY)
+    COUNTRY.setup_keys()
+
+    add_groups(COUNTRY)
+    add_rankings(COUNTRY)
+    add_flags(COUNTRY)
+
+    const gs = new group_stage(COUNTRY)
+    
+    let third_place = []
+    
+    gs.grp_ids.forEach(id => {
+      let group_teams = gs.get_ranked_teams(id)
+      third_place.push({grp:id,data:group_teams[2]})
+    })
+    console.log("third_place",third_place)
+    
+    third_place.sort((b,a) => {
+      if (a.data.pts != b.data.pts) return (a.data.pts - b.data.pts);
+      if (a.data.gd  != b.data.gd)  return (a.data.gd  - b.data.gd);
+      if (a.data.gf  != b.data.gd)  return (a.data.gf  - b.data.gf);
+      if (a.data.cards.pts != b.data.cards.pts) return (a.data.cards.pts - b.data.cards.pts)
+      return b.rank - a.rank
+    })
+    let html = []
+    html.push("<table><tr><th rowspan=2>Rank<th rowspan=2>Group<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World")
+    html.push("<tr><th>Y<th>YY<th>R<th>YR<th>pts<th>Rank")
+
+    
+    third_place.forEach((t,index) => {
+      let team= t.data
+      let cl = (index>7) ? "failed" : ""
+      html.push("<tr class='"+cl+"'>")
+      html.push("<td>"+(index+1))
+      html.push("<td>"+t.grp)
+      html.push("<td class='flag_"+team.abr+"'>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.w)
+      html.push("<td>"+team.d)
+      html.push("<td>"+team.l)
+      html.push("<td>"+team.gf)
+      html.push("<td>"+team.ga)
+      html.push("<td>"+team.gd)
+      html.push("<td>"+team.pts)
+      html.push("<td>"+team.cards.y)
+      html.push("<td>"+team.cards.yy)
+      html.push("<td>"+team.cards.r)
+      html.push("<td>"+team.cards.yr)
+      html.push("<td>"+team.cards.pts)
+      html.push("<td>"+team.rank)
+    })
+    
+    
+    
+    document.getElementById("result").innerHTML = html.join("<p>")
+    
+    COUNTRY.update_class_flags()
+  })
+</script>  
+
+</head>
+<body>
+<div class=logo></div>
+<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Third Place Qualifiers</div>
+<div class=info></div>
+
+<div id=result></div>
+
+
+
+</body>
+</html>
