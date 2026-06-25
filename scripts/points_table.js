@@ -2,6 +2,9 @@
 class points_table
 {
   #teams = []
+  #third = false;
+  #completed  = false;
+  #confirmed = false;
 
   #results = []
   constructor(){  }
@@ -334,13 +337,18 @@ class points_table
     this.sort_table()
     let pts = this.#teams
 //    console.log("get html",pts)
+console.log("third", pts[2].abr, this.#third, this.#completed, this.#confirmed)
     
     var html=[]
-    html.push("<table><tr><th rowspan=2>Pos<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World<th colspan=3>Head_to_Head") //<th rowspan=2>blah")
-    html.push("<tr><th>Y<th>YY:R<th>R<th>YR<th>pts<th>Rank<th>PTS<th>GD<th>GF")
-    pts.forEach(team =>{
+    html.push("<table><tr><th rowspan=2>Pos<th rowspan=2>Qual<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World<th colspan=3>Head_to_Head") //<th rowspan=2>blah")
+    html.push("<tr><th>Y<th>YY&gt;R<th>R<th>YR<th>pts<th>Rank<th>PTS<th>GD<th>GF")
+    pts.forEach((team,index) =>{
+      let qs = this.get_qualified_status(team.abr)
+      let q = (qs.qualified?"yes":"no")+(qs.confirmed?"":"**")
+
       html.push("<tr>")
       html.push("<td>"+team.pos+((team.tied)?"**":""))
+      html.push("<td>"+q)
       html.push("<td class='flag_"+team.abr+"'>")
       html.push("<td>"+team.full)
       html.push("<td>("+team.abr+")")
@@ -426,5 +434,53 @@ class points_table
   {
     this.sort_table()
     return [...this.#teams]
+  }
+
+  set_matches_completed()
+  {
+    this.#completed = true;
+  }
+  is_completed()
+  {
+    return this.#completed
   }    
+  set_group_stage_completed()
+  {
+      this.#confirmed = true;
+  }
+
+  third_qualified()  
+  {
+    this.#third = true;
+  }
+  
+  get_qualified_status(team_id)
+  {
+    let t = this.#find_team(team_id)
+    let q = { qualified: false, confirmed: false, pos: t.pos }
+    switch (q.pos)
+    {
+      case 1:
+      case 2:
+      {
+        q.qualified = true
+        q.confirmed = this.#completed
+        break;
+      }
+      case 3:
+      {
+        q.qualified = this.#third;
+        q.confirmed = this.#confirmed
+        break;
+      }
+      default:
+      {
+        q.qualified = false
+        q.confirmed = this.#completed;
+      }
+    }
+    console.log("qual",q, this.#third, this.#completed, this.#confirmed)
+
+    return q
+  }
 }

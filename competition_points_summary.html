@@ -12,7 +12,9 @@
 <script src='scripts/sortable_list.js'></script>
 <script src='scripts/scores.js'></script>
 <script src='scripts/points_table.js'></script>
+<script src="scripts/entries.js"></script>
 <script src='scripts/group_stage.js'></script>
+<script src="scripts/entry_points.js"></script>
 
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
@@ -50,12 +52,6 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 
 
-
-
-
-
-
-
   window.addEventListener('load', function() {
     console.log("LOAD")
     load_country_data(COUNTRY)
@@ -66,16 +62,23 @@ img{  box-shadow: 2px 2px 4px #555;}
     add_flags(COUNTRY)
 
     const gs = new group_stage(COUNTRY)
+    
+    const ep = new entry_points(entries, gs)
+    
+    const pts = ep.points()
+    
   
     let html =[]
+    html.push("<table>")
+    html.push("<tr><th>Postion<th>Entry<th>Current score<th>Potential")
   
-    gs.grp_ids.forEach(id => {
-      html.push("<h2>Group "+id+"</h2>")
-      html.push(gs.get_group_table(id))
-      html.push("<p>")
-      html.push(gs.get_group_games_html(id))
+    pts.forEach(entry => {
+        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.total+"<td>"+entry.potential)
     })
-    document.getElementById("result").innerHTML = html.join("<p>")
+    
+    document.getElementById("result").innerHTML = html.join("")
+    
+    html.push("</table>")
     
     COUNTRY.update_class_flags()
   })
@@ -87,9 +90,7 @@ img{  box-shadow: 2px 2px 4px #555;}
 <div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Group Stage</div>
 <div class=info></div>
 
-<div id=result>
-
-</div>
+<div id=result></div>
 
 
 

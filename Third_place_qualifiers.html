@@ -72,32 +72,40 @@ tr:not(.failed) + tr.failed td {
 
     const gs = new group_stage(COUNTRY)
     
-    let third_place = []
-    
-    gs.grp_ids.forEach(id => {
-      let group_teams = gs.get_ranked_teams(id)
-      third_place.push({grp:id,data:group_teams[2]})
-    })
-    console.log("third_place",third_place)
-    
-    third_place.sort((b,a) => {
-      if (a.data.pts != b.data.pts) return (a.data.pts - b.data.pts);
-      if (a.data.gd  != b.data.gd)  return (a.data.gd  - b.data.gd);
-      if (a.data.gf  != b.data.gd)  return (a.data.gf  - b.data.gf);
-      if (a.data.cards.pts != b.data.cards.pts) return (a.data.cards.pts - b.data.cards.pts)
-      return b.rank - a.rank
-    })
+    let third_place = gs.get_third_place_ranks()
+//    
+//    gs.grp_ids.forEach(id => {
+//      let group_teams = gs.get_ranked_teams(id)
+//      third_place.push({grp:id,data:group_teams[2]})
+//    })
+//    console.log("third_place",third_place)
+//    
+//    third_place.sort((b,a) => {
+//    
+//      console.log("sort",a.data.abr,"p",a.data.pts,"gd",a.data.gd,"gf",a.data.gf,"c",a.data.cards.pts,
+//                   "vs", b.data.abr,"p",b.data.pts,"gd",b.data.gd,"gf",b.data.gf,"c",b.data.cards.pts)       
+//    
+//      if (a.data.pts != b.data.pts) return (a.data.pts - b.data.pts);
+//      if (a.data.gd  != b.data.gd)  return (a.data.gd  - b.data.gd);
+//      if (a.data.gf  != b.data.gf)  return (a.data.gf  - b.data.gf);
+//      if (a.data.cards.pts != b.data.cards.pts) return (a.data.cards.pts - b.data.cards.pts)
+//      return b.rank - a.rank
+//    })
     let html = []
-    html.push("<table><tr><th rowspan=2>Rank<th rowspan=2>Group<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World")
+    html.push("<table><tr><th rowspan=2>Rank<th rowspan=2>Group<th rowspan=2>Qual<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World")
     html.push("<tr><th>Y<th>YY<th>R<th>YR<th>pts<th>Rank")
 
     
     third_place.forEach((t,index) => {
       let team= t.data
+      let qs = gs.get_qualified_status(team.abr)
+      let q = (qs.qualified?"yes":"no")+(qs.confirmed?"":"**")
+      
       let cl = (index>7) ? "failed" : ""
       html.push("<tr class='"+cl+"'>")
       html.push("<td>"+(index+1))
       html.push("<td>"+t.grp)
+      html.push("<td>"+q)
       html.push("<td class='flag_"+team.abr+"'>")
       html.push("<td>"+team.full)
       html.push("<td>("+team.abr+")")
@@ -116,9 +124,7 @@ tr:not(.failed) + tr.failed td {
       html.push("<td>"+team.cards.pts)
       html.push("<td>"+team.rank)
     })
-    
-    
-    
+
     document.getElementById("result").innerHTML = html.join("<p>")
     
     COUNTRY.update_class_flags()
@@ -129,7 +135,8 @@ tr:not(.failed) + tr.failed td {
 <body>
 <div class=logo></div>
 <div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Third Place Qualifiers</div>
-<div class=info></div>
+<p>
+<div class=info>Until all group games are completed, this will vary.</div>
 
 <div id=result></div>
 

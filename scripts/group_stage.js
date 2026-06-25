@@ -5,10 +5,12 @@ class group_stage
   #matches = []
   #group_tables = {}
   #COUNTRY
+  
+  #team_group = {}
 
   #create_table(group_id)
   {
-    console.log("create table", group_id)
+//    console.log("create table", group_id)
     let matches = this.get_matches(group_id)
     let table = new points_table()
     this.#group_tables[group_id] = table
@@ -18,9 +20,12 @@ class group_stage
     //  console.log(teams)
     teams.forEach(t => {
       table.add_team(t.id,t.name,t.rank)
+      this.#team_group[t.id] = group_id
     })
   
 //  console.log("matches", matches)
+
+    let completed = true
   
     matches.forEach(m => {
 //    console.log("match", m)
@@ -46,7 +51,9 @@ class group_stage
          
          table.add_result(team1, goals1, team2, goals2, cards1, cards2)
       }
+      else completed = false;
     })
+    if (completed) table.set_matches_completed()
   }
 
   #create_tables()
@@ -63,6 +70,8 @@ class group_stage
     add_matches(this)
     add_scores(this)
     this.#create_tables()
+    this.#check_completed()
+    this.#check_third_qualifiers()
   }  
   
   
@@ -105,17 +114,111 @@ class group_stage
 
   get_ranked_teams(group_id)
   {
-    console.log("get ranked teams", group_id)
+//    console.log("get ranked teams", group_id)
     let table = this.#group_tables[group_id]
     return table.get_ranked_teams()
+  }
+
+  #check_third_qualifiers(group_id)
+  {
+//    console.log("get group table", group_id)
+    let table = this.#group_tables[group_id]
+    let third = this.get_third_place_ranks()
+    for(var i=0;i<8;i++)
+    {
+      let group_id = third[i].grp
+      let table = this.#group_tables[group_id]
+      table.third_qualified()
+    }
   }
 
 
   get_group_table(group_id)
   {
-    console.log("get group table", group_id)
+//    console.log("get group table", group_id)
     let table = this.#group_tables[group_id]
     return table.get_table_html()
   }  
+  
+  #check_completed()
+  {
+    let group_stage_completed = true;
+    this.grp_ids.forEach(group_id => {
+      if (! this.#group_tables[group_id].is_completed()) group_stage_completed = false;
+      else console.log("group",group_id,"completed")
+    })
+    console.log("group_stage_completed",group_stage_completed)
+    if (group_stage_completed)
+    {
+      this.grp_ids.forEach(group_id => {
+        this.#group_tables[group_id].set_group_stage_completed();
+      })
+    }
+
+    
+  }
+  
+  get_group_games_html(group_id)
+  {
+    let matches = this.get_matches(group_id)
+    let html = []
+    html.push("<table>")
+
+    matches.forEach(m => {
+      console.log(m)
+      html.push("<tr><td>#"+m.match_no)
+      html.push("<td>"+m.date)
+      html.push("<td>"+m.time)
+      html.push("<td>"+m.location)
+      html.push("<td>"+m.team1)
+      console.log(m.result)
+      html.push("<td>"+(m.result.ok ? m.result.t1:"--"))
+      html.push("<td>"+(m.result.ok ? m.result.t2:"--"))
+      html.push("<td>"+m.team2)
+//      html.push("<td>"+m.cards     = 0
+        
+        
+    })
+ 
+    html.push("</table>")
+    return html.join("")
+    
+  }
+  
+
+  third_place = []
+
+  
+  get_third_place_ranks()
+  {
+    this.third_place = []
+    
+    this.grp_ids.forEach(id => {
+      let group_teams = this.get_ranked_teams(id)
+      this.third_place.push({grp:id,data:group_teams[2]})
+    })
+    console.log("third_place",this.third_place)
+    
+    this.third_place.sort((b,a) => {
+    
+//      console.log("sort",a.data.abr,"p",a.data.pts,"gd",a.data.gd,"gf",a.data.gf,"c",a.data.cards.pts, "vs", b.data.abr,"p",b.data.pts,"gd",b.data.gd,"gf",b.data.gf,"c",b.data.cards.pts)       
+    
+      if (a.data.pts != b.data.pts) return (a.data.pts - b.data.pts);
+      if (a.data.gd  != b.data.gd)  return (a.data.gd  - b.data.gd);
+      if (a.data.gf  != b.data.gf)  return (a.data.gf  - b.data.gf);
+      if (a.data.cards.pts != b.data.cards.pts) return (a.data.cards.pts - b.data.cards.pts)
+      return b.rank - a.rank
+    })
+
+    return this.third_place
+  }
+  
+  get_qualified_status(team_id)
+  {
+    let group_id = this.#team_group[team_id]
+    let table = this.#group_tables[group_id]
+    console.log("get qs", team_id, group_id, table)
+    return table.get_qualified_status(team_id) 
+  }
   
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+img{  box-shadow: 2px 2px 4px #555;}
+
+.flag{
+  height:15px;
+  padding=2px;
+  margin-right:5px;
+  margin-left:5px;
+  border:1px solid #888;
+  box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+}
+
+#result {
+  font-size:12px;
+  margin-left:180px;
+  img{  box-shadow: 2px 2px 4px #555;}
+  table { border-collapse: collapse; margin: 10px; min-width:770px;}
+  tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
+  tbody tr:nth-child(even) { background-color: #ffffff; }
+  thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
+  td { padding:5px; color:black; min-width:20px;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white;} 
+}
+.failed td { text-decoration: line-through 0.5px solid red;  }
+
+tr:not(.failed) + tr.failed td {
+  border-top: 2px solid #ff4d4f; /* Change this colour to your preference */
+}
+
+</style>
+
+
+</head>
+<body>
+<div class=logo></div>
+<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - World cup results</div>
+<div class=info>
+<ul>
+  <p><li><a href="Third_place_qualifiers.html">Current third place qualifiers</a>
+  <p><li><a href="Group_stage.html">Group stage tables</a>
+</ul>
+</div>
+
+</body>
+</html>

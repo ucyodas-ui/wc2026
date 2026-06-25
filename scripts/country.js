@@ -78,7 +78,7 @@ const COUNTRY = new class {
     if (this.#alternate.hasOwnProperty(name))       return this.#alternate[name]
     // Could be the id rather than name, so check for that.
     if (this.#data.hasOwnProperty(name))            return name
-    console.log("unknown country name:", name)
+//    console.log("unknown country name:", name)
 //    console.log(this.#list)
     return
   }
@@ -107,7 +107,7 @@ const COUNTRY = new class {
   update_class_flags()
   {
     this.#list.forEach(c => {
-      console.log("Do flags", c.id)
+//      console.log("Do flags", c.id)
       const src = this.#data[c.id].img.src
       const objs = document.getElementsByClassName('flag_'+c.id)
       for(const obj of objs)
@@ -124,7 +124,7 @@ const COUNTRY = new class {
  
   add_flag(   team, img_url)    
   { 
-    console.log("add flag for",team)
+//    console.log("add flag for",team)
   
     let info = this.#add_data(team, "img_url", img_url  ); 
     if (info)
@@ -206,7 +206,7 @@ const COUNTRY = new class {
       name: this.get_name(id) || "TBD",
       rank: this.get_rank(id)||"?",
     }
-    console.log("get_data_info", id, data)
+//    console.log("get_data_info", id, data)
     return data
   }
   
