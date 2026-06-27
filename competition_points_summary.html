@@ -65,15 +65,15 @@ img{  box-shadow: 2px 2px 4px #555;}
     
     const ep = new entry_points(entries, gs)
     
-    const pts = ep.points()
+    const pts = ep.potential_points()
     
   
     let html =[]
     html.push("<table>")
-    html.push("<tr><th>Postion<th>Entry<th>Current score<th>Potential")
+    html.push("<tr><th>Postion<th>Entry<th>Current Points<th>(Confirmed)")
   
     pts.forEach(entry => {
-        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.total+"<td>"+entry.potential)
+        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.potential+"<td>"+entry.total)
     })
     
     document.getElementById("result").innerHTML = html.join("")
@@ -87,7 +87,7 @@ img{  box-shadow: 2px 2px 4px #555;}
 </head>
 <body>
 <div class=logo></div>
-<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Group Stage</div>
+<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Competition Points Summary</div>
 <div class=info></div>
 
 <div id=result></div>

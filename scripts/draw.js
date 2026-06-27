@@ -27,7 +27,7 @@ const DRAW = new class {
 
     if (!team_id) team_id = stage.split(' ')[1]+"??"
     
-    console.log(team_id, team)
+//    console.log(team_id, team)
     
     if (this.#groups[stage].hasOwnProperty(team_id)) return
     
@@ -67,7 +67,7 @@ const DRAW = new class {
     this.#add_group_team(stage, team2, id2)
     this.#add_group_match(stage, match_no)
     
-    console.log("match", match_info)
+//    console.log("match", match_info)
     
     if(!this.#is_group_match(stage))
     {
@@ -135,7 +135,7 @@ const DRAW = new class {
     this.#add_parent_matches(this.#knockouts.QF,  this.#knockouts.R16)
     this.#add_parent_matches(this.#knockouts.R16, this.#knockouts.R32)
     
-    console.log("knockouts",this.#knockouts)
+//    console.log("knockouts",this.#knockouts)
   }
   
   get_bracket()

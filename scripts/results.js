@@ -37,7 +37,7 @@ class third_place_tracker {
 
     let vs = this.#third_place_draw[this.#third_place_id]
 
-    console.log("third place groups=", id, "then 1A,1B,1D,1E,1G,1L,1K,1L play", vs)
+//    console.log("third place groups=", id, "then 1A,1B,1D,1E,1G,1L,1K,1L play", vs)
     
 
     for(let i=0;i<8;i++)
@@ -48,7 +48,7 @@ class third_place_tracker {
       this.#third_place_vs[group_first] = group_third
     }
     
-    console.log("third place groups=", this.#third_place_id, vs,this.#third_place_vs)
+//    console.log("third place groups=", this.#third_place_id, vs,this.#third_place_vs)
   }
 
   // Set up the table of which 1st teams play the 3rd place teams.
@@ -58,7 +58,7 @@ class third_place_tracker {
     {
       this.#third_place_draw[THIRD_PLACE_RANKING_VS[i]] = THIRD_PLACE_RANKING_VS[i+1]
     }
-    console.log("third draw", this.#third_place_draw)
+//    console.log("third draw", this.#third_place_draw)
 
     // Work out the versa table again
     this.#set_third_place_id(this.#third_place_id)
@@ -69,7 +69,7 @@ class third_place_tracker {
     let ids = []
     // We only care about the first 8 group 3rd places
     
-    console.log("set_third_place_groups", groups)
+//    console.log("set_third_place_groups", groups)
     
     
     for(let i=0; i<8; i++)

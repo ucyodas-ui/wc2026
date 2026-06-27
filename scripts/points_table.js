@@ -32,8 +32,7 @@ class points_table
   #find_team(team)
   {
     var t = this.#find_team_in_list(this.#teams,team)
-    if (!t)
-      console.log("unknown team: ",team)
+//    if (!t) console.log("unknown team: ",team)
     return t
   }
   fix_cards(cards)
@@ -337,7 +336,7 @@ class points_table
     this.sort_table()
     let pts = this.#teams
 //    console.log("get html",pts)
-console.log("third", pts[2].abr, this.#third, this.#completed, this.#confirmed)
+// console.log("third", pts[2].abr, this.#third, this.#completed, this.#confirmed)
     
     var html=[]
     html.push("<table><tr><th rowspan=2>Pos<th rowspan=2>Qual<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World<th colspan=3>Head_to_Head") //<th rowspan=2>blah")
@@ -479,7 +478,7 @@ console.log("third", pts[2].abr, this.#third, this.#completed, this.#confirmed)
         q.confirmed = this.#completed;
       }
     }
-    console.log("qual",q, this.#third, this.#completed, this.#confirmed)
+//    console.log("qual",q, this.#third, this.#completed, this.#confirmed)
 
     return q
   }
