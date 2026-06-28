@@ -42,7 +42,7 @@ img{  box-shadow: 2px 2px 4px #555;}
   tbody tr:nth-child(even) { background-color: #ffffff; }
   thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
   td { padding:5px; color:black; min-width:20px;}
-  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white;} 
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; } 
 }
 
 </style>
@@ -73,13 +73,13 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
   
     let html =[]
     html.push("<table>")
-    html.push("<tr style='position:sticky; top:0px'><th rowspan=2>Position<th rowspan=2>Entry")
+    html.push("<tr style='position:sticky; top:65px'><th rowspan=2>Position<th rowspan=2>Entry")
     gs.grp_ids.forEach(group_id => {  html.push("<th colspan=4>Group "+group_id); })
     html.push("<th colspan=3>Third place Bonus<th colspan=2>Points")
 
     const order = ["1st","2nd","3rd","4th"]
 
-    html.push("<tr style='position:sticky; top:17px'>")
+    html.push("<tr style='position:sticky; top:82px'>")
     gs.grp_ids.forEach(group_id => {
       let ranked = gs.get_ranked_teams(group_id)
       ranked.forEach((team,index) => { html.push(`<th>${order[index]}<br><span class='flag_${team.abr}'><span><br>${team.abr}<br>&nbsp;${qual(gs.has_qualified(team.abr))}`)})
