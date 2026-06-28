@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><script src='scripts/uc.js'></script>
+
 <link rel="stylesheet" href="scripts/uc.css">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
@@ -298,24 +299,7 @@ function do_mini_leagues()
 }
 
 
-//function do_flag(abr)
-//{
-//  const src = flag_src(abr)
-//  const objs = document.getElementsByClassName('flag_'+abr)
-//  for(const obj of objs)
-//  {
-//    const img = document.createElement('img')
-//    img.height=10;
-//    img.src = src
-//    img.style.padding= '2px'
-//    img.style.marginRight= '5px'
-//    img.style.marginLeft= '5px'
-//    img.style.border='1px solid #888'
-//    img.style.boxShadow='1px 1px 1px 2px RGBA(50,50,50,0.1)'
-//    obj.prepend(img)
-//    obj.classList.remove('flag_'+abr)
-//  }
-//}
+
 
 let flag_src={}
 
@@ -336,9 +320,7 @@ function get_img(abr)
 </script>
 
 </head>
-<body>
-<div class=logo></div>
-<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Entry Details</div>
+<body><script>add_title("Entry Details")</script>
 <div class=page>
 <h2>Entries</h2>
 <p>Click a name to see the full entry:

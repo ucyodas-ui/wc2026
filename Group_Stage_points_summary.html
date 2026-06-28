@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><script src='scripts/uc.js'></script>
+
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
 <script src='scripts/country.js'></script>
@@ -35,9 +36,8 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 #result {
   font-size:12px;
-  margin-left:180px;
   img{  box-shadow: 2px 2px 4px #555;}
-  table { border-collapse: collapse; margin: 10px; min-width:770px;}
+  table { border-collapse: collapse; margin: 5px; min-width:770px;}
   tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
   tbody tr:nth-child(even) { background-color: #ffffff; }
   thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
@@ -129,9 +129,8 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
 </script>  
 
 </head>
-<body>
-<div class=logo></div>
-<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Group Stage Points Summary</div>
+<body><script>add_title("Group Stage Points Summary")</script>
+<div class=page>
 <div class=info></div>
 The following table shows the potential points, based on the current group standings.  Until all games are completed, these points will not be confirmed.
 <p>
@@ -146,6 +145,6 @@ document.write(bonus(true)+" = picked all 4 teams in correct order (+1pt). ");
 <div id=result></div>
 
 
-
+</div>
 </body>
 </html>

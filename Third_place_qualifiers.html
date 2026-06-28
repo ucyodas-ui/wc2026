@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><script src="scripts/uc.js"></script>
+
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
 <script src='scripts/country.js'></script>
@@ -33,7 +34,6 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 #result {
   font-size:12px;
-  margin-left:180px;
   img{  box-shadow: 2px 2px 4px #555;}
   table { border-collapse: collapse; margin: 10px; min-width:770px;}
   tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
@@ -73,24 +73,7 @@ tr:not(.failed) + tr.failed td {
     const gs = new group_stage(COUNTRY)
     
     let third_place = gs.get_third_place_ranks()
-//    
-//    gs.grp_ids.forEach(id => {
-//      let group_teams = gs.get_ranked_teams(id)
-//      third_place.push({grp:id,data:group_teams[2]})
-//    })
-//    console.log("third_place",third_place)
-//    
-//    third_place.sort((b,a) => {
-//    
-//      console.log("sort",a.data.abr,"p",a.data.pts,"gd",a.data.gd,"gf",a.data.gf,"c",a.data.cards.pts,
-//                   "vs", b.data.abr,"p",b.data.pts,"gd",b.data.gd,"gf",b.data.gf,"c",b.data.cards.pts)       
-//    
-//      if (a.data.pts != b.data.pts) return (a.data.pts - b.data.pts);
-//      if (a.data.gd  != b.data.gd)  return (a.data.gd  - b.data.gd);
-//      if (a.data.gf  != b.data.gf)  return (a.data.gf  - b.data.gf);
-//      if (a.data.cards.pts != b.data.cards.pts) return (a.data.cards.pts - b.data.cards.pts)
-//      return b.rank - a.rank
-//    })
+
     let html = []
     html.push("<table><tr><th rowspan=2>Rank<th rowspan=2>Group<th rowspan=2>Qual<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th>World")
     html.push("<tr><th>Y<th>YY<th>R<th>YR<th>pts<th>Rank")
@@ -127,20 +110,24 @@ tr:not(.failed) + tr.failed td {
 
     document.getElementById("result").innerHTML = html.join("<p>")
     
+    if (gs.group_stage_completed())
+    {
+      document.getElementById("info").innerHTML = "All group games are completed.  This is the final 3rd place qualifiers:"
+    }
+    
     COUNTRY.update_class_flags()
   })
 </script>  
 
 </head>
-<body>
-<div class=logo></div>
-<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Third Place Qualifiers</div>
+<body><script>add_title("Third Place Qualifiers")</script>
 <p>
-<div class=info>Until all group games are completed, this will vary.</div>
+<div class=page>
+<div id=info class=info>Until all group games are completed, this will vary.</div>
 
 <div id=result></div>
 
-
+</div>
 
 </body>
 </html>

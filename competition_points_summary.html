@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><script src='scripts/uc.js'></script>
+
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src="scripts/uc.js"></script>
 <script src='scripts/country.js'></script>
 <script src='scripts/country_data.js'></script>
 <script src='scripts/flags.js'></script>
@@ -35,14 +37,13 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 #result {
   font-size:12px;
-  margin-left:180px;
   img{  box-shadow: 2px 2px 4px #555;}
   table { border-collapse: collapse; margin: 10px; min-width:770px;}
   tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
   tbody tr:nth-child(even) { background-color: #ffffff; }
   thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
   td { padding:5px; color:black; min-width:20px;}
-  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white;} 
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; position:sticky; top: 65px;} 
 }
 
 </style>
@@ -85,14 +86,13 @@ img{  box-shadow: 2px 2px 4px #555;}
 </script>  
 
 </head>
-<body>
-<div class=logo></div>
-<div class=title><a href='index.html'>UC Master Yodas' World Cup Football 2026 Competition</a> - Competition Points Summary</div>
+<body><script>add_title("Competition Points Summary")</script>
+<div class=page>
 <div class=info></div>
 
 <div id=result></div>
 
 
-
+</div>
 </body>
 </html>

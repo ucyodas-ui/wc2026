@@ -157,7 +157,7 @@ class entry_points
       case 8: g3.points += 5; break;
     }
     
-    if (this.group_stage_completed)  points.total += g3.points
+    if (this.#gs.group_stage_completed())  points.total += g3.points
     points.potential += g3.points
   }
 
