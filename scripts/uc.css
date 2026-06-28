@@ -16,7 +16,9 @@ body {
    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
+    margin-top:80px;
 }
+  
 .page {
   background: var(--maroon-deep);
   color: var(--sand);
@@ -24,13 +26,18 @@ body {
 }
 
 .title {
+   position:fixed;
+   top:0px;
+   z-index:1000;
    background-color: rgba(10, 10, 10, 0.96);
    padding:20px;
+   padding-left:170px;
    margin:0px;
    color:#f8f5ee;
   font-size:20px; 
   width:100%;
   border-bottom:3px solid #e5b32b;
+  anchor-name: --source-element;
 }
 
 button.enter {
@@ -77,12 +84,20 @@ a:hover {
 }
 
 .logo {
+  position:fixed;
+  top:0px;
+   z-index:1001;
+
   float: left;  padding:5px;  width: 150px; height: 167px; margin: 5px 10px 20px 5px;
   background-image: url('../images/logo_sm.png');   background-size: cover;  background-position: center;
 }
 .logo::after {
+  position:fixed;
+  top:0px; right:20px;
+  z-index:1002;
+  
   content:"";
-  position:absolute; right:20px;
+  
   float: right;  padding:5px;  height: 60px; width: 90px; margin: 5px 10px 20px 5px;
   background-image: url('../images/yoda_sm.gif');   background-size: cover;  background-position: center;
 

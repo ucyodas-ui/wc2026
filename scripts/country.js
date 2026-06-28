@@ -110,14 +110,14 @@ const COUNTRY = new class {
 //      console.log("Do flags", c.id)
       const src = this.#data[c.id].img.src
       const objs = document.getElementsByClassName('flag_'+c.id)
-      for(const obj of objs)
-      {
+      const objs_array = Array.from(objs); 
+      objs_array.forEach(obj => {
         const img = document.createElement('img')
         img.className="flag"
         img.src = src
         obj.prepend(img)
         obj.classList.remove('flag_'+c.id)
-      }
+      })
     })
   }
 

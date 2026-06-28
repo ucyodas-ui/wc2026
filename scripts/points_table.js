@@ -63,6 +63,7 @@ class points_table
     r.gd=0
     r.pts=0
     r.h2h=""
+    r.cs=0
 //    console.log("start result",r)
     return r
   }
@@ -111,6 +112,9 @@ class points_table
       t2.gd = t2.gf - t2.ga
       t1.pld++
       t2.pld++
+      
+      if (result.score[0] == 0) t2.cs++
+      if (result.score[1] == 0) t1.cs++
       
       if (result.score[0] > result.score[1])
       {
@@ -237,6 +241,7 @@ class points_table
       team.ga      = t.ga    
       team.gf      = t.gf    
       team.gd      = t.gd    
+      team.cs      = t.cs
       team.pts     = t.pts   
     })
     
