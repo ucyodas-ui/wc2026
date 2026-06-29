@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><script src='scripts/uc.js'></script>
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/groups.js'></script>
+<script src='scripts/rankings.js'></script>
+<script src='scripts/matches.js'></script>
+<script src='scripts/sortable_list.js'></script>
+<script src='scripts/scores.js'></script>
+<script src='scripts/points_table.js'></script>
+<script src="scripts/entries.js"></script>
+<script src='scripts/group_stage.js'></script>
+<script src="scripts/entry_points.js"></script>
+
+
+<link rel="stylesheet" href="scripts/sortable_list.css">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+img{  box-shadow: 2px 2px 4px #555;}
+
+.flag{
+  height:15px;
+  padding=2px;
+  margin-right:5px;
+  margin-left:5px;
+  border:1px solid #888;
+  box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+}
+
+#result {
+  font-size:12px;
+  img{  box-shadow: 2px 2px 4px #555;}
+  table { border-collapse: collapse; margin: 5px; min-width:770px;}
+  tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
+  tbody tr:nth-child(even) { background-color: #ffffff; }
+  thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
+  td { padding:5px; color:black; min-width:20px;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; } 
+}
+.mi { padding-top:50px;}
+
+</style>
+
+<script>
+
+function place(yes){ return yes ? "<span style='color:blue;' >&#10003;</span>" : ""; }
+function qual( yes){ return yes ? "<span style='color:green;'>&#10004;</span>" : ""; }
+function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  : ""; }
+
+
+function do_league_table(no, name, pts,gids)
+{
+  var html = []
+  var n = name
+  if (n == "donuts") n = n + " (A.K.A. the police football donation league)"
+
+  html.push(`<p id='mini_${no}' class='mi'><p><h3 >Mini league #${no}: ${n}</h3>`)
+  html.push("<p><table class=results><tr><th>#<th>Entry Name")
+  gids.forEach(gid => html.push("<th>"+gid))
+  
+  html.push("<th>3rd bonus")
+  html.push("<th>Total")
+  
+  let index = 0;
+  pts.forEach(pt => {
+//    console.log(pt)
+    if(pt.entry.league.includes(name))
+    {
+      index++
+      html.push(`<tr><td>${index}<td>${pt.entry.name}`)
+      pt.groups.forEach(grp => html.push("<td>"+grp.potential))
+      html.push(`<td>${pt.third_bonus.points}</span>`)
+      html.push(`<td>${pt.total}</span>`)
+    }
+  });
+  if (index==0) html.push("<tr><td colspan=4>No entries yet")
+  
+  html.push("</table>")
+  return html.join("")
+}
+
+function do_top3_table(league_names,pts)
+{
+  let html = []
+  html.push("<h2>Mini-league summary, at group stage</h2>")
+  html.push("<table>")
+  html.push("<tr><th>#<th>League Name<th colspan=2>1st place<th colspan=2>2nd place<th colspan=2>3rd place")
+
+  Object.keys(league_names).forEach((name, index) => {
+    html.push(`<tr><th>${index+1}<th><a href='#mini_${index+1}'>${name}</a>`)
+    
+    let count = 0;
+    for(let i=0;i<pts.length;i++)
+    {
+      pt = pts[i]
+//    console.log(pt)
+      if(pt.entry.league.includes(name))
+      {
+        count++
+        html.push(`<td>${pt.entry.name}<td>${pt.total}`)
+        if(count>=3) break;
+      }
+    }
+    while(count<3)
+    {
+      count++;
+      html.push(`<td>---<td>---`)
+    }
+  })
+  
+  
+  
+  html.push("</table>")
+  
+  
+  return html.join("")
+}
+
+function do_mini_leagues(pts,gids)
+{
+  var result = []
+
+  // Find leagues:
+  
+  var league_names = { Yodas:1, UCAFC:1, kids:1, donuts:1}
+  entries.forEach(entry => {
+    entry.league.forEach(name => {
+      league_names[name]=1
+    })
+  });
+
+  var result = []
+  
+  result.push(do_top3_table(league_names,pts))
+  
+  
+  // Get a table for each one
+  Object.keys(league_names).forEach((name, index) => {
+    result.push(do_league_table(index+1, name, pts,gids))
+  })
+  
+  document.getElementById("result").innerHTML = result.join("")
+}
+
+
+
+
+
+  window.addEventListener('load', function() {
+    console.log("LOAD")
+    load_country_data(COUNTRY)
+    COUNTRY.setup_keys()
+
+    add_groups(COUNTRY)
+    add_rankings(COUNTRY)
+    add_flags(COUNTRY)
+
+    const gs = new group_stage(COUNTRY)
+    
+    const ep = new entry_points(entries, gs)
+    
+    // Display based on potential points
+    const pts = ep.potential_points()
+    
+    console.log("pts",pts)
+    
+    do_mini_leagues(pts, gs.grp_ids)
+    
+  
+//    let html =[]
+//    html.push("<table>")
+//    html.push("<tr style='position:sticky; top:65px'><th rowspan=2>Position<th rowspan=2>Entry")
+//    gs.grp_ids.forEach(group_id => {  html.push("<th colspan=4>Group "+group_id); })
+//    html.push("<th colspan=3>Third place Bonus<th colspan=2>Points")
+//
+//    const order = ["1st","2nd","3rd","4th"]
+//
+//    html.push("<tr style='position:sticky; top:82px'>")
+//    gs.grp_ids.forEach(group_id => {
+//      let ranked = gs.get_ranked_teams(group_id)
+//      ranked.forEach((team,index) => { html.push(`<th>${order[index]}<br><span class='flag_${team.abr}'><span><br>${team.abr}<br>&nbsp;${qual(gs.has_qualified(team.abr))}`)})
+//    })
+//    html.push("<th>picked<br>(&lt;=12)<th>qual<br>(&lt;=8)<th>Points<th>Potential<th>Confirmed")
+//    
+//    
+//  
+//    pts.forEach((entry, i) => {
+////      if(i<5)
+//      {
+//        let total = 0  // keep track just to make sure it all adds up
+//        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name)
+//        entry.groups.forEach(gpts => {
+////          console.log(entry.entry.name, gpts)
+//          let ranked = gs.get_ranked_teams(gpts.grp)
+//          ranked.forEach((team,index) => {
+//            const abr = team.abr
+//            const predicted = entry.entry.groups[gpts.grp].indexOf(abr)
+////            console.log("team",index,team, predicted)
+//            html.push("<td>"+order[predicted])
+//            var h = bonus(index==0 && gpts.all) + place(gpts.position[abr]) + qual(gpts.qualify[abr])
+//            if (h == "") h="&nbsp;"
+//            total += (index==0 && gpts.all) ? 1:0
+//            total += gpts.position[abr] ? 1 : 0
+//            total += gpts.qualify[abr] ? 1 : 0
+//            html.push("<br>"+h)
+//          })
+//          
+//        })
+//        
+//      html.push(`<td>${entry.third_bonus.picked}`)
+//      html.push(`<td>${entry.third_bonus.qual}`)
+//      html.push(`<td>${entry.third_bonus.points}`)
+//
+//        
+//        html.push(`<td>${entry.potential}<td>(${entry.total})`) // ${total})`)
+//      }
+//    })
+//    
+//    document.getElementById("result").innerHTML = html.join("")
+//    
+//    html.push("</table>")
+    
+    COUNTRY.update_class_flags()
+  })
+</script>  
+
+</head>
+<body><script>add_title("Group Stage Mini-leagues")</script>
+<div class=page>
+<div class=info></div>
+The following tables shows the potential points for each mini-league, based on the current group standings.  Until all games are completed, these points will not be confirmed.
+<p>
+<p>
+<div id=result></div>
+
+
+</div>
+</body>
+</html>
+
