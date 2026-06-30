@@ -97,6 +97,8 @@ class group_stage
   
   add_score( match_no, result, cards)
   {
+    if (!this.#matches.hasOwnProperty(match_no)) return;
+      
     let full = get_full(result)
 //    console.log("add_score", match_no, result, cards, full)
     if (full.ok)

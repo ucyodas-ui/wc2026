@@ -18,6 +18,22 @@ function get_result(result,id)
   return r
 }
 
+function find_winner(result)
+{
+  function compare(score)
+  {
+    if (score.length<2 || score[0] == score[1]) return 0
+    return (score[0] > score[1]) ? 1 : 2
+  }
+  console.log(result)
+
+  let winner = compare(result.f)    // was there a winner at full time
+  if (winner==0) winner = compare(result.e) // else is there a winner at extra time
+  if (winner==0) winner = compare(result.p) // else is there a winner after penalties
+  return winner;
+}
+
+
 function get_full(      result) { return get_result(result,"f");  }
 function get_extra(     result) { return get_result(result,"e");  }
 function get_penalties( result) { return get_result(result,"p");  }
@@ -25,6 +41,21 @@ function get_y(          cards) { return get_result(cards, "y");  }
 function get_yy(         cards) { return get_result(cards, "yy"); }
 function get_r(          cards) { return get_result(cards, "r");  }
 function get_yr(         cards) { return get_result(cards, "yr"); }
+
+function get_score_txt(       result) {
+  // Was there a result at full time?
+  if (result.f.length<2) return ["",""]
+  if(result.f[0] != result.f[1])  return result.f
+
+  // Was there a result at extra time?
+  if (result.e.length<2) return result.f      // Shouldn't get here as that is a draw????
+  if(result.e[0] != result.e[1])  return result.e
+
+  // went to penalties
+  if (result.p.length<2) return result.e      // Shouldn't get here as that is a draw????
+  return [ `${result.e[0]} (${result.p[0]})`, 
+           `${result.e[1]} (${result.p[1]})`]
+}
 
 
 function add_scores(draw)
@@ -102,10 +133,11 @@ function add_scores(draw)
   draw.add_score( 46, {f:[0,1],e:[   ],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Group L"              "Panama", "Croatia"       );
   draw.add_score( 67, {f:[0,2],e:[   ],p:[   ]},{y:[2,1],yy:[   ],r:[   ],yr:[   ]}) // "Group L"              "Panama", "England"       );
   draw.add_score( 68, {f:[2,1],e:[   ],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Group L"             "Croatia", "Ghana"         );
-  draw.add_score( 73, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2A", "2B"            );
-  draw.add_score( 76, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1C", "2F"            );
-  draw.add_score( 74, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1E", "3 A/B/C/D/F"   );
-  draw.add_score( 75, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1F", "2C"            );
+
+  draw.add_score( 73, {f:[0,1],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2A", "2B"            );
+  draw.add_score( 76, {f:[2,1],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1C", "2F"            );
+  draw.add_score( 74, {f:[1,1],e:[1,1],p:[3,4]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1E", "3 A/B/C/D/F"   );
+  draw.add_score( 75, {f:[1,1],e:[1,1],p:[2,3]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1F", "2C"            );
   draw.add_score( 78, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2E", "2I"            );
   draw.add_score( 77, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1I", "3 C/D/F/G/H"   );
   draw.add_score( 79, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1A", "3 C/E/F/H/I"   );

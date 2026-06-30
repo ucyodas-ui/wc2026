@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head><script src='scripts/uc.js'></script>
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/groups.js'></script>
+<script src='scripts/rankings.js'></script>
+<script src='scripts/matches.js'></script>
+<script src='scripts/sortable_list.js'></script>
+<script src='scripts/scores.js'></script>
+<script src='scripts/points_table.js'></script>
+<script src='scripts/group_stage.js'></script>
+<script src='scripts/draw.js'></script>
+<script src='scripts/third_place.js'></script>
+<script src='scripts/knockout_stage.js'></script>
+
+
+<link rel="stylesheet" href="scripts/sortable_list.css">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+img{  box-shadow: 2px 2px 4px #555;}
+
+.flag{
+  height:15px;
+  padding=2px;
+  margin-right:5px;
+  margin-left:5px;
+  border:1px solid #888;
+  box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+}
+
+#result {
+  font-size:12px;
+  margin-left:180px;
+  img{  box-shadow: 2px 2px 4px #555;}
+  td { padding:5px; color:black; min-width:20px;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; } 
+  h2 { background-color: #121; padding:5px; position:sticky; top: 66px; line-height:20px; z-index:100;}
+}
+
+  .bracket {
+    td { vertical-align: middle;  }
+    background-color: white;
+  }
+
+  .ko {
+    border:1px solid black;
+    min-width:300px;
+    border-radius:2px;
+    box-shadow: 2px 2px 2px 2px #ccc;
+  }
+  .ko_click:hover { cursor: pointer; background-color:#f8f1de;}
+  .ko_selected { font-weight: bolder; }
+  
+  .ko_flag img { height:16px; }
+  .ko_title { padding-left:10px; font-size:14px; background-color:#f8f8f8; margin-top:2px; font-weight:bolder;}
+  .ko_id    { min-width:30px; font-size:12px; color:#555;}
+  .ko_name  { min-width:150px; font-size:14px; }
+  .ko_abr   { font-size:12px; }
+  .ko_score { font-size:16px; font-weight:bolder;}
+  
+  td.KO_QF, td.KO_SF, td.KO_F {
+    border-left:3px solid black;
+  }
+  .winner { font-weight:bold; font-size: 1.05rem;}
+  .loser  { font-style: italic; }
+  .loser::after { content: '\2715'; margin-left: 6px;   color: #ff0000; }
+
+</style>
+
+<script>
+function get_local_time(data) {
+  // 1. Clean the time string (remove periods and uppercase)
+  const cleanTime = data.time.replace(/\./g, '').toUpperCase();
+
+  // 2. Build the UTC offset string (e.g., -4 becomes "-04:00")
+  const absOffset = Math.abs(data.utc).toString().padStart(2, '0');
+  const sign = data.utc >= 0 ? '+' : '-';
+  const offsetString = `GMT${sign}${absOffset}:00`;
+
+  // 3. Create the native Date object in local system time
+  const localDate = new Date(`${data.date} ${cleanTime} ${offsetString}`);
+
+  // 4. Helper function for ordinal suffixes (1st, 2nd, 3rd, 4th...)
+  const getDaySuffix = (day) => {
+    if (day >= 11 && day <= 13) return 'th';
+    switch (day % 10) {
+      case 1:  return 'st';
+      case 2:  return 'nd';
+      case 3:  return 'rd';
+      default: return 'th';
+    }
+  };
+
+  // 5. Extract date components
+  const weekday = localDate.toLocaleDateString('en-US', { weekday: 'short' });
+  const month = localDate.toLocaleDateString('en-US', { month: 'long' });
+  const dayNum = localDate.getDate();
+  const dayWithSuffix = `${dayNum}${getDaySuffix(dayNum)}`;
+
+  // 6. Extract and format 12-hour time components
+  let hours = localDate.getHours();
+  const minutes = localDate.getMinutes().toString().padStart(2, '0');
+  const ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12 || 12;
+
+  // 7. Return the final formatted text string
+  return `${weekday} ${month} ${dayWithSuffix}, ${hours}:${minutes}${ampm}`;
+}
+
+
+  function add_ko_html(match_list, match_id, title)
+  {
+    let no_img = COUNTRY.get_image("???")
+    
+    match_list.forEach((match_no, index) =>
+    {
+      let html_id = "KO_"+match_id+"_"+(index+1)
+      let td = document.getElementById(html_id)
+      let match = DRAW.get_match(match_no)
+      
+      console.log("match", match_no, html_id, td, match)
+
+      function ko_id(txt)
+      {
+        return txt
+      }
+
+      
+      let html = []
+      let title2=`Match ${match_no}: ${get_local_time(match)}`
+      if (title)
+      {
+        title2 += "<br>"+title
+        if (match_list.length > 1) title2+= " "+(index+1)
+      }
+      html.push("<div class='ko_title'>"+title2+"</div>")
+      html.push("<table class='ko'>")
+
+      html.push("<tr>")
+      html.push("<td class='ko_flag'><img src='"+no_img.src+"' id='"+html_id+"_flag1'>")
+      html.push("<td class='ko_id'   id='"+html_id+"_id1'>"+ko_id(match.team_name1))
+      html.push("<td class='ko_name' id='"+html_id+"_name1'>???")
+      html.push("<td class='ko_abr'  id='"+html_id+"_abr1'>")
+      html.push("<td class='ko_score' id='"+html_id+"_score1'>")
+
+      html.push("<tr>")
+      html.push("<td class='ko_flag' ><img src='"+no_img.src+"' id='"+html_id+"_flag2'>")
+      html.push("<td class='ko_id'   id='"+html_id+"_id2'>"+ko_id(match.team_name2))
+      html.push("<td class='ko_name' id='"+html_id+"_name2'>???")
+      html.push("<td class='ko_abr'  id='"+html_id+"_abr2'>")
+      html.push("<td class='ko_score' id='"+html_id+"_score2'>")
+      
+      html.push("</table>")
+      
+      td.innerHTML = html.join("")
+    })
+  }  
+  
+
+
+
+  function display_brackets(knockouts)
+  {
+    add_ko_html(knockouts.R32, "R32")
+    add_ko_html(knockouts.R16, "R16")
+    add_ko_html(knockouts.QF,  "QF", "Quarter-Final")
+    add_ko_html(knockouts.SF,  "SF", "Semi-Final")
+    add_ko_html(knockouts.F34, "F34","3rd/4th Playoff")
+    add_ko_html(knockouts.F,   "F",  "World Cup Final")
+  }
+
+  function update_brackets()
+  {
+    knockouts = DRAW.get_bracket()
+
+    update_ko_html(knockouts.R32, "R32")
+    update_ko_html(knockouts.R16, "R16")
+    update_ko_html(knockouts.QF,  "QF")
+    update_ko_html(knockouts.SF,  "SF")
+    update_ko_html(knockouts.F34, "F34")
+    update_ko_html(knockouts.F,   "F")
+  }
+
+  function update_ko_html(match_list, match_id)
+  {
+//    console.log("update_ko_html",match_list, match_id)
+    let completed = true;
+    match_list.forEach((match_no, index) =>
+    {
+      let html_id = "KO_"+match_id+"_"+(index+1)
+      
+      let team1 = RESULTS.get_knockout_team1(match_no)
+      let team2 = RESULTS.get_knockout_team2(match_no)
+      let winner = RESULTS.get_knockout_winner(match_no)
+      let score = RESULTS.get_knockout_score(match_no)
+      
+//      console.log("update_ko_html",match_list, match_id, team1, team2, winner)
+      
+      let full1 = COUNTRY.get_name(team1) || team1 || "TBD"
+      let full2 = COUNTRY.get_name(team2) || team2 || "TBD"
+      
+//      console.log("update_ko_html", team1, team2, full1, full2, winner, score)
+      
+      document.getElementById(html_id+"_name1").innerHTML = full1
+      document.getElementById(html_id+"_abr1").innerHTML = "("+team1+")"
+      document.getElementById(html_id+"_flag1").src = COUNTRY.get_img_url(team1)
+      document.getElementById(html_id+"_name2").innerHTML = full2
+      document.getElementById(html_id+"_abr2").innerHTML = "("+team2+")"
+      document.getElementById(html_id+"_flag2").src = COUNTRY.get_img_url(team2)
+  
+      if (RESULTS.has_winner(match_no))
+      {
+        let txt = get_score_txt(score)
+        console.log("WINNER", team1, team2, winner, score, txt)
+        document.getElementById(html_id+"_score1").innerHTML = txt[0]
+        document.getElementById(html_id+"_score2").innerHTML = txt[1]
+        if (winner == team1)
+        {
+          document.getElementById(html_id+"_name1").classList.add("winner")
+          document.getElementById(html_id+"_name2").classList.add("loser")
+        }
+        else
+        {
+          document.getElementById(html_id+"_name1").classList.add("loser")
+          document.getElementById(html_id+"_name2").classList.add("winner")
+        }
+      }
+ 
+//      let td = document.getElementById(html_id)
+//      console.log(match_no, RESULTS.get_knockout_winner(match_no), html_id, td)
+    })
+//    console.log("completed", completed)
+  }
+
+  let RESULTS = new knockout_results()
+
+  window.addEventListener('load', function() {
+    console.log("LOAD")
+    load_country_data(COUNTRY)
+    COUNTRY.setup_keys()
+    add_groups(COUNTRY)
+    add_rankings(COUNTRY)
+    add_flags(COUNTRY)
+
+    const gs = new group_stage(COUNTRY)
+    
+    DRAW.add_country(COUNTRY)
+    
+    
+    RESULTS.add_country(COUNTRY)
+    RESULTS.add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
+    add_matches(DRAW)
+    RESULTS.add_draw(DRAW)
+   
+    add_scores({
+      add_score: function(match_no, result, cards)
+      {
+    //    console.log("add_score", match_no, result, cards, full)
+        RESULTS.add_knockout_result(match_no, result)
+      }
+    })
+    
+//    display_all_countries()
+    
+//    display_group_stage()
+    
+//    setup_third_place()
+    
+//    RESULTS.setup_defaults()
+
+    gs.grp_ids.forEach(group_id => {
+      let ranked = gs.get_ranked_teams(group_id)
+      RESULTS.add_group_results(group_id, ranked, true)
+    })
+
+       
+    
+    var third_ranks = gs.get_third_place_ranks()
+    RESULTS.add_third_place_teams(third_ranks)
+    
+ 
+    DRAW.setup_bracket()
+    
+    knockouts = DRAW.get_bracket()
+    
+    console.log(knockouts)
+    
+    display_brackets(knockouts)
+
+    update_brackets()
+
+    COUNTRY.update_class_flags()
+  })
+</script>  
+
+</head>
+<body><script>add_title("Knockout Stage")</script>
+<div class=info></div>
+
+<div id=result>
+<table class=bracket>
+<tr><th>Round of 32<th>Round of 16<th>Quarter-Finals<th>Semi-Finals<th>Finals
+<tr><td id='KO_R32_1' class='KO_R32'><td rowspan=2 class='KO_R16' id='KO_R16_1'><td rowspan=1>                          <td rowspan=2>                           <td rowspan=3 valign=bottom; class='KO_F34' id='KO_F34_1'>
+<tr><td id='KO_R32_2' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_1'>
+<tr><td id='KO_R32_3' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_2'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_1'>
+<tr><td id='KO_R32_4' class='KO_R32'>                                           <td rowspan=2> 
+<tr><td id='KO_R32_5' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_3'>                                                                                 <td rowspan=8 class='KO_F' id='KO_F_1'>
+<tr><td id='KO_R32_6' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_2'>
+<tr><td id='KO_R32_7' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_4'>                                       <td rowspan=4>
+<tr><td id='KO_R32_8' class='KO_R32'>                                           <td rowspan=2>                          
+<tr><td id='KO_R32_9' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_5'>
+<tr><td id='KO_R32_10'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_3'>
+<tr><td id='KO_R32_11'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_6'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_2'>
+<tr><td id='KO_R32_12'class='KO_R32'>                                           <td rowspan=2>                          
+<tr><td id='KO_R32_13'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_7'>
+<tr><td id='KO_R32_14'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_4'>                            
+<tr><td id='KO_R32_15'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_8'>
+<tr><td id='KO_R32_16'class='KO_R32'>
+</table>
+</div>
+
+
+
+
+</body>
+</html>

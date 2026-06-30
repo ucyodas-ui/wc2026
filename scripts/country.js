@@ -8,6 +8,7 @@ const COUNTRY = new class {
 
   #add(id, name, img_url)
   {
+//    console.log("add img_url", id, name, img_url)
     var img = new Image();
     var info = 
     {
@@ -15,6 +16,7 @@ const COUNTRY = new class {
       name: name,
       rank: 999,
       img: img,
+      img_url: img_url,
       loaded: false,
       region: "",
       group: "",
@@ -51,6 +53,7 @@ const COUNTRY = new class {
 
   add_id(id, name)
   {
+//    console.log("add_id",id,name)
     var info = 
     {
       id:id,
@@ -121,10 +124,18 @@ const COUNTRY = new class {
     })
   }
 
+  get_img_url(team)
+  {
+//    console.log("get_img_url", team, this.#data[team])
+     if (this.#data.hasOwnProperty(team))
+       return this.#data[team].img_url
+    return this.#data["???"].img_url
+
+  }
  
   add_flag(   team, img_url)    
   { 
-//    console.log("add flag for",team)
+//    console.log("add flag image for",team, img_url)
   
     let info = this.#add_data(team, "img_url", img_url  ); 
     if (info)
@@ -134,6 +145,10 @@ const COUNTRY = new class {
       img.onload = () => {  info.loaded = true;  }   
       img.src = img_url
       img.alt = info.id
+    }
+    else
+    {
+      console.log("error loading flag",team, img_url)
     }
   }
   
@@ -155,6 +170,7 @@ const COUNTRY = new class {
     let img = new Image();
     if (this.#data.hasOwnProperty(id))
     {
+//      console.log("get_image",id, this.#data[id].img)
       img.src = this.#data[id].img.src
       img.alt = this.#data[id].id
     }
