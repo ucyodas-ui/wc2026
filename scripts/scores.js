@@ -134,14 +134,14 @@ function add_scores(draw)
   draw.add_score( 67, {f:[0,2],e:[   ],p:[   ]},{y:[2,1],yy:[   ],r:[   ],yr:[   ]}) // "Group L"              "Panama", "England"       );
   draw.add_score( 68, {f:[2,1],e:[   ],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Group L"             "Croatia", "Ghana"         );
 
-  draw.add_score( 73, {f:[0,1],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2A", "2B"            );
-  draw.add_score( 76, {f:[2,1],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1C", "2F"            );
-  draw.add_score( 74, {f:[1,1],e:[1,1],p:[3,4]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1E", "3 A/B/C/D/F"   );
-  draw.add_score( 75, {f:[1,1],e:[1,1],p:[2,3]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1F", "2C"            );
-  draw.add_score( 78, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2E", "2I"            );
-  draw.add_score( 77, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1I", "3 C/D/F/G/H"   );
-  draw.add_score( 79, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1A", "3 C/E/F/H/I"   );
-  draw.add_score( 80, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1L", "3 E/H/I/J/K"   );
+  draw.add_score( 73, {f:[0,1],e:[   ],p:[   ]},{y:[0,2],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2A", "2B"            );
+  draw.add_score( 76, {f:[2,1],e:[   ],p:[   ]},{y:[2,3],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1C", "2F"            );
+  draw.add_score( 74, {f:[1,1],e:[1,1],p:[3,4]},{y:[2,2],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1E", "3 A/B/C/D/F"   );
+  draw.add_score( 75, {f:[1,1],e:[1,1],p:[2,3]},{y:[0,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1F", "2C"            );
+  draw.add_score( 78, {f:[1,2],e:[   ],p:[   ]},{y:[0,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2E", "2I"            );
+  draw.add_score( 77, {f:[3,0],e:[   ],p:[   ]},{y:[0,0],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1I", "3 C/D/F/G/H"   );
+  draw.add_score( 79, {f:[2,0],e:[   ],p:[   ]},{y:[0,3],yy:[   ],r:[0,1],yr:[   ]}) // "Round of 32"              "1A", "3 C/E/F/H/I"   );
+  draw.add_score( 80, {f:[2,1],e:[   ],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1L", "3 E/H/I/J/K"   );
   draw.add_score( 82, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1G", "3 A/E/H/I/J"   );
   draw.add_score( 81, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1D", "3 B/E/F/I/J"   );
   draw.add_score( 84, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1H", "2J"            );

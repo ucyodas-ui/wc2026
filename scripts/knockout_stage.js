@@ -109,17 +109,19 @@ class knockout_results{
 
   #get_team(game_info)
   {
+    
     let stage = game_info[0];
-    switch(game_info[0])
+    if (stage=="W") console.log("get_team",game_info, this.get_knockout_winner(Number(game_info.substring(2))))
+    switch(stage)
     {
       case "W":  {   return this.get_knockout_winner(Number(game_info.substring(2))); }
       case "L":  {   return this.get_knockout_loser( Number(game_info.substring(2))); }
-      case "1":  {   return this.get_group_placing(game_info[1], 1); }
-      case "2":  {   return this.get_group_placing(game_info[1], 2); }
+      case "1":  {   return this.get_group_placing(game_info[1], 1).team; }
+      case "2":  {   return this.get_group_placing(game_info[1], 2).team; }
       case "3":  {   let group1 = game_info[4];  //3vs1A
                      let group3 = this.#third_place.get_3rd_place_group_vs(group1);
 //                     console.log("find 3rd for "+group1, group3);
-                     return this.get_group_placing(group3, 3);  }
+                     return this.get_group_placing(group3, 3).team;  }
       default:   { console.log("What is this:", game_info); return this.#UNKNOWN;}
     }
   }
@@ -135,8 +137,10 @@ class knockout_results{
       let team_name2 = this.#get_team(match_info.team_name2)
       item.team_ids[0] = team_name1
       item.team_ids[1] = team_name2
+      item.match_info.id1 = team_name1
+      item.match_info.id2 = team_name2
       
-//      console.log("Update results", match_no, item)
+      console.log("Update results", match_no, item)
       
     })
   }
@@ -257,12 +261,13 @@ class knockout_results{
   
   get_knockout_team1(match_no)
   {
-    return this.#ko_data[match_no].team_ids[0].team
+    console.log("get_knockout_team1",match_no,this.#ko_data[match_no].team_ids)
+    return this.#ko_data[match_no].team_ids[0]
   }
   
   get_knockout_team2(match_no)
   {
-    return this.#ko_data[match_no].team_ids[1].team
+    return this.#ko_data[match_no].team_ids[1]
   }
   
   get_knockout_score(match_no)

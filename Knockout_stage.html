@@ -198,6 +198,8 @@ function get_local_time(data) {
       
       let team1 = RESULTS.get_knockout_team1(match_no)
       let team2 = RESULTS.get_knockout_team2(match_no)
+      let abr1  = team1 ? "("+team1+")" : ""
+      let abr2  = team2 ? "("+team2+")" : ""
       let winner = RESULTS.get_knockout_winner(match_no)
       let score = RESULTS.get_knockout_score(match_no)
       
@@ -209,16 +211,16 @@ function get_local_time(data) {
 //      console.log("update_ko_html", team1, team2, full1, full2, winner, score)
       
       document.getElementById(html_id+"_name1").innerHTML = full1
-      document.getElementById(html_id+"_abr1").innerHTML = "("+team1+")"
+      document.getElementById(html_id+"_abr1").innerHTML = abr1
       document.getElementById(html_id+"_flag1").src = COUNTRY.get_img_url(team1)
       document.getElementById(html_id+"_name2").innerHTML = full2
-      document.getElementById(html_id+"_abr2").innerHTML = "("+team2+")"
+      document.getElementById(html_id+"_abr2").innerHTML = abr2
       document.getElementById(html_id+"_flag2").src = COUNTRY.get_img_url(team2)
   
       if (RESULTS.has_winner(match_no))
       {
         let txt = get_score_txt(score)
-        console.log("WINNER", team1, team2, winner, score, txt)
+//        console.log("WINNER", team1, team2, winner, score, txt)
         document.getElementById(html_id+"_score1").innerHTML = txt[0]
         document.getElementById(html_id+"_score2").innerHTML = txt[1]
         if (winner == team1)
@@ -290,7 +292,7 @@ function get_local_time(data) {
     
     knockouts = DRAW.get_bracket()
     
-    console.log(knockouts)
+    console.log("knockouts", knockouts)
     
     display_brackets(knockouts)
 
