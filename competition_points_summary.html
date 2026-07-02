@@ -4,7 +4,6 @@
 
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
-<script src="scripts/uc.js"></script>
 <script src='scripts/country.js'></script>
 <script src='scripts/country_data.js'></script>
 <script src='scripts/flags.js'></script>
@@ -16,8 +15,10 @@
 <script src='scripts/points_table.js'></script>
 <script src="scripts/entries.js"></script>
 <script src='scripts/group_stage.js'></script>
-<script src="scripts/entry_points.js"></script>
-
+<script src='scripts/entry_points.js'></script>
+<script src='scripts/draw.js'></script>
+<script src='scripts/third_place.js'></script>
+<script src='scripts/knockout_stage.js'></script>
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
@@ -51,35 +52,63 @@ img{  box-shadow: 2px 2px 4px #555;}
 <script>
 
 
+  let RESULTS = new knockout_results()
 
 
   window.addEventListener('load', function() {
     console.log("LOAD")
     load_country_data(COUNTRY)
     COUNTRY.setup_keys()
-
+    DRAW.add_country(COUNTRY)
+    
     add_groups(COUNTRY)
     add_rankings(COUNTRY)
     add_flags(COUNTRY)
-
     const gs = new group_stage(COUNTRY)
+
+    RESULTS.add_country(COUNTRY)
+    RESULTS.add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
+    add_matches(DRAW)
+    RESULTS.add_draw(DRAW)
+   
+    add_scores(RESULTS)
+
+    gs.grp_ids.forEach(group_id => {
+      let ranked = gs.get_ranked_teams(group_id)
+      RESULTS.add_group_results(group_id, ranked, true)
+    })
+
+    var third_ranks = gs.get_third_place_ranks()
+    RESULTS.add_third_place_teams(third_ranks)
+
     
-    const ep = new entry_points(entries, gs)
+ 
+    DRAW.setup_bracket()
     
-    const pts = ep.potential_points()
+    knockouts = DRAW.get_bracket()
+
+    console.log("knockouts", knockouts)
+    
+
+    const ep = new entry_points(entries, gs, RESULTS)
+
+    // Display based on potential points
+    const pts = ep.total_points()
+    
+//    console.log(pts)
     
   
     let html =[]
     html.push("<table>")
-    html.push("<tr><th>Postion<th>Entry<th>Current Points<th>(Confirmed)")
+    html.push("<tr><th>Position<th>Entry<th>Potential Points<th>Confirmed Points")
   
     pts.forEach(entry => {
         html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.potential+"<td>"+entry.total)
     })
+
+    html.push("</table>")
     
     document.getElementById("result").innerHTML = html.join("")
-    
-    html.push("</table>")
     
     COUNTRY.update_class_flags()
   })

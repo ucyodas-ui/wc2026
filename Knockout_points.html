@@ -13,11 +13,12 @@
 <script src='scripts/sortable_list.js'></script>
 <script src='scripts/scores.js'></script>
 <script src='scripts/points_table.js'></script>
+<script src="scripts/entries.js"></script>
 <script src='scripts/group_stage.js'></script>
+<script src='scripts/entry_points.js'></script>
 <script src='scripts/draw.js'></script>
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
-
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
@@ -37,40 +38,14 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 #result {
   font-size:12px;
-  margin-left:180px;
   img{  box-shadow: 2px 2px 4px #555;}
+  table { border-collapse: collapse; margin: 10px; min-width:770px;}
+  tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
+  tbody tr:nth-child(even) { background-color: #ffffff; }
+  thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
   td { padding:5px; color:black; min-width:20px;}
-  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; } 
-  h2 { background-color: #121; padding:5px; position:sticky; top: 66px; line-height:20px; z-index:100;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; position:sticky; top: 65px;} 
 }
-
-  .bracket {
-    td { vertical-align: middle;  }
-    background-color: white;
-  }
-
-  .ko {
-    border:1px solid black;
-    min-width:300px;
-    border-radius:2px;
-    box-shadow: 2px 2px 2px 2px #ccc;
-  }
-  .ko_click:hover { cursor: pointer; background-color:#f8f1de;}
-  .ko_selected { font-weight: bolder; }
-  
-  .ko_flag img { height:16px; }
-  .ko_title { padding-left:10px; font-size:14px; background-color:#f8f8f8; margin-top:2px; font-weight:bolder;}
-  .ko_id    { min-width:30px; font-size:12px; color:#555;}
-  .ko_name  { min-width:150px; font-size:14px; }
-  .ko_abr   { font-size:12px; }
-  .ko_score { font-size:16px; font-weight:bolder;}
-  
-  td.KO_QF, td.KO_SF, td.KO_F {
-    border-left:3px solid black;
-  }
-  .winner { font-weight:bold; font-size: 1.05rem;}
-  .loser  { font-style: italic; }
-  .loser::after { content: '\2715'; margin-left: 6px;   color: #ff0000; }
 
 </style>
 
@@ -247,14 +222,16 @@ function get_local_time(data) {
     console.log("LOAD")
     load_country_data(COUNTRY)
     COUNTRY.setup_keys()
+
+    DRAW.add_country(COUNTRY)
+
     add_groups(COUNTRY)
     add_rankings(COUNTRY)
     add_flags(COUNTRY)
-
+    
     const gs = new group_stage(COUNTRY)
     
-    DRAW.add_country(COUNTRY)
-    
+  
     
     RESULTS.add_country(COUNTRY)
     RESULTS.add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
@@ -262,22 +239,12 @@ function get_local_time(data) {
     RESULTS.add_draw(DRAW)
    
     add_scores(RESULTS)
-    
-//    display_all_countries()
-    
-//    display_group_stage()
-    
-//    setup_third_place()
-    
-//    RESULTS.setup_defaults()
 
     gs.grp_ids.forEach(group_id => {
       let ranked = gs.get_ranked_teams(group_id)
       RESULTS.add_group_results(group_id, ranked, true)
     })
 
-       
-    
     var third_ranks = gs.get_third_place_ranks()
     RESULTS.add_third_place_teams(third_ranks)
     
@@ -285,45 +252,54 @@ function get_local_time(data) {
     DRAW.setup_bracket()
     
     knockouts = DRAW.get_bracket()
-    
+
     console.log("knockouts", knockouts)
     
-    display_brackets(knockouts)
 
-    update_brackets()
+    const ep = new entry_points(entries, gs, RESULTS)
 
+    // Display based on potential points
+    const pts = ep.total_points()
+    
+    console.log("pts",pts)
+    
+    
+      let html =[]
+    html.push("<table>")
+    html.push("<table>")
+    html.push("<tr><th>Position<th>Entry<th>Grp Pts<th>R32 Pts<th>R16pts<th>QF Pts<th>SF Pts<th>3/4 Pts<th>Final Pts<th>Total")
+  
+    pts.forEach(entry => {
+      html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name)
+      html.push("<td>"+entry.grp_total)
+      html.push("<td>"+entry.ko_totals.R32)
+      html.push("<td>"+entry.ko_totals.R16)
+      html.push("<td>"+entry.ko_totals.QF)
+      html.push("<td>"+entry.ko_totals.SF)
+      html.push("<td>"+entry.ko_totals.F34)
+      html.push("<td>"+entry.ko_totals.F)
+      html.push("<td>"+entry.total)
+    })
+
+    html.push("</table>")
+    
+    document.getElementById("result").innerHTML = html.join("")
+    document.getElementById("result").innerHTML = html.join("")
+    
+    
     COUNTRY.update_class_flags()
   })
 </script>  
 
 </head>
-<body><script>add_title("Knockout Stage")</script>
+<body><script>add_title("Knockout Points")</script>
+<div class=page>
 <div class=info></div>
 
-<div id=result>
-<table class=bracket>
-<tr><th>Round of 32<th>Round of 16<th>Quarter-Finals<th>Semi-Finals<th>Finals
-<tr><td id='KO_R32_1' class='KO_R32'><td rowspan=2 class='KO_R16' id='KO_R16_1'><td rowspan=1>                          <td rowspan=2>                           <td rowspan=3 valign=bottom; class='KO_F34' id='KO_F34_1'>
-<tr><td id='KO_R32_2' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_1'>
-<tr><td id='KO_R32_3' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_2'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_1'>
-<tr><td id='KO_R32_4' class='KO_R32'>                                           <td rowspan=2> 
-<tr><td id='KO_R32_5' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_3'>                                                                                 <td rowspan=8 class='KO_F' id='KO_F_1'>
-<tr><td id='KO_R32_6' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_2'>
-<tr><td id='KO_R32_7' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_4'>                                       <td rowspan=4>
-<tr><td id='KO_R32_8' class='KO_R32'>                                           <td rowspan=2>                          
-<tr><td id='KO_R32_9' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_5'>
-<tr><td id='KO_R32_10'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_3'>
-<tr><td id='KO_R32_11'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_6'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_2'>
-<tr><td id='KO_R32_12'class='KO_R32'>                                           <td rowspan=2>                          
-<tr><td id='KO_R32_13'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_7'>
-<tr><td id='KO_R32_14'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_4'>                            
-<tr><td id='KO_R32_15'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_8'>
-<tr><td id='KO_R32_16'class='KO_R32'>
-</table>
+<div id=result></div>
+
+
 </div>
-
-
-
 
 </body>
 </html>

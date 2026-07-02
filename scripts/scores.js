@@ -25,7 +25,7 @@ function find_winner(result)
     if (score.length<2 || score[0] == score[1]) return 0
     return (score[0] > score[1]) ? 1 : 2
   }
-  console.log(result)
+//  console.log(result)
 
   let winner = compare(result.f)    // was there a winner at full time
   if (winner==0) winner = compare(result.e) // else is there a winner at extra time
@@ -142,8 +142,8 @@ function add_scores(draw)
   draw.add_score( 77, {f:[3,0],e:[   ],p:[   ]},{y:[0,0],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1I", "3 C/D/F/G/H"   );
   draw.add_score( 79, {f:[2,0],e:[   ],p:[   ]},{y:[0,3],yy:[   ],r:[0,1],yr:[   ]}) // "Round of 32"              "1A", "3 C/E/F/H/I"   );
   draw.add_score( 80, {f:[2,1],e:[   ],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1L", "3 E/H/I/J/K"   );
-  draw.add_score( 82, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1G", "3 A/E/H/I/J"   );
-  draw.add_score( 81, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1D", "3 B/E/F/I/J"   );
+  draw.add_score( 82, {f:[2,2],e:[3,2],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1G", "3 A/E/H/I/J"   );
+  draw.add_score( 81, {f:[2,0],e:[   ],p:[   ]},{y:[0,1],yy:[   ],r:[1,0],yr:[   ]}) // "Round of 32"              "1D", "3 B/E/F/I/J"   );
   draw.add_score( 84, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1H", "2J"            );
   draw.add_score( 83, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2K", "2L"            );
   draw.add_score( 85, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1B", "3 E/F/G/I/J"   );

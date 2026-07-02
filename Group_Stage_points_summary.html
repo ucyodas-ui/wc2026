@@ -119,10 +119,10 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
         html.push(`<td>${entry.potential}<td>(${entry.total})`) // ${total})`)
       }
     })
+    html.push("</table>")
     
     document.getElementById("result").innerHTML = html.join("")
     
-    html.push("</table>")
     
     COUNTRY.update_class_flags()
   })

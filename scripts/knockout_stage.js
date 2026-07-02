@@ -111,7 +111,7 @@ class knockout_results{
   {
     
     let stage = game_info[0];
-    if (stage=="W") console.log("get_team",game_info, this.get_knockout_winner(Number(game_info.substring(2))))
+//    if (stage=="W") console.log("get_team",game_info, this.get_knockout_winner(Number(game_info.substring(2))))
     switch(stage)
     {
       case "W":  {   return this.get_knockout_winner(Number(game_info.substring(2))); }
@@ -140,7 +140,7 @@ class knockout_results{
       item.match_info.id1 = team_name1
       item.match_info.id2 = team_name2
       
-      console.log("Update results", match_no, item)
+//      console.log("Update results", match_no, item)
       
     })
   }
@@ -215,15 +215,15 @@ class knockout_results{
     this.#update_match_results()   
   }
   
-  add_knockout_result(match_no, score)
+  add_score(match_no, score, cards)
   {
     if (! this.#ko_data.hasOwnProperty(match_no)) return; // not a knock out match
     
-    console.log("add_knockout_result",match_no, score)
+//    console.log("add_knockout_result",match_no, score)
 
     this.#ko_data[match_no].score = score
     this.#ko_data[match_no].winner = find_winner(score) 
-    console.log("add_knockout_result",match_no, this.#ko_data[match_no])    
+//    console.log("add_knockout_result",match_no, this.#ko_data[match_no])    
       
     this.#update_match_results()   
   }
@@ -261,7 +261,7 @@ class knockout_results{
   
   get_knockout_team1(match_no)
   {
-    console.log("get_knockout_team1",match_no,this.#ko_data[match_no].team_ids)
+//    console.log("get_knockout_team1",match_no,this.#ko_data[match_no].team_ids)
     return this.#ko_data[match_no].team_ids[0]
   }
   
@@ -273,6 +273,52 @@ class knockout_results{
   get_knockout_score(match_no)
   {
     return this.#ko_data[match_no].score
+  }
+  
+  get_knockout_result(match_no)
+  {
+    return {
+      team1:      this.get_knockout_team1(match_no),
+      team2:      this.get_knockout_team2(match_no),
+      winner:     this.get_knockout_winner(match_no),
+      loser:      this.get_knockout_loser(match_no),
+      completed:  this.has_winner(match_no),
+    }
+  }
+  
+  get_bracket()
+  {
+    let full_bracket = {}
+    
+    let bracket = this.#DRAW.get_bracket()
+    Object.entries(bracket).map(([key, value]) => {
+      let r = {
+        matches: [],
+        winners: [],
+        losers: [],
+        not_lost_yet: []
+      }
+      value.forEach(match_no => {
+        let mr = this.get_knockout_result(match_no)
+        r.matches.push(mr)
+        r.winners.push(mr.winner)
+        r.losers.push(mr.loser)
+        if (!mr.completed)
+        {
+          r.not_lost_yet.push(mr.team1)
+          r.not_lost_yet.push(mr.team2)
+        }
+          
+      })
+      full_bracket[key] = r
+    })
+    
+    return full_bracket
+  }
+  
+  get_winners()
+  {
+    
   }
   
 }

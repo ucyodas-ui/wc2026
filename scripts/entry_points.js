@@ -3,17 +3,38 @@ class entry_points
   #entries = []
   #entry_points = []
   #gs = {}
+  #kr = {}
   #link_to_points = {}
 
-  #calculate_entry_points(entry, index)
+  #calculate_entry_points(entry, index, ko_games)
   {
 //    console.log("Calculate entry points", entry)
     
     let points = {
       index: index,
       entry: entry,
+      grp_total: 0,
+      grp_potential: 0,
+      ko_total: 0,
+      ko_potential: 0,
       total: 0,
       potential: 0,
+      ko:{
+        R32: [],
+        R16: [],
+        QF: [],
+        SF: [],
+        F34: [],
+        F: [],
+      },
+      ko_totals:{
+        R32:  0,
+        R16:  0,
+        QF:   0,
+        SF:   0,
+        F34:  0,
+        F:    0,
+      },
       groups: []
     }
     
@@ -33,6 +54,8 @@ class entry_points
     this.#calculate_groups_points(entry, points)
     
     this.#calculate_group_3rd_place_bonus(entry, points)
+    
+    this.#calculate_knockout_points(entry, points, ko_games)
     
     this.#entry_points.push( points)
   }
@@ -103,6 +126,10 @@ class entry_points
     points.total += gp.total
     points.potential += gp.potential
 
+    points.grp_total += gp.total
+    points.grp_potential += gp.potential
+
+
 //    console.log("gp",gp)
 
 
@@ -162,13 +189,85 @@ class entry_points
   }
 
 
+  #calculate_knockout_points(entry, points, all_games)
+  {
+    if (!this.#kr) return
+    
+    this.#calculate_R32_points(entry, points, all_games)
+    this.#calculate_R16_points(entry, points, all_games)
+    this.#calculate_QF_points( entry, points, all_games)
+    this.#calculate_SF_points( entry, points, all_games)
+    this.#calculate_F34_points(entry, points, all_games)
+    this.#calculate_F_points(  entry, points, all_games)
+    
+//    console.log("points",points)
+    
+  }
+  
+  #calculate_ko_points(ko_type, entry, points, all_games, pts_for_both, pts_for_winner, pts_for_loser)
+  {
+//    console.log(entry,ko_type,all_games)
+    const predicted     = entry.knock_outs[ko_type]
+    const real_matches  = all_games[ko_type].matches
+    const real_winners  = all_games[ko_type].winners
+    const real_losers   = all_games[ko_type].losers
+    const not_lost_yet  = all_games[ko_type].not_lost_yet
 
-  constructor(entries, group_stage){
+    function game_matches(pred, real)
+    {
+//      console.log("pred", pred, "real", real)
+      if ((pred.team1 == real.team1) && (pred.team2 == real.team2))  return true
+      if ((pred.team1 == real.team2) && (pred.team2 == real.team1))  return true
+      return false
+    }
+
+    if (!Array.isArray(predicted)) predicted = [predicted]
+    
+    predicted.forEach( pmatch => {
+      let found_match = false;
+      real_matches.forEach( rmatch => {
+        found_match = found_match || game_matches(pmatch, rmatch)
+      })
+      let pts =
+      { 
+        both: found_match? pts_for_both : 0,
+        winner: real_winners.includes( pmatch.winner)? pts_for_winner : 0,
+        loser:  real_losers.includes(  pmatch.loser) ? pts_for_loser : 0,
+        pwinner: not_lost_yet.includes(pmatch.winner)? pts_for_winner : 0,
+        ploser: not_lost_yet.includes( pmatch.loser) ? pts_for_loser : 0,
+      }
+      let tpts = pts.both + pts.winner + pts.loser
+      let ppts = tpts + pts.pwinner + pts.ploser
+      points.ko[ko_type].push(pts)
+      points.ko_totals[ko_type]+=tpts
+      points.total += tpts
+      points.potential += ppts
+      points.ko_total += tpts
+      points.ko_potential += ppts
+    })
+  }
+  
+//                                                                                                             x2   W   L
+  #calculate_R32_points(entry, points, all_games) { this.#calculate_ko_points("R32", entry, points, all_games,  1,  2,  0);  }
+  #calculate_R16_points(entry, points, all_games) { this.#calculate_ko_points("R16", entry, points, all_games,  1,  3,  0);  }
+  #calculate_QF_points( entry, points, all_games) { this.#calculate_ko_points("QF",  entry, points, all_games,  2,  4,  0);  }
+  #calculate_SF_points( entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games,  4,  5,  0);  }
+  #calculate_F34_points(entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games,  5,  8,  5);  }
+  #calculate_F_points(  entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games, 10, 20, 10);  }
+
+
+
+
+  constructor(entries, group_stage, knockout_results){
     this.#entries = entries
     this.#gs = group_stage
+    this.#kr = knockout_results
+    
+    let ko_games = this.#kr ? this.#kr.get_bracket() : null
+
     
     this.#entries.forEach((entry, index) => {
-      this.#calculate_entry_points(entry, index)
+      this.#calculate_entry_points(entry, index, ko_games)
     })
     
     this.#entry_points.sort((b,a) => {
