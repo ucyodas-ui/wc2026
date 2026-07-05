@@ -1,4 +1,9 @@
-const entries =
+let entries
+function setup_entries()
+{
+  entries = [...real_entries, ...dummy_entries]
+}
+const real_entries =
 [
   {
     "name": "Matt R",

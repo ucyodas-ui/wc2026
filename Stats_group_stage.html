@@ -14,6 +14,7 @@
 <script src='scripts/scores.js'></script>
 <script src='scripts/points_table.js'></script>
 <script src="scripts/entries.js"></script>
+<script src="scripts/dummy_entries.js"></script>
 <script src='scripts/group_stage.js'></script>
 <script src="scripts/entry_points.js"></script>
 
@@ -64,7 +65,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     console.log("LOAD")
     load_country_data(COUNTRY)
     COUNTRY.setup_keys()
-
+    setup_entries()
     add_groups(COUNTRY)
     add_rankings(COUNTRY)
     add_flags(COUNTRY)

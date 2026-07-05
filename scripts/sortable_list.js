@@ -56,6 +56,11 @@ class SortableList {
     this._build();
   }
 
+  getAll()
+  {
+    return this.allItems
+  }
+
   // Return ordered array of IDs for placed items (nulls where empty)
   getOrder()
   {
@@ -100,18 +105,28 @@ class SortableList {
       return false;
     }
 
-    const country = bankIdx !== -1 ? this.bankItems[bankIdx] : this.zones[fromZone];
-
-    // Displace whatever is currently in the target zone back to the bank
-    if (this.zones[zoneIndex] !== null) {
-      this.bankItems.push(this.zones[zoneIndex]);
+    // Already exactly where it should be — nothing to do.
+    // (Without this check, the displace-then-remove steps below would
+    // push this same item into the bank before removing it from the
+    // zone, silently duplicating it.)
+    if (fromZone === zoneIndex) {
+      return true;
     }
 
-    // Remove country from wherever it currently lives
+    const country = bankIdx !== -1 ? this.bankItems[bankIdx] : this.zones[fromZone];
+
+    // Remove country from wherever it currently lives FIRST, before any
+    // displacement, so we never risk pushing the same object we're
+    // about to place.
     if (bankIdx !== -1) {
       this.bankItems.splice(bankIdx, 1);
     } else {
       this.zones[fromZone] = null;
+    }
+
+    // Displace whatever is currently in the target zone back to the bank
+    if (this.zones[zoneIndex] !== null) {
+      this.bankItems.push(this.zones[zoneIndex]);
     }
 
     // Place it

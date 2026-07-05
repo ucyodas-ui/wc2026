@@ -18,7 +18,8 @@ function country_from(ct)
       case "Chile":                      return "CHI"; 
       case "United States":              return "USA"; 
       case "Austria":                    return "AUT"; 
-      case "Romania":                    return "ROU"; 
+      case "Romania":                    return "ROU";
+      case "Paracosm":                   return "DUM";      
       default:                           return "XXX"; 
     }
 }

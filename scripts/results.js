@@ -24,7 +24,7 @@ class third_place_tracker {
     if (!this.#third_place_draw.hasOwnProperty(this.#third_place_id))
     {
       // TODO: reset all the third place knockouts
-      console.log("set_third_place_id", id, ">>", "not known")
+//      console.log("set_third_place_id", id, ">>", "not known")
       for(let i=0;i<8;i++)
       {
         let group_first = "1"+winners[i]
