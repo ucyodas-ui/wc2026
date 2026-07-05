@@ -397,6 +397,7 @@ class points_table
   //cards has format {y:0, yy:0, r:0, yr:0}
   add_result(team1,g1,team2,g2,cards1,cards2)
   {
+    console.log(team1,"vs",team2)
     let t1 = this.#find_team(team1).abr
     let t2 = this.#find_team(team2).abr
      
