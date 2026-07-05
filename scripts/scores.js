@@ -150,8 +150,8 @@ function add_scores(draw)
   draw.add_score( 88, {f:[1,1],e:[1,1],p:[2,4]},{y:[0,2],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "2D", "2G"            );
   draw.add_score( 86, {f:[1,1],e:[3,2],p:[   ]},{y:[1,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1J", "2H"            );
   draw.add_score( 87, {f:[1,0],e:[   ],p:[   ]},{y:[2,3],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1K", "3 D/E/I/J/L"   );
-  draw.add_score( 90, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 73", "W 75"          );
-  draw.add_score( 89, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 74", "W 77"          );
+  draw.add_score( 90, {f:[0,3],e:[   ],p:[   ]},{y:[4,4],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 73", "W 75"          );
+  draw.add_score( 89, {f:[0,1],e:[   ],p:[   ]},{y:[0,3],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 74", "W 77"          );
   draw.add_score( 91, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 76", "W 78"          );
   draw.add_score( 92, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 79", "W 80"          );
   draw.add_score( 93, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 83", "W 84"          );

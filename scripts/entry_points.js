@@ -273,7 +273,32 @@ class entry_points
     this.#entry_points.sort((b,a) => {
         return a.potential - b.potential
     })
+    this.#calculate_tied_potential()
+  }
+  
+  #calculate_tied_total(){
+    var pos = 0
+    this.#entry_points.forEach((entry,index) => {
+      if (index==0)
+      {
+        pos = 1
+        entry.tied = false
+      }
+      else if (entry.total == this.#entry_points[index-1].total)
+      {
+        entry.tied = true;
+        this.#entry_points[index-1].tied = true;
+      }
+      else
+      {
+        entry.tied = false
+        pos = index+1
+      }
+      entry.pos = pos
+    })
     
+  }
+  #calculate_tied_potential(){
     var pos = 0
     this.#entry_points.forEach((entry,index) => {
       if (index==0)
@@ -289,16 +314,20 @@ class entry_points
       }
       else
       {
+        entry.tied = false
         pos = index+1
       }
       entry.pos = pos
     })
-    
-    
   }
   
   total_points() {
-    return [...this.#entry_points]
+    let tot = [...this.#entry_points]
+    tot.sort((b,a) => {
+      return a.total - b.total
+    })
+    this.#calculate_tied_total()
+    return tot
   }
   
   potential_points() {
@@ -306,6 +335,7 @@ class entry_points
     pot.sort((b,a) => {
       return a.potential - b.potential
     })
+    this.#calculate_tied_potential()
 //    console.log("sort", pot)
     return pot
   }

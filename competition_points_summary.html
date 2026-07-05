@@ -103,10 +103,10 @@ img{  box-shadow: 2px 2px 4px #555;}
   
     let html =[]
     html.push("<table>")
-    html.push("<tr><th>Position<th>Entry<th>Potential Points<th>Confirmed Points")
+    html.push("<tr><th>Position<th>Entry<th>Confirmed Points<th>Potential Points")
   
     pts.forEach(entry => {
-        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.potential+"<td>"+entry.total)
+        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.total+"<td>("+entry.potential+")")
     })
 
     html.push("</table>")
