@@ -50,10 +50,10 @@ img{  box-shadow: 2px 2px 4px #555;}
   }
 
   .ko {
-    border:1px solid black;
+    border:1px solid #bbb;
     min-width:300px;
-    border-radius:2px;
-    box-shadow: 2px 2px 2px 2px #ccc;
+    border-radius:9px;
+    box-shadow: 2px 2px 2px 2px #ddd;
   }
   .ko_click:hover { cursor: pointer; background-color:#f8f1de;}
   .ko_selected { font-weight: bolder; }
@@ -64,13 +64,31 @@ img{  box-shadow: 2px 2px 4px #555;}
   .ko_name  { min-width:150px; font-size:14px; }
   .ko_abr   { font-size:12px; }
   .ko_score { font-size:16px; font-weight:bolder;}
+  .ko_ft    { display:inline-block; background-color:#ddd; border-radius:10px; float: right; min-width:20px; text-align:center; padding-left:5px; padding-right:5px;}
   
   td.KO_QF, td.KO_SF, td.KO_F {
     border-left:3px solid black;
+    postion:relative;
   }
   .winner { font-weight:bold; font-size: 1.05rem;}
   .loser  { font-style: italic; }
   .loser::after { content: '\2715'; margin-left: 6px;   color: #ff0000; }
+
+  td.r32_line { padding:0px !important; min-width:0px !important;}
+  .r32_line { position:relative;  
+    div{
+      display:inline-block;
+      position:relative;
+      height:100px;
+      border: 3px solid black;
+      border-left:0px;
+      top:10px; bottom:5px;
+      width:5px;
+      padding:0px;
+      margin:2px;
+    }
+  }
+  
 
 </style>
 
@@ -140,7 +158,7 @@ function get_local_time(data) {
         title2 += "<br>"+title
         if (match_list.length > 1) title2+= " "+(index+1)
       }
-      html.push("<div class='ko_title'>"+title2+"</div>")
+      html.push("<div class='ko_title'>"+title2+" <span class='ko_ft' id='"+html_id+"_ft'></span></div>")
       html.push("<table class='ko'>")
 
       html.push("<tr>")
@@ -223,6 +241,8 @@ function get_local_time(data) {
 //        console.log("WINNER", team1, team2, winner, score, txt)
         document.getElementById(html_id+"_score1").innerHTML = txt[0]
         document.getElementById(html_id+"_score2").innerHTML = txt[1]
+        document.getElementById(html_id+"_ft").innerHTML = txt[2];
+
         if (winner == team1)
         {
           document.getElementById(html_id+"_name1").classList.add("winner")
@@ -302,22 +322,22 @@ function get_local_time(data) {
 
 <div id=result>
 <table class=bracket>
-<tr><th>Round of 32<th>Round of 16<th>Quarter-Finals<th>Semi-Finals<th>Finals
-<tr><td id='KO_R32_1' class='KO_R32'><td rowspan=2 class='KO_R16' id='KO_R16_1'><td rowspan=1>                          <td rowspan=2>                           <td rowspan=3 valign=bottom; class='KO_F34' id='KO_F34_1'>
-<tr><td id='KO_R32_2' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_1'>
-<tr><td id='KO_R32_3' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_2'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_1'>
-<tr><td id='KO_R32_4' class='KO_R32'>                                           <td rowspan=2> 
-<tr><td id='KO_R32_5' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_3'>                                                                                 <td rowspan=8 class='KO_F' id='KO_F_1'>
-<tr><td id='KO_R32_6' class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_2'>
-<tr><td id='KO_R32_7' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_4'>                                       <td rowspan=4>
-<tr><td id='KO_R32_8' class='KO_R32'>                                           <td rowspan=2>                          
-<tr><td id='KO_R32_9' class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_5'>
-<tr><td id='KO_R32_10'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_3'>
-<tr><td id='KO_R32_11'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_6'>                                       <td rowspan=4 class='KO_SF' id='KO_SF_2'>
-<tr><td id='KO_R32_12'class='KO_R32'>                                           <td rowspan=2>                          
-<tr><td id='KO_R32_13'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_7'>
-<tr><td id='KO_R32_14'class='KO_R32'>                                           <td rowspan=2 class='KO_QF' id='KO_QF_4'>                            
-<tr><td id='KO_R32_15'class='KO_R32'><td rowspan=2 class='KO_R16'  id='KO_R16_8'>
+<tr><th colspan=2>Round of 32<th>Round of 16<th>Quarter-Finals<th>Semi-Finals<th>Finals
+<tr><td id='KO_R32_1' class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16' id='KO_R16_1'>  <td rowspan=1>                            <td rowspan=2>                           <td rowspan=3 valign=bottom; class='KO_F34' id='KO_F34_1'>
+<tr><td id='KO_R32_2' class='KO_R32'>                                                                                     <td rowspan=2 class='KO_QF' id='KO_QF_1'>
+<tr><td id='KO_R32_3' class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_2'>                                           <td rowspan=4 class='KO_SF' id='KO_SF_1'>
+<tr><td id='KO_R32_4' class='KO_R32'>                                                                                     <td rowspan=2> 
+<tr><td id='KO_R32_5' class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_3'>                                                                                 <td rowspan=8 class='KO_F' id='KO_F_1'>
+<tr><td id='KO_R32_6' class='KO_R32'>                                                                                     <td rowspan=2 class='KO_QF' id='KO_QF_2'>
+<tr><td id='KO_R32_7' class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_4'>                                           <td rowspan=4>
+<tr><td id='KO_R32_8' class='KO_R32'>                                                                                     <td rowspan=2>                          
+<tr><td id='KO_R32_9' class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_5'>
+<tr><td id='KO_R32_10'class='KO_R32'>                                                                                     <td rowspan=2 class='KO_QF' id='KO_QF_3'>
+<tr><td id='KO_R32_11'class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_6'>                                           <td rowspan=4 class='KO_SF' id='KO_SF_2'>
+<tr><td id='KO_R32_12'class='KO_R32'>                                                                                     <td rowspan=2>                          
+<tr><td id='KO_R32_13'class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_7'>
+<tr><td id='KO_R32_14'class='KO_R32'>                                                                                     <td rowspan=2 class='KO_QF' id='KO_QF_4'>                            
+<tr><td id='KO_R32_15'class='KO_R32'><td rowspan=2 class=r32_line><div></div><td rowspan=2 class='KO_R16'  id='KO_R16_8'>
 <tr><td id='KO_R32_16'class='KO_R32'>
 </table>
 </div>

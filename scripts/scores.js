@@ -44,17 +44,17 @@ function get_yr(         cards) { return get_result(cards, "yr"); }
 
 function get_score_txt(       result) {
   // Was there a result at full time?
-  if (result.f.length<2) return ["",""]
-  if(result.f[0] != result.f[1])  return result.f
+  if (result.f.length<2) return ["","","TBD"]
+  if(result.f[0] != result.f[1])  return [...result.f, "FT"]
 
   // Was there a result at extra time?
   if (result.e.length<2) return result.f      // Shouldn't get here as that is a draw????
-  if(result.e[0] != result.e[1])  return result.e
+  if(result.e[0] != result.e[1])  return [...result.e, "ET"]
 
   // went to penalties
   if (result.p.length<2) return result.e      // Shouldn't get here as that is a draw????
   return [ `${result.e[0]} (${result.p[0]})`, 
-           `${result.e[1]} (${result.p[1]})`]
+           `${result.e[1]} (${result.p[1]})`, "P"]
 }
 
 
@@ -152,10 +152,10 @@ function add_scores(draw)
   draw.add_score( 87, {f:[1,0],e:[   ],p:[   ]},{y:[2,3],yy:[   ],r:[   ],yr:[   ]}) // "Round of 32"              "1K", "3 D/E/I/J/L"   );
   draw.add_score( 90, {f:[0,3],e:[   ],p:[   ]},{y:[4,4],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 73", "W 75"          );
   draw.add_score( 89, {f:[0,1],e:[   ],p:[   ]},{y:[0,3],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 74", "W 77"          );
-  draw.add_score( 91, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 76", "W 78"          );
-  draw.add_score( 92, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 79", "W 80"          );
-  draw.add_score( 93, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 83", "W 84"          );
-  draw.add_score( 94, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 81", "W 82"          );
+  draw.add_score( 91, {f:[1,2],e:[   ],p:[   ]},{y:[1,0],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 76", "W 78"          );
+  draw.add_score( 92, {f:[2,3],e:[   ],p:[   ]},{y:[2,4],yy:[   ],r:[0,1],yr:[   ]}) // "Round of 16"            "W 79", "W 80"          );
+  draw.add_score( 93, {f:[0,1],e:[   ],p:[   ]},{y:[2,1],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 83", "W 84"          );
+  draw.add_score( 94, {f:[1,4],e:[   ],p:[   ]},{y:[2,0],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 81", "W 82"          );
   draw.add_score( 95, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 86", "W 88"          );
   draw.add_score( 96, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 85", "W 87"          );
   draw.add_score( 97, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 89", "W 90"          );

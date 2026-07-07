@@ -56,6 +56,18 @@ img{  box-shadow: 2px 2px 4px #555;}
   h2 { background-color: #121; padding:5px; position:sticky; top: 66px; line-height:20px; z-index:100;}
 }
 
+.tick::before {
+  content: "\2714"; /* Heavy Check Mark */
+  color: green;
+  font-size: 14px;
+}
+
+.cross::before {
+  content: "\2718"; /* Heavy Ballot X */
+  color: red;
+  font-size: 14px;
+}
+
 </style>
 
 <script>
@@ -63,6 +75,7 @@ img{  box-shadow: 2px 2px 4px #555;}
 function place(yes){ return yes ? "<span style='color:blue;' >&#10003;</span>" : ""; }
 function qual( yes){ return yes ? "<span style='color:green;'>&#10004;</span>" : ""; }
 function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  : ""; }
+function tick(yes) { return yes ? "<span class='tick'></span>" : "<span class='cross'></span>" }
 
   let RESULTS = new knockout_results()
 
@@ -102,7 +115,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     
     
     
-    const stats = new match_stats(COUNTRY, RESULTS)
+    const stats = new match_stats(COUNTRY, RESULTS, gs)
     
     const combined_table = stats.get_table()
     
@@ -163,16 +176,18 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     sort_and_rank(combined_table, sorter);
     
     var html = []
-    html.push("<table><tr><th rowspan=2>Pos<th rowspan=2>Qual<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th rowspan=2>World<br>Rank")
+    html.push("<table><tr><th rowspan=2>Pos<th rowspan=2>Qual<br>Grp<th rowspan=2>Still<br>Alive<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th rowspan=2>World<br>Rank")
     html.push("<tr><th>Y<th>YY&gt;R<th>R<th>YR<th>pts")
+    
     
     combined_table.forEach(team => {
       let qs = gs.get_qualified_status(team.abr)
-      let q = (qs.qualified?"yes":"no")+(qs.confirmed?"":"**")
+      let q = tick(qs.qualified)+(qs.confirmed?"":"**")
 
       html.push("<tr>")
       html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
       html.push("<td>"+q)
+      html.push("<td>"+tick(team.alive)+team.stage)
       html.push("<td class='flag_"+team.abr+"'>")
       html.push("<td>"+team.full)
       html.push("<td>("+team.abr+")")
@@ -196,6 +211,14 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     document.getElementById("stats_table").innerHTML = html.join("")
     
   }
+  
+  function div(v,gms)
+  {
+    if (gms==0) return "0.0"
+    var p = (v/gms)
+    return p.toFixed(1)
+    
+  }
 
   function display_fair_play(gs,combined_table)
   {
@@ -203,7 +226,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     sort_and_rank(combined_table, sorter);
     
     var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Y<th>YY&gt;R<th>R<th>YR<th>pts")
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Y<th>YY&gt;R<th>R<th>YR<th>pts<th>pts/game")
     
     combined_table.forEach(team => {
       html.push("<tr>")
@@ -217,6 +240,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
       html.push("<td>"+team.cards.r)
       html.push("<td>"+team.cards.yr)
       html.push("<td>"+team.cards.pts)
+      html.push("<td>"+div(team.cards.pts,team.pld))
 //      html.push("<td>"+team.sort_value)
     })
     html.push("</table>")
@@ -229,7 +253,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     sort_and_rank(combined_table, sorter);
     
     var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals scored")
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals scored<th>Goals / game")
     
     combined_table.forEach(team => {
       html.push("<tr>")
@@ -239,6 +263,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
       html.push("<td>("+team.abr+")")
       html.push("<td>"+team.pld)
       html.push("<td>"+team.gf)
+      html.push("<td>"+div(team.gf, team.pld))
     })
     html.push("</table>")
     document.getElementById("stats_gf").innerHTML = html.join("")
@@ -250,7 +275,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     sort_and_rank(combined_table, sorter);
     
     var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals let in")
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals let in<th> per game")
     
     combined_table.forEach(team => {
       html.push("<tr>")
@@ -260,6 +285,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
       html.push("<td>("+team.abr+")")
       html.push("<td>"+team.pld)
       html.push("<td>"+team.ga)
+      html.push("<td>"+div(team.ga, team.pld))
     })
     html.push("</table>")
     document.getElementById("stats_ga").innerHTML = html.join("")
@@ -270,7 +296,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
     sort_and_rank(combined_table, sorter);
     
     var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Clean Sheets")
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Clean Sheets<th>per game")
     
     combined_table.forEach(team => {
       html.push("<tr>")
@@ -280,6 +306,7 @@ function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  :
       html.push("<td>("+team.abr+")")
       html.push("<td>"+team.pld)
       html.push("<td>"+team.cs)
+      html.push("<td>"+div(team.cs,team.pld))
     })
     html.push("</table>")
     document.getElementById("stats_cs").innerHTML = html.join("")

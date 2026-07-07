@@ -269,25 +269,23 @@ class entry_points
     this.#entries.forEach((entry, index) => {
       this.#calculate_entry_points(entry, index, ko_games)
     })
-    
-    this.#entry_points.sort((b,a) => {
-        return a.potential - b.potential
-    })
-    this.#calculate_tied_potential()
+    this.#calculate_pos(this.#entry_points,"potential")
   }
-  
-  #calculate_tied_total(){
+
+  #calculate_pos(tot, value_id){
+    tot.sort((b,a) => { return a[value_id] - b[value_id]; })
+
     var pos = 0
-    this.#entry_points.forEach((entry,index) => {
+    tot.forEach((entry,index) => {
       if (index==0)
       {
         pos = 1
         entry.tied = false
       }
-      else if (entry.total == this.#entry_points[index-1].total)
+      else if (entry[value_id] == tot[index-1][value_id])
       {
         entry.tied = true;
-        this.#entry_points[index-1].tied = true;
+        tot[index-1].tied = true;
       }
       else
       {
@@ -298,44 +296,17 @@ class entry_points
     })
     
   }
-  #calculate_tied_potential(){
-    var pos = 0
-    this.#entry_points.forEach((entry,index) => {
-      if (index==0)
-      {
-        pos = 1
-        entry.tied = false
-      }
-      else if (entry.potential == this.#entry_points[index-1].potential)
-      {
-        entry.tied = true;
-        entry.tied = true;
-        this.#entry_points[index-1].tied = true;
-      }
-      else
-      {
-        entry.tied = false
-        pos = index+1
-      }
-      entry.pos = pos
-    })
-  }
+
   
   total_points() {
     let tot = [...this.#entry_points]
-    tot.sort((b,a) => {
-      return a.total - b.total
-    })
-    this.#calculate_tied_total()
+    this.#calculate_pos(tot, "total")
     return tot
   }
   
   potential_points() {
     let pot = [...this.#entry_points]
-    pot.sort((b,a) => {
-      return a.potential - b.potential
-    })
-    this.#calculate_tied_potential()
+    this.#calculate_pos(tot, "potential")
 //    console.log("sort", pot)
     return pot
   }

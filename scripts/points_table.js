@@ -116,13 +116,14 @@ class points_table
       if (result.score[0] == 0) t2.cs++
       if (result.score[1] == 0) t1.cs++
       
-      if (result.score[0] > result.score[1])
+      // In case it went to penalties, we use the ko score to workout winner.
+      if (result.score_ko[0] > result.score_ko[1])
       {
         t1.w++
         t2.l++
         t1.pts+=3
       }
-      else if (result.score[1] > result.score[0])
+      else if (result.score_ko[1] > result.score_ko[0])
       {
         t2.w++
         t1.l++
@@ -397,12 +398,12 @@ class points_table
   //cards has format {y:0, yy:0, r:0, yr:0}
   add_result(team1,g1,team2,g2,cards1,cards2)
   {
-    console.log(team1,"vs",team2)
+//    console.log(team1,"vs",team2)
     let t1 = this.#find_team(team1).abr
     let t2 = this.#find_team(team2).abr
      
 //    console.log("add_result","team1",t1,g1,"team2",t2,g2,"cards1",cards1,"cards2",cards2)
-    let result = {team1:t1, team2:t2, score:[g1,g2], cards:[cards1,cards2]}
+    let result = {team1:t1, team2:t2, score:[g1,g2], score_ko:[g1,g2], cards:[cards1,cards2]}
     this.#add_cards(t1, cards1)
     this.#add_cards(t2, cards2)
     this.#results.push(result)
@@ -410,6 +411,23 @@ class points_table
 
     this.#sorting = true
   }
+  add_ko_result(team1,g1,k1,team2,g2,k2,cards1,cards2)
+  {
+//    console.log(team1,"vs",team2)
+    console.log("add_ko_result",team1,g1,k1,team2,g2,k2,cards1,cards2)
+    let t1 = this.#find_team(team1).abr
+    let t2 = this.#find_team(team2).abr
+     
+    console.log("add_result","team1",t1,g1,"team2",t2,g2,"cards1",cards1,"cards2",cards2)
+    let result = {team1:t1, team2:t2, score:[g1,g2], score_ko:[k1,k2], cards:[cards1,cards2]}
+    this.#add_cards(t1, cards1)
+    this.#add_cards(t2, cards2)
+    this.#results.push(result)
+//    console.log("results", this.#results)
+
+    this.#sorting = true
+  }
+
 
   sort_table()
   {
