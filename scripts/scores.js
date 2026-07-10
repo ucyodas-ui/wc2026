@@ -158,7 +158,7 @@ function add_scores(draw)
   draw.add_score( 94, {f:[1,4],e:[   ],p:[   ]},{y:[2,0],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 81", "W 82"          );
   draw.add_score( 95, {f:[3,2],e:[   ],p:[   ]},{y:[0,4],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 86", "W 88"          );
   draw.add_score( 96, {f:[0,0],e:[0,0],p:[4,3]},{y:[3,2],yy:[   ],r:[   ],yr:[   ]}) // "Round of 16"            "W 85", "W 87"          );
-  draw.add_score( 97, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 89", "W 90"          );
+  draw.add_score( 97, {f:[2,0],e:[   ],p:[   ]},{y:[0,1],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 89", "W 90"          );
   draw.add_score( 98, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 93", "W 94"          );
   draw.add_score( 99, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 91", "W 92"          );
   draw.add_score(100, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Quarterfinals"          "W 95", "W 96"          );

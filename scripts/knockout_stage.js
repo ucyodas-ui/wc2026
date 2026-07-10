@@ -97,6 +97,12 @@ class knockout_results{
   #group_data = {}
   #group_completed = {}
   #ko_data = []
+  #stage_completed = {}
+  #STAGE = {
+    NOT_STARTED: 0,
+    RUNNING:     1,
+    COMPLETED:   2
+  }
 
   #third_place = new third_place_tracker
   
@@ -105,6 +111,29 @@ class knockout_results{
   #DRAW = {}
 
   constructor () {
+  }
+  
+  #add_stage_game_played(stage)
+  {
+    if (!this.#stage_completed.hasOwnProperty(stage)) this.#stage_completed[stage] = this.#STAGE.NOT_STARTED;
+    switch(this.#stage_completed[stage])
+    {
+      case this.#STAGE.NOT_STARTED: this.#stage_completed[stage] = this.#STAGE.COMPLETED; break;
+      case this.#STAGE.RUNNING:     this.#stage_completed[stage] = this.#STAGE.RUNNING;   break;
+      case this.#STAGE.COMPLETED:   this.#stage_completed[stage] = this.#STAGE.COMPLETED; break;
+    }
+    console.log("stage game played", stage, this.#stage_completed[stage])
+  }
+  #add_stage_game_not_played(stage)
+  {
+    if (!this.#stage_completed.hasOwnProperty(stage)) this.#stage_completed[stage] = this.#STAGE.NOT_STARTED;
+    switch(this.#stage_completed[stage])
+    {
+      case this.#STAGE.NOT_STARTED: this.#stage_completed[stage] = this.#STAGE.NOT_STARTED; break;
+      case this.#STAGE.RUNNING:     this.#stage_completed[stage] = this.#STAGE.RUNNING;     break;
+      case this.#STAGE.COMPLETED:   this.#stage_completed[stage] = this.#STAGE.RUNNING;     break;
+    }
+    console.log("stage game not played", stage, this.#stage_completed[stage])
   }
 
   #get_team(game_info)
@@ -145,6 +174,18 @@ class knockout_results{
     })
   }
 
+  #get_stage_abr(stage)
+  {
+    stage = stage.toLowerCase()
+    if      (stage.includes("32")) stage = "R32";
+    else if (stage.includes("16")) stage = "R16";
+    else if (stage.includes("quarter")) stage = "QF";
+    else if (stage.includes("semi")) stage = "SF"
+    else if (stage.includes("third")) stage = "F34"
+    else if (stage.includes("final")) stage = "F"
+    else if (stage.includes("group")) stage = stage.replace("group ","G").toUpperCase()
+    return stage
+  }
 
 
   add_country(COUNTRY)
@@ -165,6 +206,9 @@ class knockout_results{
         winner: 0, // No winner
         score: {f:[], e:[   ],p:[   ]}
       }
+      this.#ko_data[i].stage = this.#get_stage_abr(this.#ko_data[i].match_info.stage);
+//      console.log("match_info",this.#ko_data[i])
+      this.#add_stage_game_not_played(this.#ko_data[i].stage)
     }
   }
   add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
@@ -223,8 +267,13 @@ class knockout_results{
 
     this.#ko_data[match_no].score = score
     this.#ko_data[match_no].winner = find_winner(score) 
-//    console.log("add_knockout_result",match_no, this.#ko_data[match_no])    
+    console.log("add_knockout_result",match_no, this.#ko_data[match_no])    
       
+    if (this.#ko_data[match_no].winner != 0)
+    {
+      console.log("game played",this.#ko_data[match_no].stage)
+      this.#add_stage_game_played(this.#ko_data[match_no].stage)
+    }
     this.#update_match_results()   
   }
   
@@ -314,6 +363,11 @@ class knockout_results{
     })
     
     return full_bracket
+  }
+  
+  get_stages_completed()
+  {
+    return {...this.#stage_completed}
   }
   
   get_winners()
