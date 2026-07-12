@@ -54,6 +54,11 @@ img{  box-shadow: 2px 2px 4px #555;}
     min-width:300px;
     border-radius:9px;
     box-shadow: 2px 2px 2px 2px #ddd;
+    background-color: var(--paper);
+  }
+  .played {
+    background-color:#FFFAA0;
+    border-color:green;
   }
   .ko_click:hover { cursor: pointer; background-color:#f8f1de;}
   .ko_selected { font-weight: bolder; }
@@ -159,7 +164,7 @@ function get_local_time(data) {
         if (match_list.length > 1) title2+= " "+(index+1)
       }
       html.push("<div class='ko_title'>"+title2+" <span class='ko_ft' id='"+html_id+"_ft'></span></div>")
-      html.push("<table class='ko'>")
+      html.push("<table class='ko' id='"+html_id+"_ko'>")
 
       html.push("<tr>")
       html.push("<td class='ko_flag'><img src='"+no_img.src+"' id='"+html_id+"_flag1'>")
@@ -242,6 +247,7 @@ function get_local_time(data) {
         document.getElementById(html_id+"_score1").innerHTML = txt[0]
         document.getElementById(html_id+"_score2").innerHTML = txt[1]
         document.getElementById(html_id+"_ft").innerHTML = txt[2];
+        document.getElementById(html_id+"_ko").classList.add("played")
 
         if (winner == team1)
         {
