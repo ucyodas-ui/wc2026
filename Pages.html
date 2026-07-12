@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head><!--<script src="scripts/uc.js"></script>-->
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src='scripts/dom_tools.js'></script>
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/groups.js'></script>
+<script src='scripts/rankings.js'></script>
+<script src='scripts/matches.js'></script>
+<script src='scripts/sortable_list.js'></script>
+<script src='scripts/scores.js'></script>
+<script src='scripts/points_table.js'></script>
+<script src="scripts/entries.js"></script>
+<script src="scripts/dummy_entries.js"></script>
+<script src='scripts/group_stage.js'></script>
+<script src="scripts/entry_points.js"></script>
+<script src="scripts/match_stats.js"></script>
+<script src='scripts/draw.js'></script>
+<script src='scripts/third_place.js'></script>
+<script src='scripts/knockout_stage.js'></script>
+<script src='scripts/icons.js'></script>
+<script src='pages/pages.js'></script>
+<script src='pages/page_results.js'></script>
+<script src='pages/page_points_earned.js'></script>
+
+
+
+
+<link rel="stylesheet" href="scripts/sortable_list.css">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+.title {
+  anchor-name: --source-element;
+}
+
+
+</style>
+
+<script>
+
+  let RESULTS = new knockout_results()
+
+  window.addEventListener('load', function() {
+    pages.add_page(page_results)
+    pages.add_page(page_points_earned)
+    pages.start_up()
+//    console.log("LOAD")
+//    load_country_data(COUNTRY)
+//    COUNTRY.setup_keys()
+//    DRAW.add_country(COUNTRY)
+//    setup_entries()
+//    add_groups(COUNTRY)
+//    add_rankings(COUNTRY)
+//    add_flags(COUNTRY)
+//
+//    const gs = new group_stage(COUNTRY)
+//    
+//    const ep = new entry_points(entries, gs)
+//    
+////    let combined_gs_table = combine_tables(gs)
+//    
+//    RESULTS.add_country(COUNTRY)
+//    RESULTS.add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
+//    add_matches(DRAW)
+//    RESULTS.add_draw(DRAW)
+//   
+//    add_scores(RESULTS)
+//
+//    gs.grp_ids.forEach(group_id => {
+//      let ranked = gs.get_ranked_teams(group_id)
+//      RESULTS.add_group_results(group_id, ranked, true)
+//    })
+//
+//    var third_ranks = gs.get_third_place_ranks()
+//    RESULTS.add_third_place_teams(third_ranks)
+//
+//    const stats = new match_stats(COUNTRY, RESULTS, gs)
+//    
+//    const combined_table = stats.get_table()
+//    
+//    console.log("combined_table", combined_table)
+//    
+//    COUNTRY.update_class_flags()
+  })
+  
+
+
+  
+  
+</script>  
+</head>
+
+
+
+</body>
+</html>

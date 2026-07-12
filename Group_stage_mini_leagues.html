@@ -17,6 +17,7 @@
 <script src="scripts/dummy_entries.js"></script>
 <script src='scripts/group_stage.js'></script>
 <script src="scripts/entry_points.js"></script>
+<script src="scripts/ma
 
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
@@ -165,7 +166,10 @@ function do_mini_leagues(pts,gids)
 
     const gs = new group_stage(COUNTRY)
     
-    const ep = new entry_points(entries, gs)
+    const stats = new match_stats(COUNTRY, RESULTS, gs)
+    const ep = new entry_points(entries, gs, RESULTS, stats)
+
+
     
     // Display based on potential points
     const pts = ep.potential_points()

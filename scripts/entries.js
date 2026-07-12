@@ -2454,7 +2454,7 @@ const real_entries =
         "id": 1,
         "team1": "GER",
         "team2": "BRA",
-        "winner": "TBD",
+        "winner": "GER",
         "loser": "GER"
       },
       "F": {
@@ -4581,7 +4581,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "ARG",
-        "winner": "TBD",
+        "winner": "ARG",
         "loser": "ESP"
       },
       "F": {
@@ -5287,7 +5287,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "ENG",
-        "winner": "TBD",
+        "winner": "ENG",
         "loser": "ESP"
       },
       "F": {
@@ -5334,7 +5334,8 @@ const real_entries =
     "league": [
       "Yodas",
       "UCAFC",
-      "donuts"
+      "donuts",
+      "CAPTIF"
     ],
     "groups": {
       "A": [
@@ -13083,7 +13084,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "POR",
-        "winner": "TBD",
+        "winner": "POR",
         "loser": "ESP"
       },
       "F": {
@@ -13793,7 +13794,7 @@ const real_entries =
         "id": 1,
         "team1": "NED",
         "team2": "POR",
-        "winner": "TBD",
+        "winner": "POR",
         "loser": "NED"
       },
       "F": {
@@ -15214,7 +15215,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "ARG",
-        "winner": "TBD",
+        "winner": "ARG",
         "loser": "ESP"
       },
       "F": {
@@ -22315,7 +22316,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "BRA",
-        "winner": "TBD",
+        "winner": "BRA",
         "loser": "ESP"
       },
       "F": {
@@ -25142,7 +25143,7 @@ const real_entries =
         "id": 1,
         "team1": "ESP",
         "team2": "BRA",
-        "winner": "TBD",
+        "winner": "BRA",
         "loser": "ESP"
       },
       "F": {

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head><script src="scripts/uc.js"></script>
+
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/groups.js'></script>
+<script src='scripts/rankings.js'></script>
+<script src='scripts/matches.js'></script>
+<script src='scripts/sortable_list.js'></script>
+<script src='scripts/scores.js'></script>
+<script src='scripts/points_table.js'></script>
+<script src="scripts/entries.js"></script>
+<script src="scripts/dummy_entries.js"></script>
+<script src='scripts/group_stage.js'></script>
+<script src="scripts/entry_points.js"></script>
+<script src="scripts/match_stats.js"></script>
+<script src='scripts/draw.js'></script>
+<script src='scripts/third_place.js'></script>
+<script src='scripts/knockout_stage.js'></script>
+
+
+<link rel="stylesheet" href="scripts/sortable_list.css">
+<link rel="stylesheet" href="scripts/uc.css">
+<style>
+
+
+img{  box-shadow: 2px 2px 4px #555;}
+
+.flag{
+  height:15px;
+  padding=2px;
+  margin-right:5px;
+  margin-left:5px;
+  border:1px solid #888;
+  box-shadow:1px 1px 1px 2px RGBA(50,50,50,0.1);
+}
+
+.title {
+  anchor-name: --source-element;
+}
+
+.result {
+  font-size:12px;
+  margin-left:180px;
+  img{  box-shadow: 2px 2px 4px #555;}
+  table { border-collapse: collapse; margin: 10px; min-width:770px;}
+  tbody tr:nth-child(odd)  { background-color: #f2f2f2; }
+  tbody tr:nth-child(even) { background-color: #ffffff; }
+  thead tr {  background-color: #4CAF50;  color: white; font-size:15px; }
+  td { padding:5px; color:black; min-width:20px;}
+  th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; position:sticky; top: 95px;} 
+  h2 { background-color: #121; padding:5px; position:sticky; top: 66px; line-height:20px; z-index:100;}
+}
+
+.tick::before {
+  content: "\2714"; /* Heavy Check Mark */
+  color: green;
+  font-size: 14px;
+}
+
+.cross::before {
+  content: "\2718"; /* Heavy Ballot X */
+  color: red;
+  font-size: 14px;
+}
+
+</style>
+
+<script>
+
+function place(yes){ return yes ? "<span style='color:blue;' >&#10003;</span>" : ""; }
+function qual( yes){ return yes ? "<span style='color:green;'>&#10004;</span>" : ""; }
+function bonus(yes){ return yes ? "<span style='color:gold;' >&#9733;</span>"  : ""; }
+function tick(yes) { return yes ? "<span class='tick'></span>" : "<span class='cross'></span>" }
+
+  let RESULTS = new knockout_results()
+
+  window.addEventListener('load', function() {
+    console.log("LOAD")
+    load_country_data(COUNTRY)
+    COUNTRY.setup_keys()
+    DRAW.add_country(COUNTRY)
+    setup_entries()
+    add_groups(COUNTRY)
+    add_rankings(COUNTRY)
+    add_flags(COUNTRY)
+
+    const gs = new group_stage(COUNTRY)
+    
+    const ep = new entry_points(entries, gs)
+    
+//    let combined_gs_table = combine_tables(gs)
+    
+    RESULTS.add_country(COUNTRY)
+    RESULTS.add_third_place_ranking_table(THIRD_PLACE_RANKING_VS)
+    add_matches(DRAW)
+    RESULTS.add_draw(DRAW)
+   
+    add_scores(RESULTS)
+
+    gs.grp_ids.forEach(group_id => {
+      let ranked = gs.get_ranked_teams(group_id)
+      RESULTS.add_group_results(group_id, ranked, true)
+    })
+
+    var third_ranks = gs.get_third_place_ranks()
+    RESULTS.add_third_place_teams(third_ranks)
+
+
+    const stats = new match_stats(COUNTRY, RESULTS, gs)
+    
+    const combined_table = stats.get_table()
+    
+    console.log("combined_table", combined_table)
+    
+    let search = {}
+    combined_table.forEach(item => {
+      search[item.abr] = item;
+    })
+    
+    let stages_completed = RESULTS.get_stages_completed()
+    console.log("stages_completed", stages_completed)
+    
+
+
+    COUNTRY.update_class_flags()
+  })
+  
+  function combine_tables(gs)
+  {
+    let combined = []
+    gs.grp_ids.forEach(group_id => {
+      let ranked = gs.get_ranked_teams(group_id)
+      ranked.forEach(team => {
+        combined.push(team);
+      })
+    })
+    
+    console.log("combined",combined)
+    
+    return combined
+  }
+
+  function pad(n) { return String(n).padStart(3, '0'); }
+
+  function sort_and_rank(combined_table, sorter)
+  {
+    combined_table.forEach(entry => { sorter(entry)})
+    combined_table.sort((b,a) => a.sort_value.localeCompare(b.sort_value))
+    combined_table.forEach((entry, index) => {
+      if ((index == 0) || entry.sort_value != combined_table[index-1].sort_value)
+      {
+        entry.sorted_pos = index+1
+        entry.sorted_tied = false;
+      }
+      else
+      {
+        entry.sorted_tied = true;
+        entry.sorted_pos = combined_table[index-1].sorted_pos
+        combined_table[index-1].sorted_tied = true
+      }
+    })
+    
+  }
+
+  function display_all(gs,combined_table)
+  {
+    // Sort by pts, then GD, then GF, cards
+    const sorter = (entry) => { entry.sort_value = pad(entry.pts) + pad(entry.gd+500) + pad(entry.gf) + pad(1000+entry.cards.pts); }
+    sort_and_rank(combined_table, sorter);
+    
+    var html = []
+    html.push("<table><tr><th rowspan=2>Pos<th rowspan=2>Qual<br>Grp<th rowspan=2>Still<br>Alive<th rowspan=2 colspan=3>Team<th rowspan=2>Pld<th rowspan=2>W<th rowspan=2>D<th rowspan=2>L<th rowspan=2>GF<th rowspan=2>GA<th rowspan=2>GD<th rowspan=2>Pts<th colspan=5>Fair_Play<th rowspan=2>World<br>Rank")
+    html.push("<tr><th>Y<th>YY&gt;R<th>R<th>YR<th>pts")
+    
+    
+    combined_table.forEach(team => {
+      let qs = gs.get_qualified_status(team.abr)
+      let q = tick(qs.qualified)+(qs.confirmed?"":"**")
+
+      html.push("<tr>")
+      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
+      html.push("<td>"+q)
+      html.push("<td>"+tick(team.alive)+team.stage)
+      html.push("<td class='flag_"+team.abr+"'>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.w)
+      html.push("<td>"+team.d)
+      html.push("<td>"+team.l)
+      html.push("<td>"+team.gf)
+      html.push("<td>"+team.ga)
+      html.push("<td>"+team.gd)
+      html.push("<td>"+team.pts)
+      html.push("<td>"+team.cards.y)
+      html.push("<td>"+team.cards.yy)
+      html.push("<td>"+team.cards.r)
+      html.push("<td>"+team.cards.yr)
+      html.push("<td>"+team.cards.pts)
+      html.push("<td>"+team.rank)
+//      html.push("<td>"+team.sort_value)
+    })
+    html.push("</table>")
+    document.getElementById("stats_table").innerHTML = html.join("")
+    
+  }
+  
+  function div(v,gms)
+  {
+    if (gms==0) return "0.0"
+    var p = (v/gms)
+    return p.toFixed(1)
+    
+  }
+
+  function display_fair_play(gs,combined_table)
+  {
+    const sorter = (entry) => { entry.sort_value = pad(1000+entry.cards.pts)+ pad(999-entry.cards.yr)+ pad(999-entry.cards.r)+ pad(999-entry.cards.r)+ pad(999-entry.cards.y);}
+    sort_and_rank(combined_table, sorter);
+    
+    var html = []
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Y<th>YY&gt;R<th>R<th>YR<th>pts<th>pts/game")
+    
+    combined_table.forEach(team => {
+      html.push("<tr>")
+      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
+      html.push("<td><span class='flag_"+team.abr+"'></span>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.cards.y)
+      html.push("<td>"+team.cards.yy)
+      html.push("<td>"+team.cards.r)
+      html.push("<td>"+team.cards.yr)
+      html.push("<td>"+team.cards.pts)
+      html.push("<td>"+div(team.cards.pts,team.pld))
+//      html.push("<td>"+team.sort_value)
+    })
+    html.push("</table>")
+    document.getElementById("stats_fpa").innerHTML = html.join("")
+  }
+
+  function display_gf(gs,combined_table)
+  {
+    const sorter = (entry) => { entry.sort_value = pad(entry.gf);}
+    sort_and_rank(combined_table, sorter);
+    
+    var html = []
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals scored<th>Goals / game")
+    
+    combined_table.forEach(team => {
+      html.push("<tr>")
+      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
+      html.push("<td class='flag_"+team.abr+"'>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.gf)
+      html.push("<td>"+div(team.gf, team.pld))
+    })
+    html.push("</table>")
+    document.getElementById("stats_gf").innerHTML = html.join("")
+  }
+
+  function display_ga(gs,combined_table)
+  {
+    const sorter = (entry) => { entry.sort_value = pad(500-entry.ga);}
+    sort_and_rank(combined_table, sorter);
+    
+    var html = []
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals let in<th> per game")
+    
+    combined_table.forEach(team => {
+      html.push("<tr>")
+      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
+      html.push("<td class='flag_"+team.abr+"'>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.ga)
+      html.push("<td>"+div(team.ga, team.pld))
+    })
+    html.push("</table>")
+    document.getElementById("stats_ga").innerHTML = html.join("")
+  }
+  function display_cs(gs,combined_table)
+  {
+    const sorter = (entry) => { entry.sort_value = pad(entry.cs);}
+    sort_and_rank(combined_table, sorter);
+    
+    var html = []
+    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Clean Sheets<th>per game")
+    
+    combined_table.forEach(team => {
+      html.push("<tr>")
+      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
+      html.push("<td class='flag_"+team.abr+"'>")
+      html.push("<td>"+team.full)
+      html.push("<td>("+team.abr+")")
+      html.push("<td>"+team.pld)
+      html.push("<td>"+team.cs)
+      html.push("<td>"+div(team.cs,team.pld))
+    })
+    html.push("</table>")
+    document.getElementById("stats_cs").innerHTML = html.join("")
+  }
+
+
+
+  
+  
+</script>  
+
+</head>
+<body><script>add_title("Entry: Knockout Stage Details")</script>
+<div class=info>
+How many of the teams did you guess correctly at each knockout stage:
+</div>
+<p>
+
+<div class=result>
+<div id =stage_R32></div>
+<div id =stage_R16></div>
+<div id =stage_F></div>
+
+
+
+</body>
+</html>

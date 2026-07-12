@@ -20,6 +20,7 @@
 <script src='scripts/draw.js'></script>
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
+<script src="scripts/match_stats.js"></script>
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
@@ -92,8 +93,9 @@ img{  box-shadow: 2px 2px 4px #555;}
 
     console.log("knockouts", knockouts)
     
+    const stats = new match_stats(COUNTRY, RESULTS, gs)
 
-    const ep = new entry_points(entries, gs, RESULTS)
+    const ep = new entry_points(entries, gs, RESULTS, stats)
 
     // Display based on potential points
     const pts = ep.total_points()

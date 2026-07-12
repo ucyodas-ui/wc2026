@@ -11,6 +11,7 @@ class match_stats
   #qualified = {}
   #team_stages = {}
 
+  #most_goals = { match_goals:0, match_countries:[], tournament_goals:0, tournament_countries:[]}
 
  
   constructor(COUNTRY, RESULTS, gs){
@@ -26,6 +27,9 @@ class match_stats
     
     
     this.#create_tables()
+    
+    this.#workout_most_goals()
+    
 //    this.#check_completed()
 //    this.#set_qualifiers()
 //    this.#check_third_qualifiers()
@@ -141,8 +145,12 @@ class match_stats
       this.#matches[match_no].result = { ok:false }
     }
     this.#matches[match_no].cards = cards
+
+    this.#check_most_game_goals(match_no)
+    
     console.log("add_score", match_no, this.#matches[match_no].result, this.#matches[match_no].cards)
   }
+  
   
   
 //  get_group_games_html(group_id)
@@ -276,7 +284,39 @@ class match_stats
     
   }
   
+  #workout_most_goals()
+  {
+    let table = this.get_table()
+    table.forEach(team => {
+      let gf = team.gf;
+      if (gf == this.#most_goals.tournament_goals) { this.#most_goals.tournament_countries.push(team.abr) }
+      if (gf >  this.#most_goals.tournament_goals) { this.#most_goals.tournament_countries = [team.abr]; this.#most_goals.tournament_goals = gf;}
+    })
+    console.log("workout_most_goals", this.#most_goals)
+  }
 
+  
+  #check_most_game_goals(match_no)
+  {
+    let m = this.#matches[match_no]
+    console.log("check_most_game_goals",match_no,m)
+    if (!m.result.ok) return;
+    let g = m.result.f
+    if (m.result.e.length>=2)
+      g = m.result.e
+    let t1 = this.#COUNTRY.find_team_id(m.team1)
+    let t2 = this.#COUNTRY.find_team_id(m.team2)
+
+    if (g[0] == this.#most_goals.match_goals) { this.#most_goals.match_countries.push(t1) }
+    if (g[0] > this.#most_goals.match_goals)  { this.#most_goals.match_countries = [t1]; this.#most_goals.match_goals = g[0];}
+    if (g[1] == this.#most_goals.match_goals) { this.#most_goals.match_countries.push(t2) }
+    if (g[1] > this.#most_goals.match_goals)  { this.#most_goals.match_countries = [t2]; this.#most_goals.match_goals = g[1];}
+  }
+
+  get_most_goals()
+  {
+    return this.#most_goals
+  }
   
   
 }

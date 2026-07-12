@@ -20,6 +20,7 @@
 <script src='scripts/draw.js'></script>
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
+<script src="scripts/match_stats.js"></script>
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
@@ -256,8 +257,8 @@ function get_local_time(data) {
 
     console.log("knockouts", knockouts)
     
-
-    const ep = new entry_points(entries, gs, RESULTS)
+    const stats = new match_stats(COUNTRY, RESULTS, gs)
+    const ep = new entry_points(entries, gs, RESULTS, stats)
 
     // Display based on potential points
     const pts = ep.total_points()
@@ -268,17 +269,21 @@ function get_local_time(data) {
       let html =[]
     html.push("<table>")
     html.push("<table>")
-    html.push("<tr><th>Position<th>Entry<th>Grp Pts<th>R32 Pts<th>R16pts<th>QF Pts<th>SF Pts<th>3/4 Pts<th>Final Pts<th>Total")
+    html.push("<tr><th>Position<th>Entry<th>Grp<br>Pts<th>Grp<br>3rd<br>Bonus<th>R32<br>Pts<th>R16<br>pts<th>QF<br>Pts<th>SF<br>Pts<th>3/4<br>Pts<th>Final<br>Pts<th>Most<br>Goals<br>Bonus<th>Total")
   
-    pts.forEach(entry => {
+    pts.forEach((entry,index) => {
+      if (index<2) console.log(entry)
+    
       html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name)
       html.push("<td>"+entry.grp_total)
+      html.push("<td>"+entry.third_bonus.points)
       html.push("<td>"+entry.ko_totals.R32)
       html.push("<td>"+entry.ko_totals.R16)
       html.push("<td>"+entry.ko_totals.QF)
       html.push("<td>"+entry.ko_totals.SF)
       html.push("<td>"+entry.ko_totals.F34)
       html.push("<td>"+entry.ko_totals.F)
+      html.push("<td>"+(entry.goals_match + entry.goals_tournament))
       html.push("<td>"+entry.total)
     })
 

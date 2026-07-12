@@ -6,7 +6,7 @@ class entry_points
   #kr = {}
   #link_to_points = {}
 
-  #calculate_entry_points(entry, index, ko_games)
+  #calculate_entry_points(entry, index, ko_games, stats)
   {
 //    console.log("Calculate entry points", entry)
     
@@ -18,6 +18,8 @@ class entry_points
       ko_total: 0,
       ko_potential: 0,
       total: 0,
+      goals_match: 0,
+      goals_tournament: 0,
       potential: 0,
       ko:{
         R32: [],
@@ -56,6 +58,8 @@ class entry_points
     this.#calculate_group_3rd_place_bonus(entry, points)
     
     this.#calculate_knockout_points(entry, points, ko_games)
+    
+    this.#calculate_goals_points(entry, points, stats)
     
     this.#entry_points.push( points)
   }
@@ -184,8 +188,24 @@ class entry_points
       case 8: g3.points += 5; break;
     }
     
-    if (this.#gs.group_stage_completed())  points.total += g3.points
+    if (this.#gs.group_stage_completed())  
+      points.total += g3.points
     points.potential += g3.points
+  }
+
+// Most goals    in a games                               3 pts
+//               in the tournament                        5 pts
+
+
+  #calculate_goals_points(entry, points, stats)
+  {
+//    console.log("#calculate_goals_points",entry, points, stats)
+    let most_goals = stats.get_most_goals()
+    console.log("#calculate_goals_points", entry.most_goals, most_goals)
+    if (most_goals.match_countries.includes(     entry.most_goals)) points.goals_match = 3
+    if (most_goals.tournament_countries.includes(entry.most_goals)) points.goals_tournament = 5
+    points.total += (points.goals_match + points.goals_tournament);
+    console.log("#calculate_goals_points", entry.most_goals, most_goals, points)
   }
 
 
@@ -207,7 +227,7 @@ class entry_points
   #calculate_ko_points(ko_type, entry, points, all_games, pts_for_both, pts_for_winner, pts_for_loser)
   {
 //    console.log(entry,ko_type,all_games)
-    const predicted     = entry.knock_outs[ko_type]
+    let predicted     = entry.knock_outs[ko_type]
     const real_matches  = all_games[ko_type].matches
     const real_winners  = all_games[ko_type].winners
     const real_losers   = all_games[ko_type].losers
@@ -245,6 +265,14 @@ class entry_points
       points.ko_total += tpts
       points.ko_potential += ppts
     })
+    if(ko_type=="F34") console.log(ko_type,      points.ko[ko_type],
+
+      "predicted"    ,predicted,
+      "real_matches" ,real_matches,
+      "real_winners" ,real_winners,
+      "real_losers"  ,real_losers,
+    )
+    
   }
   
 //                                                                                                             x2   W   L
@@ -252,13 +280,13 @@ class entry_points
   #calculate_R16_points(entry, points, all_games) { this.#calculate_ko_points("R16", entry, points, all_games,  1,  3,  0);  }
   #calculate_QF_points( entry, points, all_games) { this.#calculate_ko_points("QF",  entry, points, all_games,  2,  4,  0);  }
   #calculate_SF_points( entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games,  4,  5,  0);  }
-  #calculate_F34_points(entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games,  5,  8,  5);  }
-  #calculate_F_points(  entry, points, all_games) { this.#calculate_ko_points("SF",  entry, points, all_games, 10, 20, 10);  }
+  #calculate_F34_points(entry, points, all_games) { this.#calculate_ko_points("F34", entry, points, all_games,  5,  8,  5);  }
+  #calculate_F_points(  entry, points, all_games) { this.#calculate_ko_points("F",   entry, points, all_games, 10, 20, 10);  }
 
 
 
 
-  constructor(entries, group_stage, knockout_results){
+  constructor(entries, group_stage, knockout_results, stats){
     this.#entries = entries
     this.#gs = group_stage
     this.#kr = knockout_results
@@ -267,7 +295,7 @@ class entry_points
 
     
     this.#entries.forEach((entry, index) => {
-      this.#calculate_entry_points(entry, index, ko_games)
+      this.#calculate_entry_points(entry, index, ko_games, stats)
     })
     this.#calculate_pos(this.#entry_points,"potential")
   }
@@ -306,7 +334,7 @@ class entry_points
   
   potential_points() {
     let pot = [...this.#entry_points]
-    this.#calculate_pos(tot, "potential")
+    this.#calculate_pos(pot, "potential")
 //    console.log("sort", pot)
     return pot
   }
