@@ -58,6 +58,7 @@ function convert_tsv()
  
   save_objects(raw_json_data, fields_details, "details_result")
   save_objects(raw_json_data, fields_web_safe, "details_web")
+  save_objects(raw_json_data, fields_name_only, "details_name")
 }
 
 function save_objects(raw_data, fields, save_id)
@@ -347,7 +348,10 @@ const fields_web_safe = [
     "Country"     ,
 ]
 
-
+const fields_name_only = [
+    "name"        ,
+    "full_name"   ,
+]
 
 
 
@@ -370,6 +374,7 @@ const fields_web_safe = [
 <p>Full Result: <button onclick='download("fixed_result",   "full.json"   )'>download</button><pre id=fixed_result></pre>
 <p>Details:     <button onclick='download("details_result", "details.json")'>download</button><pre id=details_result></pre>
 <p>Web safe:    <button onclick='download("details_web",    "entries.js", "entries")'>download</button><pre id=details_web></pre>
+<p>Name:        <button onclick='download("details_name",   "names.js",   "names")'>download</button><pre id=details_name></pre>
 
 <script>start()</script>
 </body>
