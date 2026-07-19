@@ -68,7 +68,7 @@ const icons = new class {
     {
       case "small":   pos = this.#get_xy( 50, name);  break;
       case "medium":  pos = this.#get_xy(150, name);  break;
-      case "large":   pos = this.#get_xy(650, name);  break;
+      case "full":    pos = this.#get_xy(650, name);  break;
     }
     console.log("getting ",size,"icon",name, "pos", pos)
     

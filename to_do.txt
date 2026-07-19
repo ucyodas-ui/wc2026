@@ -1,0 +1,27 @@
+TODO:
+
+3rd place winner displays as TBD if the 2nd country.
+
+Add an entry form option to pick the fair play award
+
+Work out how to display the full names automatically once the last game has been played.  INstead of setting the const in names.js
+
+Get the DB working so all the results use the DB, instead of each page loading all the matches and calculaing the same results.
+
+Finish the new pages framework I started. Convert to the single page concept for results with the icons, and using th edom tool to create each page
+
+Create a dummy entry "for the common good" that is the average of every entry picked.
+
+Create a TAB dummy entry before the competition stars.
+
+Create a stats page that shows the final score summary  (who picked what score)  
+- see the manual page I created calls "final_match_stats.html"
+
+Create a stats page to show the % of people that picked each group results, knockout result, and who got it correct.
+
+Fix the group stage points summary and teh group stage min-leagur points to load correctly again.
+
+Finish Knockout details so people can see where their points came from.
+
+Add a page explaing the dummy entries - automatically from the entries, not a manual one.
+ - add a list of how each country got ranked for that entry i.e. showing the size, or money etc.

@@ -34,6 +34,8 @@
 
   h2 { background-color:#111; padding: 10px;}
   h3 { color: white; }
+.full_name { font-weight:bold; color:#925; font-size: smaller; font-style: italic; }
+
 
 </style>
 
@@ -41,19 +43,20 @@
 <script src="scripts/flags.js"></script>
 <script src="scripts/entries.js"></script>
 <script src="scripts/dummy_entries.js"></script>
+<script src="scripts/names.js"></script>
 
 <script>
 function do_entry_table()
 {
   var table = []
-  table.push("<table class=results><tr><th>#<th>Entry Name<th>Final<th>Predicted Winner")
+  table.push("<table class=results><tr><th>#<th colspan=2>Entry Name<th>Final<th>Predicted Winner")
   
   entries.forEach((entry, index) => {
     let t1 = entry.knock_outs.F.team1
     let t2 = entry.knock_outs.F.team2
     let w  = entry.knock_outs.F.winner
 
-    table.push(`<tr><td>${index+1}<td>${entry.name}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
+    table.push(`<tr><td>${index+1}<td>${entry.name}<td>${full_name_span(entry.name)}<td><span class='flag_${t1}'>${t1}</span> vs ${t2}<span class='flag_${t2}'></span><td><span class='flag_${w}'>${w}</span>`)
   });
   document.getElementById("result_table").innerHTML = table.join("")
 }

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head><script src='scripts/uc.js'></script>
+<script src='scripts/dummy_entries.js'></script>
+<script src='scripts/flags.js'></script>
+<script src='scripts/country.js'></script>
+<script src='scripts/country_data.js'></script>
+<script src='scripts/dom_tools.js'></script>
+<script src='scripts/icons.js'></script>
+<link rel="stylesheet" href="scripts/uc.css">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon-64x64.png">
+
+<style>
+.results {
+  margin-left:20px;
+  padding:5px;
+  background: var(--paper);
+  color: var(--black);
+  border-collapse: collapse;
+  box-shadow: 2px 2px 2px 4px RGBA(0,0,0,0.4);
+  
+  th {
+    border: 1px solid var(--grey);
+    padding: 8px; 
+    background: var(--black);
+    color: var(--sand);
+  }
+  
+  td { padding-left:10px; 
+    border: 1px solid var(--grey);   /* Gives cells a visible border */
+    padding: 4px; 
+  }
+
+  tr:nth-child(even) td {
+    background-color: #dde; /* A very soft, subtle grey */
+  }
+
+  #jj {
+    border:1px solid yellow;
+  }
+
+}
+
+</style>
+
+<script>
+
+function do_flag(abr,src)
+{
+  const objs = document.getElementsByClassName('flag_'+abr)
+  for(const obj of objs)
+  {
+    const img = document.createElement('img')
+    img.height=10;
+    img.src = src
+    img.style.padding= '2px'
+    img.style.marginRight= '5px'
+    img.style.marginLeft= '5px'
+    img.style.border='1px solid #888'
+    img.style.boxShadow='1px 1px 1px 2px RGBA(50,50,50,0.1)'
+    obj.prepend(img)
+  }
+}
+
+
+function do_flags()
+{
+  add_flags({add_flag:function(abr, src){ do_flag(abr,src); }})
+  do_flag("XXX", UNKNOWN)
+}
+
+function load_dummy_table()
+{ 
+  let html =[]
+  html.push("<table>")
+  html.push("<tr><th>#<th>Dummy Entry Name<th>Based on<th colspan=2>Winner")
+
+  dummy_entries.forEach((dummy,index) =>{
+    html.push("<tr>")
+    html.push("<td>"+(index+1))
+    html.push("<td>"+dummy.name.replace("Dummy: ",""))
+    html.push("<td>"+dummy.dummy_info)
+    let winner = dummy.knock_outs.F.winner
+    let full = COUNTRY.get_name(winner)
+    
+    html.push("<td><span class='flag_"+winner+"'>"+full+"</span><td>("+winner+")")
+  })
+
+  html.push("</table>")
+  
+  document.getElementById("results").innerHTML = html.join("")
+  
+  var jj = icons.get_icon("jarjar","medium")
+  console.log(jj.dom())
+  
+  document.getElementById("jj").appendChild(jj.dom())
+  
+  
+}
+
+</script>
+
+
+</head>
+<body><script>add_title("The Dummy entries")</script>
+<div class=page>
+<table><tr><td id=jj><td>I always like to add in a few dummy entires based on common stats.  Here they are:
+</table>
+<p>
+<div id=results class=results></div>
+
+<script>
+
+load_country_data(COUNTRY)
+COUNTRY.setup_keys()
+
+
+
+load_dummy_table()
+do_flags()
+
+</script>
+
+<p>TODO: add a table showing all the values.  Next time.
+
+
+
+</div>
+</body>
+</html>

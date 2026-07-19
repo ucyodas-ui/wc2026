@@ -66,7 +66,8 @@
     h3 { color: var(--maroon) };
   }
     
-    
+  .full_name { font-weight:bold; color:#925; font-size: smaller; font-style: italic; }
+
 
 </style>
 
@@ -74,6 +75,7 @@
 <script src="scripts/flags.js"></script>
 <script src="scripts/entries.js"></script>
 <script src="scripts/dummy_entries.js"></script>
+<script src="scripts/names.js"></script>
 
 <script>
 
@@ -92,7 +94,7 @@ function do_entry_table()
     let w  = entry.knock_outs.F.winner
     let g  = entry.most_goals
 
-    table.push(`<tr><td>${index+1}<td><a href="#0" onclick="display_entry(${index+1}); return false;">${entry.name}${game(t1,t2,w)}${td(w)}${td(g)}`)
+    table.push(`<tr><td>${index+1}<td><a href="#0" onclick="display_entry(${index+1}); return false;">${entry.name}${full_name_span(entry.name)}${game(t1,t2,w)}${td(w)}${td(g)}`)
   });
   document.getElementById("result_table").innerHTML = table.join("")
 }
@@ -148,7 +150,7 @@ function display_entry(n, no_scroll)
   
   let html = []
   
-  html.push(`<h2>Entry #${current_entry} Details: ${entry.name}</h2>`)
+  html.push(`<h2>Entry #${current_entry} Details: ${entry.name} ${full_name_span(entry.name)}</h2>`)
   
   html.push("<table><tr><td valign=top>")
   

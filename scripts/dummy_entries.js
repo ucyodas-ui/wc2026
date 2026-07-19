@@ -2,7 +2,7 @@ const dummy_entries =
 [
   {
     "name": "Dummy: Big Things Come In Small Packages",
-    "dummy_info": "Based on the land size of each country (in km2)",
+    "dummy_info": "Based on the land size of each country (in km<sup>2</sup>)",
     "league": [
       "Dummies"
     ],
@@ -714,7 +714,7 @@ const dummy_entries =
   },
   {
     "name": "Dummy: Hot and bothered",
-    "dummy_info": "Based on the temperature of each country (in °C)",
+    "dummy_info": "Based on the temperature of each country (in &deg;C)",
     "league": [
       "Dummies"
     ],
@@ -1070,7 +1070,7 @@ const dummy_entries =
   },
   {
     "name": "Dummy: Money Money Money",
-    "dummy_info": "Based on the GDP of each country",
+    "dummy_info": "Based on the GDP of each country ($)",
     "league": [
       "Dummies"
     ],
@@ -1782,7 +1782,7 @@ const dummy_entries =
   },
   {
     "name": "Dummy: Rank And File-Error",
-    "dummy_info": "Based on the world rankings at the start of the world cup",
+    "dummy_info": "Based on the FIFA world rankings at the start of the world cup",
     "league": [
       "Dummies"
     ],

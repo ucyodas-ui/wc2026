@@ -21,6 +21,7 @@
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
 <script src="scripts/match_stats.js"></script>
+<script src="scripts/names.js"></script>
 
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
@@ -51,6 +52,8 @@ img{  box-shadow: 2px 2px 4px #555;}
 }
 .mi { padding-top:50px;}
 
+.full_name { font-weight:bold; color:#925; font-size: smaller; font-style: italic; }
+
 </style>
 
 <script>
@@ -77,7 +80,7 @@ function do_league_table(no, name, pts,gids)
     if(pt.entry.league.includes(name))
     {
       index++
-      html.push(`<tr><td>${index}<td>${pt.entry.name}`)
+      html.push(`<tr><td>${index}<td>${pt.entry.name}${full_name_span(pt.entry.name)}`)
       html.push("<td>"+pt.grp_total)
       html.push("<td>"+pt.ko_totals.R32)
       html.push("<td>"+pt.ko_totals.R16)
@@ -94,6 +97,8 @@ function do_league_table(no, name, pts,gids)
   return html.join("")
 }
 
+
+
 function do_top3_table(league_names,pts)
 {
   let html = []
@@ -104,6 +109,7 @@ function do_top3_table(league_names,pts)
   Object.keys(league_names).forEach((name, index) => {
     html.push(`<tr><th>${index+1}<th><a href='#mini_${index+1}'>${name}</a>`)
     
+    
     let count = 0;
     for(let i=0;i<pts.length;i++)
     {
@@ -112,7 +118,7 @@ function do_top3_table(league_names,pts)
       if(pt.entry.league.includes(name))
       {
         count++
-        html.push(`<td>${pt.entry.name}<td>${pt.total}`)
+        html.push(`<td>${pt.entry.name} ${full_name_span(pt.entry.name)}<td>${pt.total}`)
         if(count>=3) break;
       }
     }

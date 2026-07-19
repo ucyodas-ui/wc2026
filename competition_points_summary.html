@@ -21,6 +21,8 @@
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
 <script src="scripts/match_stats.js"></script>
+<script src="scripts/names.js"></script>
+
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
@@ -48,6 +50,9 @@ img{  box-shadow: 2px 2px 4px #555;}
   td { padding:5px; color:black; min-width:20px;}
   th { vertical-align:bottom;  background-color:#222; color:#eee; padding:2px; border:1px solid white; position:sticky; top: 65px;} 
 }
+
+.full_name { font-weight:bold; color:#925; font-size: smaller; font-style: italic; }
+
 
 </style>
 
@@ -105,10 +110,10 @@ img{  box-shadow: 2px 2px 4px #555;}
   
     let html =[]
     html.push("<table>")
-    html.push("<tr><th>Position<th>Entry<th>Confirmed Points<th>Potential Points")
+    html.push("<tr><th>Position<th colspan=2>Entry<th>Confirmed Points<th>Potential Points")
   
     pts.forEach(entry => {
-        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+entry.total+"<td>("+entry.potential+")")
+        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+full_name_span(entry.entry.name)+"<td>"+entry.total+"<td>("+entry.potential+")")
     })
 
     html.push("</table>")
