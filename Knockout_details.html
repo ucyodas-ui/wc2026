@@ -21,6 +21,8 @@
 <script src='scripts/draw.js'></script>
 <script src='scripts/third_place.js'></script>
 <script src='scripts/knockout_stage.js'></script>
+<script src='scripts/names.js'></script>
+
 
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
@@ -41,6 +43,10 @@ img{  box-shadow: 2px 2px 4px #555;}
 
 .title {
   anchor-name: --source-element;
+}
+
+.info {
+  margin-left:180px;
 }
 
 .result {
@@ -67,6 +73,7 @@ img{  box-shadow: 2px 2px 4px #555;}
   color: red;
   font-size: 14px;
 }
+  .full_name { font-weight:bold; color:#925; font-size: smaller; font-style: italic; }
 
 </style>
 
@@ -91,7 +98,6 @@ function tick(yes) { return yes ? "<span class='tick'></span>" : "<span class='c
 
     const gs = new group_stage(COUNTRY)
     
-    const ep = new entry_points(entries, gs)
     
 //    let combined_gs_table = combine_tables(gs)
     
@@ -111,24 +117,167 @@ function tick(yes) { return yes ? "<span class='tick'></span>" : "<span class='c
     RESULTS.add_third_place_teams(third_ranks)
 
 
+    DRAW.setup_bracket()
+    
+    knockouts = DRAW.get_bracket()
+
+
     const stats = new match_stats(COUNTRY, RESULTS, gs)
+
+    const ep = new entry_points(entries, gs, RESULTS, stats)
+
+    const pts = ep.get_entry_points()
     
-    const combined_table = stats.get_table()
     
-    console.log("combined_table", combined_table)
-    
-    let search = {}
-    combined_table.forEach(item => {
-      search[item.abr] = item;
-    })
-    
-    let stages_completed = RESULTS.get_stages_completed()
-    console.log("stages_completed", stages_completed)
-    
+//    let stages_completed = RESULTS.get_stages_completed()
+//    console.log("stages_completed", stages_completed)
+
+    display_R32_points( RESULTS, knockouts, pts)
+    display_R16_points( RESULTS, knockouts, pts)
+    display_QF_points(  RESULTS, knockouts, pts)
+    display_SF_points(  RESULTS, knockouts, pts)
+    display_F34_points( RESULTS, knockouts, pts)
+    display_F_points(   RESULTS, knockouts, pts)
 
 
     COUNTRY.update_class_flags()
   })
+
+  function both_points(stage,entry)
+  {
+    let pts = 0;
+    entry.ko[stage].forEach(r => pts+=r.both);
+    return pts
+  }
+  function winner_points(stage,entry)
+  {
+    let pts = 0;
+    entry.ko[stage].forEach(r => pts+=r.winner);
+    return pts
+  }
+  function loser_points(stage,entry)
+  {
+    let pts = 0;
+    entry.ko[stage].forEach(r => pts+=r.loser);
+    return pts
+  }
+
+  
+  function display_points(stage, RESULTS, knockout, pts, show_losers)
+  {
+    if (!RESULTS.is_stage_completed(stage)) return "Stage not completed";
+    let html = []
+    console.log(stage, "Results", RESULTS)
+    console.log(stage, "pts", pts)
+    console.log(stage, "knockout", knockout)
+    
+    html.push("<table>")
+    let matches = []
+    let winners = []
+    let losers = []
+    knockout[stage].forEach((match_no) => {
+      let m = RESULTS.get_knockout_result(match_no)
+      let game = m.team1+" x "+m.team2
+      matches.push(game)
+      let w = m.winner
+      let l = m.loser
+      winners.push(w)
+      losers.push(l)
+//      console.log("match",match_no, m)
+    })
+    html.push("<tr><th>")
+    html.push("<th colspan="+(matches.length+1)+">Matches")
+    html.push("<th colspan="+(winners.length+1)+">Winners")
+    if (show_losers)
+      html.push("<th colspan="+(losers.length+1)+">Losers")
+    html.push("<th>")
+    html.push("<tr><th>Entry Name")
+    matches.forEach(m => {
+      html.push("<th>"+m)
+    })
+    html.push("<th>Pts")
+
+    winners.forEach(t => {
+      html.push("<th><span class='flag_"+t+"'>"+t+"</span>")
+    })
+    html.push("<th>Pts")
+    if (show_losers)
+    {
+      losers.forEach(t => {
+        html.push("<th><span class='flag_"+t+"'>"+t+"</span>")
+      })
+      html.push("<th>Pts")
+    }
+    html.push("<th>Total")
+
+    
+  
+    pts.forEach((entry,index) => {
+      console.log(entry)
+      html.push("<tr><td>#"+(index+1)+" "+entry.entry.name+full_name_span(entry.entry.name))
+      
+      matches.forEach(m => {
+        html.push("<td>"+tick(entry.games_picked[stage].includes(m)))
+      })
+      let b_pts = both_points(stage,entry)
+      html.push("<td>"+b_pts)
+
+      winners.forEach(t => {
+        html.push("<td>"+tick(entry.winners_picked[stage].includes(t)))
+      })
+      let w_pts = winner_points(stage,entry)
+      html.push("<td>"+w_pts)
+
+      if (show_losers)
+      {
+        losers.forEach(t => {
+          html.push("<td>"+tick(entry.losers_picked[stage].includes(t)))
+        })
+        let l_pts = loser_points(stage,entry)
+        html.push("<td>"+l_pts)
+      }
+
+
+      html.push("<td>"+(b_pts+w_pts))
+    })
+    
+//    RESULTS.ko_data.forEach()
+//    blah()
+    
+    
+    
+    return html.join("")
+  }
+  
+  function display_R32_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_R32").innerHTML = display_points("R32", RESULTS, knockout, pts)
+  }
+
+  function display_R16_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_R16").innerHTML = display_points("R16", RESULTS, knockout, pts)
+  }
+  
+  function display_QF_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_QF").innerHTML = display_points("QF", RESULTS, knockout, pts)
+  }
+
+  function display_SF_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_SF").innerHTML = display_points("SF", RESULTS, knockout, pts)
+  }
+
+  function display_F34_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_F34").innerHTML = display_points("F34", RESULTS, knockout, pts, true)
+  }
+
+  function display_F_points(RESULTS, knockout, pts)
+  {
+    document.getElementById("stage_F").innerHTML = display_points("F", RESULTS, knockout, pts, true)
+  }
   
   function combine_tables(gs)
   {
@@ -218,99 +367,6 @@ function tick(yes) { return yes ? "<span class='tick'></span>" : "<span class='c
     
   }
 
-  function display_fair_play(gs,combined_table)
-  {
-    const sorter = (entry) => { entry.sort_value = pad(1000+entry.cards.pts)+ pad(999-entry.cards.yr)+ pad(999-entry.cards.r)+ pad(999-entry.cards.r)+ pad(999-entry.cards.y);}
-    sort_and_rank(combined_table, sorter);
-    
-    var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Y<th>YY&gt;R<th>R<th>YR<th>pts<th>pts/game")
-    
-    combined_table.forEach(team => {
-      html.push("<tr>")
-      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
-      html.push("<td><span class='flag_"+team.abr+"'></span>")
-      html.push("<td>"+team.full)
-      html.push("<td>("+team.abr+")")
-      html.push("<td>"+team.pld)
-      html.push("<td>"+team.cards.y)
-      html.push("<td>"+team.cards.yy)
-      html.push("<td>"+team.cards.r)
-      html.push("<td>"+team.cards.yr)
-      html.push("<td>"+team.cards.pts)
-      html.push("<td>"+div(team.cards.pts,team.pld))
-//      html.push("<td>"+team.sort_value)
-    })
-    html.push("</table>")
-    document.getElementById("stats_fpa").innerHTML = html.join("")
-  }
-
-  function display_gf(gs,combined_table)
-  {
-    const sorter = (entry) => { entry.sort_value = pad(entry.gf);}
-    sort_and_rank(combined_table, sorter);
-    
-    var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals scored<th>Goals / game")
-    
-    combined_table.forEach(team => {
-      html.push("<tr>")
-      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
-      html.push("<td class='flag_"+team.abr+"'>")
-      html.push("<td>"+team.full)
-      html.push("<td>("+team.abr+")")
-      html.push("<td>"+team.pld)
-      html.push("<td>"+team.gf)
-      html.push("<td>"+div(team.gf, team.pld))
-    })
-    html.push("</table>")
-    document.getElementById("stats_gf").innerHTML = html.join("")
-  }
-
-  function display_ga(gs,combined_table)
-  {
-    const sorter = (entry) => { entry.sort_value = pad(500-entry.ga);}
-    sort_and_rank(combined_table, sorter);
-    
-    var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Goals let in<th> per game")
-    
-    combined_table.forEach(team => {
-      html.push("<tr>")
-      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
-      html.push("<td class='flag_"+team.abr+"'>")
-      html.push("<td>"+team.full)
-      html.push("<td>("+team.abr+")")
-      html.push("<td>"+team.pld)
-      html.push("<td>"+team.ga)
-      html.push("<td>"+div(team.ga, team.pld))
-    })
-    html.push("</table>")
-    document.getElementById("stats_ga").innerHTML = html.join("")
-  }
-  function display_cs(gs,combined_table)
-  {
-    const sorter = (entry) => { entry.sort_value = pad(entry.cs);}
-    sort_and_rank(combined_table, sorter);
-    
-    var html = []
-    html.push("<table><tr><th>Pos<th colspan=3>Team<th>Pld<th>Clean Sheets<th>per game")
-    
-    combined_table.forEach(team => {
-      html.push("<tr>")
-      html.push("<td>#"+team.sorted_pos+((team.sorted_tied)?"**":""))
-      html.push("<td class='flag_"+team.abr+"'>")
-      html.push("<td>"+team.full)
-      html.push("<td>("+team.abr+")")
-      html.push("<td>"+team.pld)
-      html.push("<td>"+team.cs)
-      html.push("<td>"+div(team.cs,team.pld))
-    })
-    html.push("</table>")
-    document.getElementById("stats_cs").innerHTML = html.join("")
-  }
-
-
 
   
   
@@ -324,8 +380,17 @@ How many of the teams did you guess correctly at each knockout stage:
 <p>
 
 <div class=result>
+<h2>Round of 32 Points</h2>
 <div id =stage_R32></div>
+<h2>Round of 16 Points</h2>
 <div id =stage_R16></div>
+<h2>Quarter-Final  Points</h2>
+<div id =stage_QF></div>
+<h2>Semi-Final  Points</h2>
+<div id =stage_SF></div>
+<h2>Third Place play-off Points</h2>
+<div id =stage_F34></div>
+<h2>Final Points</h2>
 <div id =stage_F></div>
 
 

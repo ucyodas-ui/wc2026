@@ -26,6 +26,8 @@
 
 <link rel="stylesheet" href="scripts/sortable_list.css">
 <link rel="stylesheet" href="scripts/uc.css">
+
+
 <style>
 
 
@@ -113,7 +115,9 @@ img{  box-shadow: 2px 2px 4px #555;}
     html.push("<tr><th>Position<th colspan=2>Entry<th>Confirmed Points<th>Potential Points")
   
     pts.forEach(entry => {
-        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+full_name_span(entry.entry.name)+"<td>"+entry.total+"<td>("+entry.potential+")")
+      let p = entry.potential
+      if (p < entry.total) p = entry.total;
+        html.push("<tr><td>"+entry.pos+(entry.tied?"**":"")+"<td>"+entry.entry.name+"<td>"+full_name_span(entry.entry.name)+"<td>"+entry.total+"<td>("+p+")")
     })
 
     html.push("</table>")

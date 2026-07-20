@@ -165,5 +165,5 @@ function add_scores(draw)
   draw.add_score(101, {f:[0,2],e:[   ],p:[   ]},{y:[2,1],yy:[   ],r:[   ],yr:[   ]}) // "Semifinals"             "W 97", "W 98"          );
   draw.add_score(102, {f:[1,2],e:[   ],p:[   ]},{y:[1,2],yy:[   ],r:[   ],yr:[   ]}) // "Semifinals"             "W 99", "W 100"         );
   draw.add_score(103, {f:[4,6],e:[   ],p:[   ]},{y:[0,0],yy:[   ],r:[   ],yr:[   ]}) // "Match for third              "L 101", "L 102"         );
-  draw.add_score(104, {f:[   ],e:[   ],p:[   ]},{y:[   ],yy:[   ],r:[   ],yr:[   ]}) // "Final"                 "W 101", "W 102"         );
+  draw.add_score(104, {f:[0,0],e:[1,0],p:[   ]},{y:[0,5],yy:[0,1],r:[   ],yr:[   ]}) // "Final"                 "W 101", "W 102"         );
 }

@@ -37,6 +37,30 @@ class entry_points
         F34:  0,
         F:    0,
       },
+      games_picked:{
+        R32:  [],
+        R16:  [],
+        QF:   [],
+        SF:   [],
+        F34:  [],
+        F:    [],
+      },
+      winners_picked:{
+        R32:  [],
+        R16:  [],
+        QF:   [],
+        SF:   [],
+        F34:  [],
+        F:    [],
+      },
+      losers_picked:{
+        R32:  [],
+        R16:  [],
+        QF:   [],
+        SF:   [],
+        F34:  [],
+        F:    [],
+      },
       groups: []
     }
     
@@ -200,6 +224,7 @@ class entry_points
   #calculate_goals_points(entry, points, stats)
   {
 //    console.log("#calculate_goals_points",entry, points, stats)
+    console.log("#calculate_goals_points","stats", stats)
     let most_goals = stats.get_most_goals()
     console.log("#calculate_goals_points", entry.most_goals, most_goals)
     if (most_goals.match_countries.includes(     entry.most_goals)) points.goals_match = 3
@@ -232,6 +257,11 @@ class entry_points
     const real_winners  = all_games[ko_type].winners
     const real_losers   = all_games[ko_type].losers
     const not_lost_yet  = all_games[ko_type].not_lost_yet
+    
+    let games_picked=[]
+    let winners_picked=[]
+    let losers_picked=[]
+    
 
     function game_matches(pred, real)
     {
@@ -248,7 +278,21 @@ class entry_points
       real_matches.forEach( rmatch => {
         found_match = found_match || game_matches(pmatch, rmatch)
       })
-      let pts =
+      if (found_match) 
+      {
+        console.log(pmatch)
+        games_picked.push(pmatch.team1+" x "+pmatch.team2)
+      }
+      if (real_winners.includes( pmatch.winner))
+      {
+        winners_picked.push(pmatch.winner)
+      }
+      if (real_losers.includes( pmatch.loser))
+      {
+        losers_picked.push(pmatch.loser)
+      }
+      
+      let pts = 
       { 
         both: found_match? pts_for_both : 0,
         winner: real_winners.includes( pmatch.winner)? pts_for_winner : 0,
@@ -264,6 +308,9 @@ class entry_points
       points.potential += ppts
       points.ko_total += tpts
       points.ko_potential += ppts
+      points.games_picked[ko_type] = games_picked
+      points.winners_picked[ko_type] = winners_picked
+      points.losers_picked[ko_type] = losers_picked
     })
     if(ko_type=="F34") console.log(ko_type,      points.ko[ko_type],
 
@@ -272,7 +319,7 @@ class entry_points
       "real_winners" ,real_winners,
       "real_losers"  ,real_losers,
     )
-    
+    console.log("points",points)
   }
   
 //                                                                                                             x2   W   L
@@ -342,5 +389,11 @@ class entry_points
   find_entry_points(name){
     return this.#link_to_points[name]
   }
+  
+  get_entry_points()
+  {
+    return [...this.#entry_points]
+  }
+  
   
 }

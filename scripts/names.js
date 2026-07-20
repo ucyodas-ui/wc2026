@@ -1,5 +1,10 @@
 // Only set this true when you get to the final game
-const add_name = false;
+//===================================================================
+const add_name = true;
+// TODO - auto detect this
+//===================================================================
+
+
 let name_search
 function find_full_name(name)
 {

@@ -370,6 +370,12 @@ class knockout_results{
     return {...this.#stage_completed}
   }
   
+  is_stage_completed(stage)
+  {
+    console.log("is_stage_completed", stage, this.#stage_completed[stage], this.#STAGE.COMPLETED, this.#stage_completed[stage] == this.#STAGE.COMPLETED)
+    return (this.#stage_completed[stage] == this.#STAGE.COMPLETED)
+  }
+  
   get_winners()
   {
     
